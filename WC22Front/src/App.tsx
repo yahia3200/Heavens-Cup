@@ -1,15 +1,18 @@
-import { useState } from 'react'
-import './App.css'
-import MatchPage from './Components/MatchPage/MatchPage'
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Home from './pages/Home';
+interface ApplicationProps {
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <div className="App">
-      <MatchPage/>
-    </div>
-  )
 }
 
-export default App
+const Application: React.FunctionComponent<ApplicationProps> = () => {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </BrowserRouter>
+
+  );
+}
+
+export default Application;
