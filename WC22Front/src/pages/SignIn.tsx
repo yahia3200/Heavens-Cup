@@ -1,3 +1,6 @@
+import React from 'react';
+import '../styles/SignIn.scss';
+
 interface SignINProps {
 
 }
@@ -5,7 +8,8 @@ interface SignINProps {
 const SignIN: React.FunctionComponent<SignINProps> = () => {
     return (
         <div>
-            <h1>Sign In</h1>
+            <div className="Navbar">Navbar</div>
+
         </div>
     );
 }
