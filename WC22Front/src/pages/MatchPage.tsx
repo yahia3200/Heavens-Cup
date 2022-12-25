@@ -1,4 +1,5 @@
 import React from "react";
+import "../styles/MatchPage.scss";
 
 export default function MatchPage() {
   return (
