@@ -1,23 +1,195 @@
-.match-page {
-  min-height: 100vh;
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital@1&family=Radley:ital@1&display=swap');
 
-  &__overlay-image {
-    background-image: url(../assets/match-page-bg.jpg);
+// create a variable for the primary color
+$primary-color: rgb(32, 0, 61);
+
+// create a function for the primary color with opacity rgba default value 1
+@function primary-color($opacity: 1) {
+    @return rgba($primary-color, $opacity);
+}
+
+// create a variable for the secondary color
+$secondary-color: rgb(83, 21, 141);
+
+// create a function for the secondary color with opacity rgba default value 1
+@function secondary-color($opacity: 1) {
+    @return rgba($secondary-color, $opacity);
+}
+
+// character border color
+$character-border-color: lighten($secondary-color, 50);
+
+.match-page {
+
+    background-image: url(../assets/MV5BMzhiOGMxMGYtYTIwZi00MWY2LTljMzItZTg0YmY0NmY0MjI0XkEyXkFqcGdeQXVyNzgxMzc3OTc@._V1_.jpg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    min-height: 100vh;
 
-    height: 50vh;
-  }
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
 
-  &__overlay {
-    background: linear-gradient(rgba(32, 0, 61, 0) 0%, rgba(32, 0, 61, 1) 100%);
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-  }
+    &__overlay {
+        background: linear-gradient(primary-color(0) 0%, primary-color(1) 100%);
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+    }
+
+    &__match {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        margin: 100px 50px;
+
+        &__date-and-time-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #fff;
+            padding: 20px;
+
+            &__date {
+                font-family: 'Noto Serif', serif;
+                font-size: 1.25rem;
+                // make italic
+                font-style: italic;
+                margin-bottom:10px;
+                color: rgb(41, 20, 134);
+            }
+
+            &__time {
+                font-family: Helvetica, sans-serif;
+                font-size: 1.25rem;
+                font-weight: 600;
+                color: rgba(32, 0, 61);
+            }
+        }
+        &__teams {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            margin: -45px 0;
+
+
+            &__team {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+
+                &__flag {
+                    width: 150px;
+                    height: 150px;
+                    margin-bottom: 10px;
+                    border-radius: 50%;
+                    border: 4px solid $character-border-color;
+                    background: radial-gradient(ellipse at center,
+                    lighten(secondary-color(0.5), 20) 0%,
+                    primary-color(0) 100%);
+
+                    &__img {
+                        width: 100%;
+                        height: 100%;
+                        padding: 15px;
+                        object-fit: cover;
+                    }
+                }
+
+                &__name {
+                    font-family: Helvetica, sans-serif;
+                    font-size: 1.55rem;
+                    font-weight: 400;
+                    width: 300px;
+                    padding: 0 30px;
+                    height: 70px;
+
+                    display: flex;
+                    align-items: center;
+
+                    // if team-1 align left else align right
+                    &--team-1 {
+                        justify-content: start;
+                        border-right: 2px solid;
+                        border-top: 2px solid;
+                        border-bottom: 2px solid;
+                        border-image: linear-gradient(270deg, secondary-color(0), $character-border-color) 1;
+                        margin-right: 2px;
+                        margin-left: -10px;
+                        background: linear-gradient(90deg, secondary-color(0), secondary-color(1));
+                    }
+                    &--team-2 {
+                        justify-content: end;
+                        border-left: 2px solid;
+                        border-top: 2px solid;
+                        border-bottom: 2px solid;
+                        border-image: linear-gradient(90deg, secondary-color(0), $character-border-color) 1;
+                        margin-left: 2px;
+                        margin-right: -10px;
+                        background: linear-gradient(270deg, secondary-color(0), secondary-color(1));
+                    }
+                    text-align: left;
+                    color: #fff;
+                }
+            }
+        }
+        &__refrees{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: $secondary-color;
+            padding: 15px 20px;
+
+            font-family: Helvetica, sans-serif;
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: $character-border-color;
+
+
+            &__primary-refree {
+
+                margin-top: 5px;
+                color: #fff;
+
+                line-height: 1.5;
+                font-family: 'Noto Serif', serif;
+                font-size: 0.8rem;
+                font-weight: 400;
+                // widen space between characters
+                letter-spacing: 1px;
+            }
+
+            &__secondary-refree {
+                color: #fff;
+
+                line-height: 1.5;
+                font-family: 'Noto Serif', serif;
+                font-size: 0.8rem;
+                font-weight: 400;
+
+                // widen space between characters
+                letter-spacing: 1px;
+            }
+
+        }
+
+
+    }
+
+
 }
