@@ -72,11 +72,6 @@ export const charsData = new Map<string, CharData>([
         image: "/src/assets/Chars/Kurapika.png",
         "hue-rotate": "80deg",
     }],
-    ["Leorio", {
-        name: "Leorio Paradinight",
-        image: "/src/assets/Chars/Leorio.png",
-        "hue-rotate": "0deg",
-    }],
     ["Hisoka", {
         name: "Hisoka Morow",
         image: "/src/assets/Chars/Hisoka.png",

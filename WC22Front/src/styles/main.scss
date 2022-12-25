@@ -3,3 +3,40 @@
     margin: 0;
     padding: 0;
 }
+
+// all css resets go here
+// input reset
+input {
+    border: none;
+    outline: none;
+}
+// button reset
+button {
+    border: none;
+    outline: none;
+    background: none;
+}
+// list reset
+ul {
+    list-style: none;
+}
+// a reset
+a {
+    text-decoration: none;
+}
+// img reset
+img {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+// form reset
+form {
+    display: block;
+}
+// table reset
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+

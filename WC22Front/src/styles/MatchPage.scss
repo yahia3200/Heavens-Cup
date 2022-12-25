@@ -188,6 +188,155 @@ $character-border-color: lighten($secondary-color, 50);
 
         }
 
+        &__stadium {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 15px 20px;
+            width: 500px;
+
+            font-family: Helvetica, sans-serif;
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: $character-border-color;
+
+            &__button-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                margin-top: 10px;
+                &__button, &__button--disabled {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    align-items: center;
+                    background-color: $secondary-color;
+                    padding: 10px 20px;
+                    height: 40px;
+                    color: #fff;
+                    font-family: Helvetica, sans-serif;
+                    font-weight: 600;
+                    font-size: 1.05rem;
+                    margin: 0 10px;
+                    cursor: pointer;
+                    transition: all 0.1s ease-in-out;
+                    &:hover {
+                        background-color: lighten($secondary-color, 10);
+                    }
+                    &--disabled {
+                        background-color: #999;
+                        cursor: not-allowed;
+                        &:hover {
+                            background-color: #999;
+                        }
+                    }
+                }
+                &__selected-seat{
+                    font-weight: 300;
+                    font-size: 0.8rem;
+                }
+            }
+
+            &__header {
+                margin-top: 5px;
+                color: #fff;
+
+                line-height: 1.5;
+                font-family: 'Noto Serif', serif;
+                font-size: 0.8rem;
+                font-weight: 400;
+                // widen space between characters
+                letter-spacing: 1px;
+            }
+
+            &__name {
+                margin-top: 5px;
+                color: #fff;
+
+                line-height: 1.5;
+                font-family: 'Noto Serif', serif;
+                font-size: 0.8rem;
+                font-weight: 400;
+                // widen space between characters
+                letter-spacing: 1px;
+            }
+
+            &__grid {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                margin-top: 30px;
+
+                &__row {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    align-items: center;
+
+                    &__label, &__label--selected {
+                        font-size: 0.8rem;
+                        width: 15px;
+                        font-weight: 400;
+                        color: $character-border-color;
+                        &--selected {
+                            color: #fff;
+                            font-weight: 700;
+                        }
+                    }
+
+                    &__seat, &__seat--reserved, &__seat--selected {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        width: 20px;
+                        height: 20px;
+                        background-color: #fff;
+                        border: 2px solid $character-border-color;
+                        border-radius: 50%;
+                        cursor: pointer;
+                        position: relative;
+
+                        &__above-label, &__above-label--selected {
+                            position: absolute;
+                            top: -20px;
+                            font-size: 0.8rem;
+                            font-weight: 400;
+                            color: $character-border-color;
+
+                            &--selected {
+                                color: #fff;
+                                font-weight: 700;
+                            }
+                        }
+
+                        &--reserved {
+                            cursor: not-allowed;
+                            background-color: #999;
+                            border-color: #999;
+                        }
+
+                        &--selected {
+                            background-color: darken($character-border-color, 20);
+                            border-color: $secondary-color;
+                        }
+                    }
+                    &__seat--selected, &__seat {
+                        &:hover {
+                            background-color: $character-border-color;
+                            border-color: darken($character-border-color, 20);
+
+                        }
+                    }
+
+                }
+            }
+
+
+        }
+
 
     }
 
