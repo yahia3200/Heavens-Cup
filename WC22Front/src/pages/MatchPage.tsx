@@ -4,6 +4,8 @@ import "../styles/MatchPage.scss";
 export default function MatchPage() {
   return (
     <div className="match-page">
+      <div className="match-page__overlay-image">
+      </div>
       <div className="match-page__overlay">
       </div>
       <div className="match-page__match">
