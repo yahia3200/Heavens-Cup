@@ -1,24 +1,66 @@
+require('dotenv').config();
+
+//Require the express module
 const express = require('express');
+
+//Import the Routes files
+const homeRoutes = require('./Routes/homeRoutes');
+const authRoutes = require('./Routes/authRoutes');
+const fansRoutes = require('./Routes/fansRoutes');
+const managerRoutes = require("./Routes/managerRoutes");
+const adminRoutes = require('./Routes/adminRoutes');
+
+//Import Cookies package
+const cookieParser = require('cookie-parser');
+
+//import the authentication verification function
+const {authVerifier, getUser} = require('./Middleware/authmiddleware');
+
+//Create an instance of express object
 const app = express();
 
-const dotenv = require('dotenv');
-const helmet = require('helmet');
-const morgan = require('morgan');
-
-const userRoute = require('./routes/users');
-const userRoute = require('./routes/auth');
-
-dotenv.config();
-
-//(To-Do)Connect to database
-
+//this is used to read the json file accompanying the req 
+//and convert it to a readable javascript object
 app.use(express.json());
-app.use(helmet());
-app.use(morgan('common'));
 
-app.use('/api/users', userRoute);
-app.use('/api/auth', authRoute);
+//Parse the cookie file using express
+app.use(cookieParser());
 
-app.listen(3000, () => {
-  console.log('Server listening on port 3000');
+//start listening for requests on the server
+var app_port = app.listen(process.env.PORT || 3000);
+app.listen(app_port, () => {
+    console.log("server is runing at port: ", app_port);
 });
+
+
+
+// middleware & static files
+app.use(express.static('public'));
+app.use(express.urlencoded({ extended: true }));
+app.use((req, res, next) => {
+    res.locals.path = req.path;
+    next();
+});
+app.set('view engine', 'ejs');
+
+
+//Routes
+app.get('*', getUser);
+
+
+//Authentication verifecation
+//app.get('/Projects_gallery',authVerifier,(req, res) => {res.render('Projects_gallery', {style: "gallery"})});
+app.use(homeRoutes);
+app.use(authRoutes);
+app.use(fansRoutes);
+app.use(managerRoutes);
+app.use(bidRoutes);
+app.use(devRoutes);
+
+app.get('*', (req, res)=>{res.render('404', {style: "404"})});
+
+//Cookies
+app.get('/set-cookie', (req, res) => {
+    res.cookie('newUser',false, { maxAge:1000*10 , httpOnly:true } );
+    res.send("You got the cookies !");
+})
