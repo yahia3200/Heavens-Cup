@@ -1,0 +1,73 @@
+.SignIn {
+
+    &__container {
+        display: flex;
+        gap: 1rem;
+
+        max-width: 960px;
+        margin: 0 auto;
+        height: 200px;
+
+        &__column {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+
+            &__header {
+                display: block;
+                background-color: #e90052;
+                color: white;
+                padding: 1rem 2rem;
+                font-weight: 300;
+                font-size: 1.3rem;
+                margin-bottom: 2rem;
+            }
+        }
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        padding: 1rem 2rem;
+
+        &__input {
+            display: flex;
+            flex-direction: column;
+
+            label {
+                font-size: 1.2rem;
+                font-weight: 500;
+            }
+
+            input {
+                padding: 0.5rem;
+                border: 1px solid #ccc;
+                margin-bottom: 2rem;
+                border: none;
+                padding: 15px;
+                border-bottom: 1px solid #76766f;
+                background: #e8e8e8;
+            }
+
+            input:focus {
+                background: white;
+            }
+        }
+
+        &__button {
+            display: flex;
+            gap: 1rem;
+            justify-content: space-between;
+
+            button {
+                padding: 0.8rem 1rem;
+                background: #37003c;
+                color: white;
+                border: none;
+                font-size: 1.2rem;
+                font-weight: 500;
+                cursor: pointer;
+            }
+        }
+    }
+}

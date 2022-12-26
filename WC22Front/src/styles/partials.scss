@@ -1,0 +1,20 @@
+.Page-Header {
+    width: 100%;
+    background-color: #37003c;
+    padding: 5rem 0 3rem 0;
+    margin-bottom: 4rem;
+    background-image: url(https://users.premierleague.com/static/libsass/plusers/dist/pulselive/i/bg-elements/heading-bg-desktop.svg);
+    background-position: bottom right;
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+
+    h1 {
+
+        display: block;
+
+        color: white;
+        font-size: 5rem;
+        font-family: sans-serif;
+        font-weight: 200;
+    }
+}

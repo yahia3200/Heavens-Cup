@@ -1,3 +1,4 @@
+import '../styles/Home.scss';
 
 interface HomeProps {
 

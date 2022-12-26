@@ -1,0 +1,86 @@
+.fixtures__table {
+    &__header {
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 4rem;
+
+        h2 {
+            display: block;
+            font-size: 2rem;
+            font-weight: 600;
+            padding-bottom: 1rem;
+        }
+
+        .logo {
+            content: "";
+            background: url(https://www.premierleague.com/resources/prod/v6.110.0-4750/i/sprites/global-sprite.png) -227px -366px no-repeat;
+            width: 170px;
+            height: 28px;
+            display: block;
+        }
+    }
+
+    &__row {
+
+        &:hover {
+            background: linear-gradient(270deg, #ff2882, #963cff 45%);
+            color: white;
+            cursor: pointer;
+        }
+
+        &:hover &__stadium__stadium-logo {
+            background: url(https://www.premierleague.com/resources/prod/v6.110.0-4750/i/sprites/global-sprite.png) -423px -488px no-repeat;
+        }
+
+        display: flex;
+        width: 100%;
+        justify-content: space-around;
+
+        border-top: 1px solid #ccc;
+        padding: 1rem 0;
+
+        &__teams {
+            display: flex;
+            align-self: center;
+            align-items: center;
+            width: 42%;
+
+            .team1-name {
+                width: 150px;
+                text-align: right;
+            }
+
+            time {
+                border: 1px solid #ccc;
+                padding: 0.4rem 0.8rem;
+            }
+
+            &__team-name {
+                font-weight: 500;
+                font-size: 1.2rem;
+            }
+
+            &__team-logo {
+                margin: 0 1rem;
+            }
+
+        }
+
+        &__stadium {
+            display: flex;
+            align-items: center;
+
+            &__stadium-logo {
+                background: url(https://www.premierleague.com/resources/prod/v6.110.0-4750/i/sprites/global-sprite.png) no-repeat;
+                width: 23px;
+                height: 14px;
+                background-position: -728px -552px;
+                margin-right: 1rem;
+            }
+
+        }
+
+    }
+}
