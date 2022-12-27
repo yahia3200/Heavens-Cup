@@ -34,33 +34,13 @@ app.listen(app_port, () => {
 
 
 
-// middleware & static files
-app.use(express.static('public'));
-app.use(express.urlencoded({ extended: true }));
-app.use((req, res, next) => {
-    res.locals.path = req.path;
-    next();
-});
-app.set('view engine', 'ejs');
-
-
-//Routes
-app.get('*', getUser);
-
-
 //Authentication verifecation
-//app.get('/Projects_gallery',authVerifier,(req, res) => {res.render('Projects_gallery', {style: "gallery"})});
+//app.get('/Projects_gallery',authVerifier,(req, res) => {res.json.render('Projects_gallery', {style: "gallery"})});
 app.use(homeRoutes);
 app.use(authRoutes);
 app.use(fansRoutes);
 app.use(managerRoutes);
-app.use(bidRoutes);
-app.use(devRoutes);
+app.use(adminRoutes);
 
-app.get('*', (req, res)=>{res.render('404', {style: "404"})});
+app.get('*', (req, res)=>{res.json.render({ message: '404 Page Not Found'} )});
 
-//Cookies
-app.get('/set-cookie', (req, res) => {
-    res.cookie('newUser',false, { maxAge:1000*10 , httpOnly:true } );
-    res.send("You got the cookies !");
-})

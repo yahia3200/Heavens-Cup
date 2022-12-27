@@ -17,9 +17,23 @@ create table users
     primary key (id)
 );
 
+create table teams
+{
+    id uuid NOT NULL DEFAULT uuid_generate_v4(),
+    primary key (id),
+    team_name text not null unique,
+    image text not null
+};
 
+CREATE table referee
+(
+    id uuid NOT NULL DEFAULT uuid_generate_v4(),
+    primary key (id),
+    ref_role int not null,
+    ref_name text not null unique
+);
 
-create table stadium
+create table stadiums
 (
     id uuid NOT NULL DEFAULT uuid_generate_v4(),
     primary key (id),
@@ -31,14 +45,18 @@ create table stadium
 
 create table matches
 (
-    team1 text not null, team2 text not null,
+    team1 uuid not null, team2 uuid not null,
     id uuid NOT NULL DEFAULT uuid_generate_v4(),
     start_time timestamp not null,
-    main_ref text not null, line_man_1 text not null, line_man_2 text not null,
-    stadium text not null unique,
+    main_ref uuid not null, line_man_1 uuid not null, line_man_2 uuid not null,
     stad_id uuid not null,
     primary key (id),
-    foreign key (stad_id) references stadium(id)
+    foreign key (stad_id) references stadiums(id),
+    foreign key (team1) references teams(id),
+    foreign key (team2) references teams(id),
+    foreign key (main_ref) references referee(id),
+    foreign key (line_man_1) references referee(id),
+    foreign key (line_man_2) references referee(id)
 );
 
 
@@ -46,7 +64,7 @@ create table matches
 
 create table reservations
 (
-    chair_id uuid not null,
+    chair_id int not null,
     match_id uuid not null,
     user_id uuid not null,
     primary key (chair_id,match_id),
