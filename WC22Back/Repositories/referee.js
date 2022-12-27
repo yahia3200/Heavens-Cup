@@ -11,11 +11,10 @@ const pool = createPool({
 module.exports = {
     getReferees : async function (role) {
         try {
-            const referees = await pool.query("SELECT * FROM referees WHERE ref_role = ?", [role]);
-            return referees;
+            const referees = await pool.query("SELECT * FROM referees WHERE ref_role = $1;", [role]);
+            return referees.rows;
         } catch (error) {
             throw error;
-        } finally {
-            pool.end();
         }
     }
+};
