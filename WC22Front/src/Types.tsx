@@ -36,4 +36,5 @@ export type User = {
     birthDate: Date;
     type: 'fan' | 'manager';
     nationality: string | null;
+    age: number;
 }
