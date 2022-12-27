@@ -16,13 +16,14 @@ module.exports = {
         try {
             const password = req.body.password;
             const hash = await bcrypt.hash(password, 10);
-            body.hash = hash;
-            const user = await poolconnection.insertUser( body );
+            req.body.hash = hash;
+            const user = await poolconnection.insertUser( req.body );
             const token = createToken(user.id, user.username, user.userrole);
             res.status(201).json({ user: user.id, token });
         }
         catch (err) {
-            res.status(400).send(err);
+            console.log(err);
+            res.status(400).json(err);
         }
     },
     login_post: async (req, res) => {
@@ -35,13 +36,13 @@ module.exports = {
                     const token = createToken(user.id, user.username, user.userrole);
                     res.status(200).json({ user: user.id, token });
                 } else {
-                    res.status(400).send('Incorrect password');
+                    res.status(400).json('Incorrect password');
                 }
             } else {
-                res.status(400).send('Incorrect username');
+                res.status(400).json('Incorrect username');
             }
         } catch (err) {
-            res.status(400).send(err);
+            res.status(400).json(err);
         }
     }
 }

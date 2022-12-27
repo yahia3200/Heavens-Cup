@@ -9,11 +9,11 @@ create table users
     username text not null unique,
     id uuid NOT NULL DEFAULT uuid_generate_v4(),
     email text unique not null,
-    userrole int default 0,
-    gender int default 0,
+    userrole int not null default 0,
+    gender int not null default 0,
     birthdate date not null,
     nationality text,
-    hash varchar(255) not null,    
+    hash text not null,    
 
     primary key (id)
 );

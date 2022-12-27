@@ -12,12 +12,10 @@ const pool = createPool({
 module.exports = {
     getTeams : async function () {
         try {
-            const teams = await pool.query("SELECT * FROM teams");
-            return teams;
+            const teams = await pool.query("SELECT * FROM teams;");
+            return teams.rows;
         } catch (error) {
             throw error;
-        } finally {
-            pool.end();
         }
     }
 };

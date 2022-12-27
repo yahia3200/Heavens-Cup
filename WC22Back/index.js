@@ -36,6 +36,6 @@ app.use(authRoutes);
 // app.use(adminRoutes);
 
 app.get('*', (req, res)=>{
-    return res.json({ message: '404 Page Not Found'} )
+    return res.json({ message: '404 jkjkkkjPage Not Found'} )
 });
 
