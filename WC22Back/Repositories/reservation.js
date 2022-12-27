@@ -25,6 +25,20 @@ module.exports = {
             pool.end();
         }
     },
+    getCustomerReservations : async function (user_id) {
+        try {
+            const reservations = await pool.query(
+                "SELECT * FROM reservations WHERE user_id = ?",
+                [
+                    user_id
+                ]);
+                return reservations.rows;
+        } catch (error) {
+            throw error;
+        } finally {
+            pool.end();
+        }
+    },
     deleteReservation : async function ( chair_id, match_id) {
         try {
             const reservations = await pool.query("DELETE FROM reservations WHERE chair_id = ? AND match_id = ?", [chair_id, match_id]);

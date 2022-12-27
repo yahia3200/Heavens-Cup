@@ -9,7 +9,7 @@ interface SignINProps {
 const SignIN: React.FunctionComponent<SignINProps> = () => {
     return (
         <div className='SignIn'>
-            <PageHeader headerText='Your Account' />
+            <PageHeader headerText='Sign In' />
             <div className='SignIn__container'>
                 <div className='SignIn__container__column'>
                     <h2 className='SignIn__container__column__header'>

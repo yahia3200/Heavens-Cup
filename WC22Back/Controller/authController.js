@@ -1,64 +1,47 @@
 const poolconnection = require('../Repositories/user');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
-/**Age of the token in seconds*/
-const mymaxAge = 1 * 24 * 60 * 60;
 const createToken = (id, userName, role) => {
-    /**ًWhen this is released to production, 'BRYTE Secret should be not uploaded to public' */
-    return jwt.sign({ id, userName, role }, 'BRYTE Secret', { expiresIn: mymaxAge });
+    const maxAge = 24 * 60 * 60; // 24 hours
+    return jwt.sign({ id, userName, role }, process.env.JWT_SECRET, { expiresIn: maxAge });
 }
 
 
-module.exports = {
-    signup_post : async function (req, res) {
+
+
+
+module.exports = { 
+    signup_post: async (req, res) => {
         try {
-            poolconnection.Insert_Developer(res, req.body, (id, userName ,sql_errornumber, sql_errorMessage, compleated) => {
-                if (compleated) {
-                    const token = createToken(id, userName, "dev");
-                    res.locals.user = userName;
-                    res.locals.role = "Dev";
-                    res.cookie('jwt', token, { httpOnly: true, maxAge: mymaxAge * 1000 });/*maxAge is in milliseconds , mymaxAge is in seconds*/
-                    res.status(201).json({ user: id });
-                }
-                else {
-                    console.log(sql_errorMessage);
-                    if (sql_errornumber == 1062 && sql_errorMessage.includes("Email")) {
-                        res.status(400).json({errorcause:'email' , message:"Email is already in use"});
-                    }
-                    else if (sql_errornumber == 1062 && sql_errorMessage.includes("User_Name")) {
-                        res.status(400).json({errorcause:'username', message:"Username is already in use"});
-                    }
-                    else
-                    {
-                        res.status(400).json({errorcause:'data', message:"You entered an invalid data"});
-                    }
-                }
-            });
+            const password = req.body.password;
+            const hash = await bcrypt.hash(password, 10);
+            body.hash = hash;
+            const user = await poolconnection.insertUser( body );
+            const token = createToken(user.id, user.username, user.userrole);
+            res.status(201).json({ user: user.id, token });
         }
-    
         catch (err) {
-            console.log(err);
+            res.status(400).send(err);
         }
-    
     },
-    
-    
-    login_post : async function (req, res) {
-        const { email, password } = req.body;
-        poolconnection.Login_Developer(email, password, (result, userName,result_message) => {
-
-            if (result > -1) {
-                const token = createToken(result, userName, "dev");
-                res.cookie('jwt', token, { httpOnly: true, maxAge: mymaxAge * 1000 });/*maxAge is in milliseconds , mymaxAge is in seconds*/
-                res.status(200).json({result , userName});
+    login_post: async (req, res) => {
+        const { username, password } = req.body;
+        try {
+            const user = await poolconnection.getUser(username);
+            if (user) {
+                const auth = await bcrypt.compare(password, user.hash);
+                if (auth) {
+                    const token = createToken(user.id, user.username, user.userrole);
+                    res.status(200).json({ user: user.id, token });
+                } else {
+                    res.status(400).send('Incorrect password');
+                }
             } else {
-                console.log()
-                res.status(400).json({result , userName});
+                res.status(400).send('Incorrect username');
             }
-
-
-        });
+        } catch (err) {
+            res.status(400).send(err);
+        }
     }
-
-
 }

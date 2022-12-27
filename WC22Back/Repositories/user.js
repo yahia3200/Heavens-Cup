@@ -1,5 +1,5 @@
-const { createPool } = require("pg");
-const pool = createPool({
+const { Pool } = require("pg");
+const pool = new Pool({
   host: process.env.DB_HOST,
   port: process.env.DB_PORT,
   user: process.env.DB_USER,
@@ -25,6 +25,7 @@ module.exports = {
           body.nationality,
           body.hash
         ]);
+        console.log(users);
         return users[0];
     } catch (error) {
       throw error;
