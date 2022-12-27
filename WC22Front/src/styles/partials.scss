@@ -2,6 +2,7 @@
     width: 100%;
     background-color: #37003c;
     padding: 5rem 0 3rem 0;
+    margin-top: 8rem;
     margin-bottom: 4rem;
     background-image: url(https://www.premierleague.com/resources/prod/v6.110.0-4750/i/bg-elements/heading-bg-desktop.svg);
     background-position: bottom right;
@@ -17,4 +18,12 @@
         font-family: sans-serif;
         font-weight: 200;
     }
+}
+
+.page-section {
+    border-width: 0 1px 1px;
+    border-style: solid;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-color: #e8e8e8;
 }
