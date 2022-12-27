@@ -1,23 +1,38 @@
 import '../styles/Navbar.scss'
-
-// react router
 import { Link } from 'react-router-dom'
+import { useContext } from 'react'
+import { UserContext } from '../contexts/userContext'
 
 interface NavbarProps {
 
 }
 
 const Navbar: React.FunctionComponent<NavbarProps> = () => {
-    const indexes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    const { user } = useContext(UserContext);
+    const chars = ['Gon', 'Hisoka', 'Killua', 'Kurapika']
     return (
         <div className="navbar">
             <div className="navbar__rapper">
                 <div className="navbar__teams-logos">
 
                     {
-                        indexes.map((index) => {
+                        chars.map((char) => {
                             return (
-                                <img src="/src/assets/Chars/Gon.png" alt="" />
+                                <img src={`/src/assets/Chars/${char}.png`} alt="" />
+                            )
+                        })
+                    }
+                    {
+                        chars.map((char) => {
+                            return (
+                                <img src={`/src/assets/Chars/${char}.png`} alt="" />
+                            )
+                        })
+                    }
+                    {
+                        chars.map((char) => {
+                            return (
+                                <img src={`/src/assets/Chars/${char}.png`} alt="" />
                             )
                         })
                     }
@@ -28,9 +43,9 @@ const Navbar: React.FunctionComponent<NavbarProps> = () => {
                 <div className="navbar__main__logo">Logo</div>
                 <div className="navbar__main__links">
                     <Link to="/">Home</Link>
-                    <Link to="/signin">Sign in</Link>
-                    <Link to="/profile">Profile</Link>
+                    {user && <Link to="/profile">Profile</Link>}
                     <Link to="/fixtures">Fixtures</Link>
+                    {!user && <Link to="/signin">Sign in</Link>}
                 </div>
             </div>
         </div>

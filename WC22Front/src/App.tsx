@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-
+import { useContext } from 'react';
+import { UserContext } from './contexts/userContext';
 import Navbar from './Components/Navbar';
 import Home from './pages/Home';
 import SignIn from './pages/SignIn';
@@ -11,27 +12,18 @@ interface ApplicationProps {
 }
 
 const Application: React.FunctionComponent<ApplicationProps> = () => {
+  const { user } = useContext(UserContext);
+  console.log(user);
+
   return (
     <BrowserRouter>
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/signin" element={<SignIn />} />
+        {!user && <Route path="/signin" element={<SignIn />} />}
         <Route path="/match/:id" element={<MatchPage />} />
         <Route path="/fixtures" element={<Fixtures />} />
-        <Route path="/profile" element={<Profile user={
-          {
-            firstName: 'Gon',
-            lastName: 'Freecss',
-            username: 'gonfreecss',
-            email: 'gon@gmail.com',
-            age: 15,
-            nationality: 'Japan',
-            type: 'fan',
-            birthDate: "Tuesday 1 January 2020",
-            gender: 'male'
-          }
-        } />} />
+        {user && <Route path="/profile" element={<Profile user={user} />} />}
       </Routes>
     </BrowserRouter>
 
