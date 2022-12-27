@@ -9,8 +9,6 @@ const createToken = (id, userName, role) => {
 }
 
 
-
-
 module.exports = {
     signup_post : async function (req, res) {
         try {
