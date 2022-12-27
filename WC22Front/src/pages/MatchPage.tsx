@@ -5,10 +5,10 @@ import { charsData } from "../Components/MatchPage/chars";
 export default function MatchPage() {
   const match = {
     date: "11 - 06 - 2022",
-    time: "10:30 GMT",
+    time: "10:30",
     team1: "Gon",
     team2: "Hisoka",
-    refrees: ["Keenan Crane", "Yalla Negro", "Amin Elhassan"],
+    referees: ["Keenan Crane", "Yalla Negro", "Amin Elhassan"],
   };
   const stadium = {
     name: "Stadium 1",
@@ -57,11 +57,11 @@ export default function MatchPage() {
             </div>
           </div>
         </div>
-        <div className="match-page__match__refrees">
-          <div className="match-page__match__refrees__header"> Refrees </div>
-          <div className="match-page__match__refrees__primary-refree"> {match.refrees[0]} </div>
-          <div className="match-page__match__refrees__secondary-refree"> {match.refrees[1]} </div>
-          <div className="match-page__match__refrees__secondary-refree"> {match.refrees[2]} </div>
+        <div className="match-page__match__referees">
+          <div className="match-page__match__referees__header"> referees </div>
+          <div className="match-page__match__referees__primary-referee"> {match.referees[0]} </div>
+          <div className="match-page__match__referees__secondary-referee"> {match.referees[1]} </div>
+          <div className="match-page__match__referees__secondary-referee"> {match.referees[2]} </div>
         </div>
         {/* Create a grid of seats with reserved seats of stadium, with labels for rows and columns*/}
         <div className="match-page__match__stadium">
