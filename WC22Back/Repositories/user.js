@@ -13,7 +13,7 @@ module.exports = {
   insertUser: async function (body) {
     try {
       const users = await pool.query(
-        "INSERT INTO users (fname, lname, username, email, userrole, gender, birthdate, nationality, hash) VALUES (?,?,?,?,?,?,?,?,?) RETURNING id",
+        "INSERT INTO users (fname, lname, username, email, userrole, gender, birthdate, nationality, hash) VALUES ( $1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id;",
         [
           body.fname,
           body.lname,
@@ -25,17 +25,15 @@ module.exports = {
           body.nationality,
           body.hash
         ]);
-        console.log(users);
-        return users[0];
+        console.log(users.rows[0]);
+        return users.rows[0];
     } catch (error) {
       throw error;
-    } finally {
-      pool.end();
-    }
+    } 
   },
   getUser: async function (username) {
     try {
-      const users = await pool.query("SELECT * FROM users WHERE username = ?", [username]);
+      const users = await pool.query("SELECT * FROM users WHERE username = ?;", [username]);
       return users[0];
     } catch (error) {
       throw error;
@@ -61,8 +59,6 @@ module.exports = {
       return users[0];
     } catch (error) {
       throw error;
-    } finally {
-      pool.end();
     }
   }
 };
