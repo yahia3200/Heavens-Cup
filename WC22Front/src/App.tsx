@@ -19,7 +19,19 @@ const Application: React.FunctionComponent<ApplicationProps> = () => {
         <Route path="/signin" element={<SignIn />} />
         <Route path="/match/:id" element={<MatchPage />} />
         <Route path="/fixtures" element={<Fixtures />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile" element={<Profile user={
+          {
+            firstName: 'Gon',
+            lastName: 'Freecss',
+            username: 'gonfreecss',
+            email: 'gon@gmail.com',
+            age: 15,
+            nationality: 'Japan',
+            type: 'fan',
+            birthDate: "Tuesday 1 January 2020",
+            gender: 'male'
+          }
+        } />} />
       </Routes>
     </BrowserRouter>
 
