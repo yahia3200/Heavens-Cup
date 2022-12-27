@@ -14,7 +14,7 @@ export type Match = {
     time: Time;
     team1: string;
     team2: string;
-    referees: string[3];
+    referees: string[];
     stadium: string;
 };
 

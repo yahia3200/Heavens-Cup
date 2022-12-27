@@ -1,0 +1,52 @@
+.navbar {
+    position: fixed;
+    top: 0rem;
+    left: 0;
+    right: 0;
+    z-index: 100;
+}
+
+.navbar__rapper {
+    background: #37003c;
+    padding-left: 40px;
+    width: 100%;
+
+}
+
+.navbar__teams-logos {
+
+    max-width: 1200px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+
+    img {
+        transform: scale(.6);
+        transition: all .1s ease-in-out;
+        width: 5.5rem;
+        height: 5.5rem;
+    }
+}
+
+.navbar__main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    padding: 1rem 3rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+
+
+    &__links {
+
+        a {
+            color: #37003c;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            padding: 0 1rem;
+            transition: all .1s ease-in-out;
+        }
+    }
+}
