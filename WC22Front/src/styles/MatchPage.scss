@@ -147,7 +147,7 @@ $character-border-color: lighten($secondary-color, 50);
                 }
             }
         }
-        &__refrees{
+        &__referees{
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -161,7 +161,7 @@ $character-border-color: lighten($secondary-color, 50);
             color: $character-border-color;
 
 
-            &__primary-refree {
+            &__primary-referee {
 
                 margin-top: 5px;
                 color: #fff;
@@ -174,7 +174,7 @@ $character-border-color: lighten($secondary-color, 50);
                 letter-spacing: 1px;
             }
 
-            &__secondary-refree {
+            &__secondary-referee {
                 color: #fff;
 
                 line-height: 1.5;
