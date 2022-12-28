@@ -12,7 +12,7 @@
     padding: 2rem 1.5rem;
     margin-bottom: 5rem;
 
-    h2 {
+    &__header {
         font-size: 2rem;
         font-weight: 400;
         margin-bottom: 1rem;
@@ -49,11 +49,13 @@
         width: 100%;
         display: flex;
         justify-content: space-between;
+
         margin: 0 1rem;
     }
 
     &__item {
         display: flex;
+        align-items: baseline;
         margin-bottom: 1rem;
 
         &__label {
@@ -66,6 +68,33 @@
             font-size: 1.2rem;
         }
 
+        &__input {
+            input {
+                padding: 0.5rem;
+                border: 1px solid #ccc;
+                margin-bottom: 2rem;
+                border: none;
+                padding: 15px;
+                border-bottom: 1px solid #76766f;
+                background: #e8e8e8;
+            }
+
+            select {
+                padding: 0.5rem;
+                border: 1px solid #ccc;
+                margin-bottom: 2rem;
+                border: none;
+                padding: 15px;
+                border-bottom: 1px solid #76766f;
+                background: #e8e8e8;
+            }
+
+
+            input:focus {
+                background: white;
+            }
+        }
+
         button {
             padding: 0.8rem 1rem;
             background: #37003c;
@@ -75,5 +104,50 @@
             font-weight: 500;
             cursor: pointer;
         }
+    }
+}
+
+.modal-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.modal-col {
+    display: flex;
+    flex-direction: column;
+
+    label {
+        font-size: 1.4rem;
+        font-weight: 400;
+        margin-bottom: 1rem;
+        padding: 10px;
+    }
+
+    input {
+        display: block;
+        padding: 0.5rem;
+        border: 1px solid #ccc;
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+        border: none;
+        padding: 10px;
+        border-bottom: 1px solid #76766f;
+        background: #e8e8e8;
+    }
+
+    select {
+        padding: 0.5rem;
+        border: 1px solid #ccc;
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+        border: none;
+        padding: 10px;
+        border-bottom: 1px solid #76766f;
+        background: #e8e8e8;
+    }
+
+
+    input:focus {
+        background: white;
     }
 }

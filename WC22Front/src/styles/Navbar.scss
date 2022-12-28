@@ -7,8 +7,8 @@
 
     display: grid;
     grid-template-areas:
-    'logo chars'
-    'logo nav';
+        'logo chars'
+        'logo nav';
 
     grid-template-columns: max-content;
     grid-template-rows: max-content;
@@ -77,6 +77,7 @@
         align-items: center;
         height: 4.5rem;
 
+
         a,
         button {
             color: #37003c;
@@ -86,6 +87,7 @@
             padding: 0 1rem;
             transition: all .1s ease-in-out;
             cursor: pointer;
+            font-family: 'Josefin Sans', sans-serif;
         }
     }
 }
