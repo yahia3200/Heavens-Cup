@@ -1,8 +1,10 @@
 const userConnection = require('../Repositories/user');
 const matchconnection = require('../Repositories/match');
+const resconnection = require('../Repositories/reservation');
 const bcrypt = require('bcrypt');
 
 module.exports = {
+
     edit_data:  async function (req, res) {
         try {
             const password = req.body.user.password;
@@ -21,6 +23,7 @@ module.exports = {
             res.status(400).json({error: err.detail});
         }
     },
+
     reserve_ticket : async function (req, res) {
         try {
             const {id} = req.user.id;
@@ -68,6 +71,42 @@ module.exports = {
         }
         catch (err) {
             console.log(err);
+        }
+    },
+    cancel_reservation : async function (req, res) {
+        try {
+            const user_id = req.user.id;
+            const match_id = req.body.match_id;
+            const chair_id = req.body.chair_id;
+
+            const {reqMatch} = matchconnection.getMatch(req.body.match_id);
+            if(reqMatch) {
+                // check if time is at least 3 days before match
+                if(Date.now() + 259200000 < reqMatch.date) {
+                    try{
+                        resconnection.deleteReservation(chair_id, match_id).then((result) => {
+                            if(result) {
+                                res.status(200).json('Reservation cancelled');
+                            }
+                            else {
+                                res.status(400).json('Reservation not cancelled');
+                            }
+                        });
+                    }
+                    catch (err) {
+                        res.status(400).json({error: err.detail});
+                    }
+                }
+                else {
+                    res.status(400).json('You can only cancel a reservation 3 days before the match');
+                }
+            }
+            else {
+                res.status(400).json('No match found');
+            }
+        }
+        catch (err) {
+            res.status(400).json({error: err.detail});
         }
     }
 }

@@ -9,8 +9,8 @@ const express = require('express');
 const authRoutes = require('./Routes/authRoutes');
 const guestRoutes = require('./Routes/guestRoutes');
 const customerRoutes = require('./Routes/customerRoutes');
+const managerRoutes = require("./Routes/managerRoutes");
 // const fansRoutes = require('./Routes/fansRoutes');
-// const managerRoutes = require("./Routes/managerRoutes");
 // const adminRoutes = require('./Routes/adminRoutes');
 
 // //import the authentication verification function
@@ -42,8 +42,8 @@ app.listen(app_port, () => {
 // app.use(homeRoutes);
 app.use(authRoutes);
 app.use(customerRoutes);
+app.use(managerRoutes);
 // app.use(fansRoutes);
-// app.use(managerRoutes);
 // app.use(adminRoutes);
 
 app.get('*', (req, res)=>{
