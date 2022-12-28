@@ -48,6 +48,20 @@ const Profile: React.FunctionComponent<ProfileProps> = ({ user }) => {
                                         <div className="profile__info__item__value">{user.age}</div>
                                     </div>
                                 </div>
+                                <div className="profile__info__row">
+                                    <div className="profile__info__item">
+                                        <div className="profile__info__item__label">Role: </div>
+                                        <div className="profile__info__item__value">{user.type}</div>
+                                    </div>
+                                </div>
+                                <div className="profile__info__row">
+                                    <div className="profile__info__item">
+                                        <div className="profile__info__item__label">Gender: </div>
+                                        <div className="profile__info__item__value">{user.gender}</div>
+                                    </div>
+                                </div>
+
+
                             </div>
 
                             <img src='/src/assets/Chars/Gon.png' />

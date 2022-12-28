@@ -1,4 +1,5 @@
 import '../styles/Home.scss';
+import PageHeader from '../Components/PageHeader';
 
 interface HomeProps {
 
@@ -7,7 +8,7 @@ interface HomeProps {
 const Home: React.FunctionComponent<HomeProps> = () => {
     return (
         <div>
-            <h1>Home</h1>
+            <PageHeader headerText='Home' />
         </div>
     );
 }
