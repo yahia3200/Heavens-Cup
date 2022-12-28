@@ -1,7 +1,26 @@
-const resconnection = require('../Repositories/reservation');
+const userConnection = require('../Repositories/user');
 const matchconnection = require('../Repositories/match');
+const bcrypt = require('bcrypt');
 
 module.exports = {
+    edit_data:  async function (req, res) {
+        try {
+            const password = req.body.user.password;
+            const hash = await bcrypt.hash(password, 10);
+            req.body.user.hash = hash;
+
+            userConnection.updateUser(req.body.user).then((result) => {
+                if(result) {
+                    res.status(200).json({message: 'Data updated successfully'});
+                } else {
+                    res.status(400).json({message: 'Data not updated'});
+                }
+            });
+        } catch (err) {
+            console.log(err);
+            res.status(400).json({error: err.detail});
+        }
+    },
     reserve_ticket : async function (req, res) {
         try {
             const {id} = req.user.id;

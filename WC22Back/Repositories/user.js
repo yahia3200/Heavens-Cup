@@ -42,8 +42,8 @@ module.exports = {
   updateUser : async function (body) {
     try {
       const users = await pool.query(`
-      UPDATE users SET fname = $1, lname = $2, email = $3, gender = $4, birthdate = $5, nationality = $6, nationality = $7 WHERE username = $8 RETURNING id;`
-      , [body.fname, body.lname, body.email, body.gender, body.birthdate, body.nationality, body.username]);
+      UPDATE users SET fname = $1, lname = $2, email = $3, gender = $4, birthdate = $5, nationality = $6, hash = $7 WHERE username = $8 RETURNING id;`
+      , [body.fname, body.lname, body.email, body.gender, body.birthdate, body.nationality, body.hash, body.username]);
       return users.rows[0];
     } catch (error) {
       throw error;
