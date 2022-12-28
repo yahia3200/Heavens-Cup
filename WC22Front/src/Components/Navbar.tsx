@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useContext } from 'react'
 import { UserContext } from '../contexts/userContext'
 import { useNavigate } from 'react-router-dom'
+import { charsData } from '../Components/MatchPage/chars'
 
 
 interface NavbarProps {
@@ -12,7 +13,6 @@ interface NavbarProps {
 const Navbar: React.FunctionComponent<NavbarProps> = () => {
     const { user, setUser } = useContext(UserContext);
     const navigate = useNavigate();
-    const chars = ['Gon', 'Hisoka', 'Killua', 'Kurapika']
 
     const handleSignOut = async () => {
 
@@ -35,29 +35,24 @@ const Navbar: React.FunctionComponent<NavbarProps> = () => {
         }
 
     }
+
+
     return (
         <div className="navbar">
+            <div className="navbar__logo">
+                <img src="/src/assets/Hunter-x-Hunter-Logo.png" alt="" />
+            </div>
+
             <div className="navbar__rapper">
                 <div className="navbar__teams-logos">
 
                     {
-                        chars.map((char) => {
+
+                        Array.from(charsData.keys()).map(char => {
                             return (
-                                <img key={char} src={`/src/assets/Chars/${char}.png`} alt="" />
-                            )
-                        })
-                    }
-                    {
-                        chars.map((char, index) => {
-                            return (
-                                <img key={index + 1} src={`/src/assets/Chars/${char}.png`} alt="" />
-                            )
-                        })
-                    }
-                    {
-                        chars.map((char, index) => {
-                            return (
-                                <img key={index + 10} src={`/src/assets/Chars/${char}.png`} alt="" />
+                                <a href={charsData.get(char)!.hunterpedia} key={char}>
+                                    <img key={char} src={`/src/assets/Chars/${char}.png`} alt="" />
+                                </a>
                             )
                         })
                     }
@@ -65,7 +60,6 @@ const Navbar: React.FunctionComponent<NavbarProps> = () => {
             </div>
 
             <div className="navbar__main">
-                <div className="navbar__main__logo"><img src="/src/assets/Hunter-x-Hunter-Logo.png" alt="" /></div>
                 <div className="navbar__main__links">
                     <Link to="/">Home</Link>
                     {user && <Link to="/profile">Profile</Link>}

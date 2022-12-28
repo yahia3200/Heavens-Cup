@@ -54,7 +54,8 @@ interface CharData {
     name: string;
     image: string;
     "hue-rotate": string;
-    nen?: 'Enhancer' | 'Transmuter' | 'Conjurer' | 'Specialist' | 'Emitter' | 'Manipulator';
+    nen: 'Enhancer' | 'Transmuter' | 'Conjurer' | 'Specialist' | 'Emitter' | 'Manipulator';
+    hunterpedia: string;
 }
 
 // create enum with nen types to be used as indices for the colors array
@@ -82,24 +83,42 @@ export const charsData = new Map<string, CharData>([
         image: "/src/assets/Chars/Gon.png",
         "hue-rotate": "180deg",
         nen: "Enhancer",
+        hunterpedia: "https://hunterxhunter.fandom.com/wiki/Gon_Freecss",
     }],
     ["Killua", {
         name: "Killua Zoldyck",
         image: "/src/assets/Chars/Killua.png",
         "hue-rotate": "290deg",
         nen: "Transmuter",
+        hunterpedia: "https://hunterxhunter.fandom.com/wiki/Killua_Zoldyck",
     }],
     ["Kurapika", {
         name: "Kurapika Kurta",
         image: "/src/assets/Chars/Kurapika.png",
         "hue-rotate": "80deg",
         nen: "Conjurer",
+        hunterpedia: "https://hunterxhunter.fandom.com/wiki/Kurapika_Kurta",
     }],
     ["Hisoka", {
         name: "Hisoka Morow",
         image: "/src/assets/Chars/Hisoka.png",
         "hue-rotate": "40deg",
         nen: "Transmuter",
+        hunterpedia: "https://hunterxhunter.fandom.com/wiki/Hisoka_Morow",
+    }],
+    ["Netero", {
+        name: "Isaac Netero",
+        image: "/src/assets/Chars/Netero.png",
+        "hue-rotate": "140deg",
+        nen: "Enhancer",
+        hunterpedia: "https://hunterxhunter.fandom.com/wiki/Isaac_Netero",
+    }],
+    ["Neferpitou", {
+        name: "Neferpitou",
+        image: "/src/assets/Chars/Neferpitou.png",
+        "hue-rotate": "10deg",
+        nen: "Specialist",
+        hunterpedia: "https://hunterxhunter.fandom.com/wiki/Neferpitou",
     }],
 ])
 
