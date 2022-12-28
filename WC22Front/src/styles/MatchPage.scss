@@ -14,20 +14,53 @@ $tertiary-color: #963cff;
   color: white;
   padding: 0 100px;
 
+  &__date-and-time-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $primary-color;
+    width: 100%;
+    height: 40px;
+
+    div {
+      // center the text both vertically and horizontally
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      // horizontal padding
+      padding: 0 10px;
+
+      // margin
+      margin: 0 5px;
+
+      height: 75%;
+
+      color: white;
+
+      background-color: $secondary-color;
+    }
+  }
+
+
   &__match {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
 
+
     &__info {
-      border-right: 3px solid $secondary-color;
+      border-right: 2px solid $secondary-color;
       // linear gradient border from top to bottom of transparent to secondary color to transparent
       border-image: linear-gradient(
           to bottom,
-          transparent,
-          $secondary-color,
-          transparent
+          transparent 10%,
+          $secondary-color 10%,
+          $secondary-color 90%,
+          transparent 90%
         )
         1;
       display: flex;
@@ -37,35 +70,7 @@ $tertiary-color: #963cff;
       color: black;
       width: 40%;
 
-      &__date-and-time-container {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        background-color: $primary-color;
-        width: 100%;
-        height: 40px;
 
-        div {
-          // center the text both vertically and horizontally
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-
-          // horizontal padding
-          padding: 0 10px;
-
-          // margin
-          margin: 0 5px;
-
-          height: 75%;
-
-          color: white;
-
-          background-color: $secondary-color;
-        }
-      }
 
       &__inner {
         display: flex;
@@ -224,9 +229,9 @@ $tertiary-color: #963cff;
         justify-content: center;
         align-items: center;
         padding: 15px 20px;
-        width: 500px;
 
-        font-family: Helvetica, sans-serif;
+
+        font-family: "Josefin Sans", sans-serif;
         font-weight: 600;
         font-size: 1.05rem;
 
@@ -245,7 +250,6 @@ $tertiary-color: #963cff;
                 padding: 10px 20px;
                 height: 40px;
                 color: #fff;
-                font-family: Helvetica, sans-serif;
                 font-weight: 600;
                 font-size: 1.05rem;
                 margin: 0 10px;
@@ -277,9 +281,9 @@ $tertiary-color: #963cff;
             color: $primary-color;
 
             line-height: 1.5;
-            font-family: 'Noto Serif', serif;
-            font-size: 0.8rem;
-            font-weight: 400;
+            font-family: 'josefin sans', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
             // widen space between characters
             letter-spacing: 1px;
         }
@@ -289,9 +293,9 @@ $tertiary-color: #963cff;
             color: $tertiary-color;
 
             line-height: 1.5;
-            font-family: 'Noto Serif', serif;
-            font-size: 0.9rem;
-            font-weight: 400;
+            font-family: 'josefin sans', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
             // widen space between characters
             letter-spacing: 1px;
         }
@@ -324,8 +328,7 @@ $tertiary-color: #963cff;
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    width: 20px;
-                    height: 20px;
+                    aspect-ratio: 1/1;
                     background-color: #fff;
                     border: 2px solid $primary-color;
                     border-radius: 50%;

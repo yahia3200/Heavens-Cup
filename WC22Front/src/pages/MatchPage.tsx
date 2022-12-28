@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import "../styles/MatchPage.scss";
-import { chars, charsData, nenColors, NenTypes } from "../Components/MatchPage/chars";
+import {
+  chars,
+  charsData,
+  nenColors,
+  NenTypes,
+} from "../Components/MatchPage/chars";
 import PageHeader from "../Components/PageHeader";
 
 export default function MatchPage() {
@@ -12,10 +17,10 @@ export default function MatchPage() {
     referees: ["Keenan Crane", "Yalla Negro", "Amin Elhassan"],
   };
   const stadium = {
-    name: "Stadium 1",
+    name: "Heaven's Arena",
     image: "",
-    width: 20,
-    height: 10,
+    width: 25,
+    height: 15,
     reservedSeats: [
       { x: 1, y: 1 },
       { x: 1, y: 2 },
@@ -47,16 +52,16 @@ export default function MatchPage() {
       </div>
       <div className="match-page__overlay">
       </div> */}
+        <div className="match-page__date-and-time-container">
+          <div className="match-page__date-and-time-container__date">
+            {match.date}
+          </div>
+          <div className="match-page__date-and-time-container__time">
+            {`${match.time} GMT`}
+          </div>
+        </div>
         <div className="match-page__match">
           <div className="match-page__match__info">
-            <div className="match-page__match__info__date-and-time-container">
-              <div className="match-page__match__info__date-and-time-container__date">
-                {match.date}
-              </div>
-              <div className="match-page__match__info__date-and-time-container__time">
-                {`${match.time} GMT`}
-              </div>
-            </div>
             <div className="match-page__match__info__inner">
               <div className="match-page__match__info__inner__teams">
                 <div className="match-page__match__info__inner__teams__image-container">
@@ -112,8 +117,16 @@ export default function MatchPage() {
                       <div className="match-page__match__info__inner__teams__team-name-1__name__name">
                         {charsData.get(match.team1)!.name}
                       </div>
-                      <div className="match-page__match__info__inner__teams__team-name-1__name__nen"
-                      style={{color: `${nenColors[NenTypes[charsData.get(match.team1)!.nen!]]}` }}>
+                      <div
+                        className="match-page__match__info__inner__teams__team-name-1__name__nen"
+                        style={{
+                          color: `${
+                            nenColors[
+                              NenTypes[charsData.get(match.team1)!.nen!]
+                            ]
+                          }`,
+                        }}
+                      >
                         {charsData.get(match.team1)!.nen}
                       </div>
                     </div>
@@ -123,8 +136,16 @@ export default function MatchPage() {
                       <div className="match-page__match__info__inner__teams__team-name-2__name__name">
                         {charsData.get(match.team2)!.name}
                       </div>
-                      <div className="match-page__match__info__inner__teams__team-name-2__name__nen"
-                       style={{color: `${nenColors[NenTypes[charsData.get(match.team2)!.nen!]]}` }} >
+                      <div
+                        className="match-page__match__info__inner__teams__team-name-2__name__nen"
+                        style={{
+                          color: `${
+                            nenColors[
+                              NenTypes[charsData.get(match.team2)!.nen!]
+                            ]
+                          }`,
+                        }}
+                      >
                         {charsData.get(match.team2)!.nen}
                       </div>
                     </div>
@@ -176,6 +197,11 @@ export default function MatchPage() {
                             </div>
                           )}
                           <div
+                            style={{
+                              width: `${
+                                10 + Math.ceil(50 / Math.sqrt((Math.max(stadium.width, stadium.height) + 1)))
+                              }px`,
+                            }}
                             className={
                               `match-page__match__stadium__grid__row__seat` +
                               `${
@@ -225,14 +251,15 @@ export default function MatchPage() {
             </div>
 
             <div className="match-page__match__stadium__button-container">
-              {selectedSeat && (
-                <div className="match-page__match__stadium__button-container__selected-seat">
-                  Selected Seat:
-                  <span className="match-page__match__stadium__button-container__selected-seat__seat-number" >
-                   {selectedSeat.x + 1}, {String.fromCharCode(65 + selectedSeat.y)}
+              <div className="match-page__match__stadium__button-container__selected-seat">
+                Selected Seat:
+                {selectedSeat && (
+                  <span className="match-page__match__stadium__button-container__selected-seat__seat-number">
+                    {selectedSeat.x + 1},{" "}
+                    {String.fromCharCode(65 + selectedSeat.y)}
                   </span>
-                </div>
-              )}
+                )}
+              </div>
               <button
                 className={`match-page__match__stadium__button-container__button${
                   !selectedSeat ? "--disabled" : ""
