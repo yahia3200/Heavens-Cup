@@ -65,7 +65,7 @@ const Navbar: React.FunctionComponent<NavbarProps> = () => {
             </div>
 
             <div className="navbar__main">
-                <div className="navbar__main__logo">Logo</div>
+                <div className="navbar__main__logo"><img src="/src/assets/Hunter-x-Hunter-Logo.png" alt="" /></div>
                 <div className="navbar__main__links">
                     <Link to="/">Home</Link>
                     {user && <Link to="/profile">Profile</Link>}

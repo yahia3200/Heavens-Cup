@@ -3,7 +3,7 @@ import { useState, useContext } from 'react';
 import { UserContext } from '../contexts/userContext';
 import '../styles/SignIn.scss';
 import PageHeader from '../Components/PageHeader';
-import { Email, userType, Date } from '../Types';
+import { Email, userType, CustomDate } from '../Types';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -107,6 +107,10 @@ const SignIN: React.FunctionComponent<SignINProps> = () => {
 
             // transform user birth date to match Tuesday 1 January 2020
             const birthDate = `${dob.split('T')[0].split('-')[2]} ${dob.split('T')[0].split('-')[1]} ${dob.split('T')[0].split('-')[0]}`;
+
+            // calculate user age
+            const age = new Date().getFullYear() - parseInt(dob.split('T')[0].split('-')[0]);
+
             const user = {
                 firstName: firstname,
                 lastName: lastname,
@@ -114,8 +118,8 @@ const SignIN: React.FunctionComponent<SignINProps> = () => {
                 email: registerEmail as Email,
                 type: userType as userType,
                 token: data.token,
-                age: 20,
-                birthDate: birthDate as Date,
+                age: age,
+                birthDate: birthDate as CustomDate,
                 nationality: nationality,
                 gender: gender as ('male' | 'female'),
             }
@@ -165,6 +169,10 @@ const SignIN: React.FunctionComponent<SignINProps> = () => {
 
             // transform user birth date to match Tuesday 1 January 2020
             const birthDate = `${userDob.split('T')[0].split('-')[2]} ${userDob.split('T')[0].split('-')[1]} ${userDob.split('T')[0].split('-')[0]}`;
+
+            // calculate user age
+            const age = new Date().getFullYear() - parseInt(userDob.split('T')[0].split('-')[0]);
+
             const user = {
                 firstName: data.user.fname,
                 lastName: data.user.lname,
@@ -172,13 +180,14 @@ const SignIN: React.FunctionComponent<SignINProps> = () => {
                 email: data.user.email as Email,
                 type: data.user.userrole === 0 ? 'fan' : 'moderator' as userType,
                 token: data.token,
-                age: 20,
-                birthDate: birthDate as Date,
+                age: age,
+                birthDate: birthDate as CustomDate,
                 nationality: nationality,
                 gender: gender as ('male' | 'female'),
             }
             setUser(user)
             localStorage.setItem('user', JSON.stringify(user));
+            navigate('/');
         }
         else {
             setLoginError(data.error);
