@@ -1,344 +1,370 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital@1&family=Radley:ital@1&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif:ital@1&family=Radley:ital@1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
 
 // create a variable for the primary color
-$primary-color: rgb(32, 0, 61);
-
-// create a function for the primary color with opacity rgba default value 1
-@function primary-color($opacity: 1) {
-    @return rgba($primary-color, $opacity);
-}
+$primary-color: #37003c;
 
 // create a variable for the secondary color
-$secondary-color: rgb(83, 21, 141);
+$secondary-color: #e90052;
 
-// create a function for the secondary color with opacity rgba default value 1
-@function secondary-color($opacity: 1) {
-    @return rgba($secondary-color, $opacity);
-}
-
-// character border color
-$character-border-color: lighten($secondary-color, 50);
+// create a variable for the tertiary color
+$tertiary-color: #963cff;
 
 .match-page {
+  color: white;
+  padding: 0 100px;
 
-    background-image: url(../assets/MV5BMzhiOGMxMGYtYTIwZi00MWY2LTljMzItZTg0YmY0NmY0MjI0XkEyXkFqcGdeQXVyNzgxMzc3OTc@._V1_.jpg);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    min-height: 100vh;
-
+  &__match {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
-    position: relative;
 
-    &__overlay {
-        background: linear-gradient(primary-color(0) 0%, primary-color(1) 100%);
-        height: 100%;
+    &__info {
+      border-right: 3px solid $secondary-color;
+      // linear gradient border from top to bottom of transparent to secondary color to transparent
+      border-image: linear-gradient(
+          to bottom,
+          transparent,
+          $secondary-color,
+          transparent
+        )
+        1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: black;
+      width: 40%;
+
+      &__date-and-time-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        background-color: $primary-color;
         width: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 1;
-    }
+        height: 40px;
 
-    &__match {
-        position: relative;
-        z-index: 2;
+        div {
+          // center the text both vertically and horizontally
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+
+          // horizontal padding
+          padding: 0 10px;
+
+          // margin
+          margin: 0 5px;
+
+          height: 75%;
+
+          color: white;
+
+          background-color: $secondary-color;
+        }
+      }
+
+      &__inner {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        padding: 20px;
+        width: 100%;
 
-        margin: 100px 50px;
-
-        &__date-and-time-container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background-color: #fff;
-            padding: 20px;
-
-            &__date {
-                font-family: 'Noto Serif', serif;
-                font-size: 1.25rem;
-                // make italic
-                font-style: italic;
-                margin-bottom:10px;
-                color: rgb(41, 20, 134);
-            }
-
-            &__time {
-                font-family: Helvetica, sans-serif;
-                font-size: 1.25rem;
-                font-weight: 600;
-                color: rgba(32, 0, 61);
-            }
-        }
         &__teams {
+          width: 100%;
+
+          &__team-name{
             display: flex;
             flex-direction: row;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            margin: -45px 0;
+            color: $primary-color;
 
 
-            &__team {
+            &-1 img {
+                    margin-right: 10px;
+            }
+
+            &-2 img {
+                    margin-left: 10px;
+            }
+
+            &-1__name {
+                align-items: flex-start;
+            }
+
+            &-2__name {
+                align-items: flex-end;
+            }
+
+            &-1 {
+                justify-content: flex-start;
+            }
+
+            &-2 {
+                justify-content: flex-end;
+            }
+
+            &-1, &-2 {
                 display: flex;
                 flex-direction: row;
-                justify-content: center;
                 align-items: center;
-
-                &__flag {
-                    width: 150px;
-                    height: 150px;
-                    margin-bottom: 10px;
-                    border-radius: 50%;
-                    border: 4px solid $character-border-color;
-                    background: radial-gradient(ellipse at center,
-                    lighten(secondary-color(0.5), 20) 0%,
-                    primary-color(0) 100%);
-
-                    &__img {
-                        width: 100%;
-                        height: 100%;
-                        padding: 15px;
-                        object-fit: cover;
-                    }
-                }
-
-                &__name {
-                    font-family: Helvetica, sans-serif;
-                    font-size: 1.55rem;
-                    font-weight: 400;
-                    width: 300px;
-                    padding: 0 30px;
-                    height: 70px;
-
-                    display: flex;
-                    align-items: center;
-
-                    // if team-1 align left else align right
-                    &--team-1 {
-                        justify-content: start;
-                        border-right: 2px solid;
-                        border-top: 2px solid;
-                        border-bottom: 2px solid;
-                        border-image: linear-gradient(270deg, secondary-color(0), $character-border-color) 1;
-                        margin-right: 2px;
-                        margin-left: -10px;
-                        background: linear-gradient(90deg, secondary-color(0), secondary-color(1));
-                    }
-                    &--team-2 {
-                        justify-content: end;
-                        border-left: 2px solid;
-                        border-top: 2px solid;
-                        border-bottom: 2px solid;
-                        border-image: linear-gradient(90deg, secondary-color(0), $character-border-color) 1;
-                        margin-left: 2px;
-                        margin-right: -10px;
-                        background: linear-gradient(270deg, secondary-color(0), secondary-color(1));
-                    }
-                    text-align: left;
-                    color: #fff;
-                }
-            }
-        }
-        &__referees{
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background-color: $secondary-color;
-            padding: 15px 20px;
-
-            font-family: Helvetica, sans-serif;
-            font-weight: 600;
-            font-size: 1.05rem;
-            color: $character-border-color;
-
-
-            &__primary-referee {
-
-                margin-top: 5px;
-                color: #fff;
-
-                line-height: 1.5;
-                font-family: 'Noto Serif', serif;
-                font-size: 0.8rem;
-                font-weight: 400;
-                // widen space between characters
-                letter-spacing: 1px;
-            }
-
-            &__secondary-referee {
-                color: #fff;
-
-                line-height: 1.5;
-                font-family: 'Noto Serif', serif;
-                font-size: 0.8rem;
-                font-weight: 400;
-
-                // widen space between characters
-                letter-spacing: 1px;
-            }
-
-        }
-
-        &__stadium {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 15px 20px;
-            width: 500px;
-
-            font-family: Helvetica, sans-serif;
-            font-weight: 600;
-            font-size: 1.05rem;
-            color: $character-border-color;
-
-            &__button-container {
+                width: 300px;
+              img {
+                  width: 70px;
+                  height: 80px;
+              }
+              &__name{
                 display: flex;
-                flex-direction: row;
+                flex-direction: column;
                 justify-content: center;
-                align-items: center;
-                margin-top: 10px;
-                &__button, &__button--disabled {
-                    display: flex;
-                    flex-direction: row;
-                    justify-content: center;
-                    align-items: center;
-                    background-color: $secondary-color;
-                    padding: 10px 20px;
-                    height: 40px;
-                    color: #fff;
-                    font-family: Helvetica, sans-serif;
-                    font-weight: 600;
-                    font-size: 1.05rem;
-                    margin: 0 10px;
-                    cursor: pointer;
-                    transition: all 0.1s ease-in-out;
-                    &:hover {
-                        background-color: lighten($secondary-color, 10);
-                    }
-                    &--disabled {
-                        background-color: #999;
-                        cursor: not-allowed;
-                        &:hover {
-                            background-color: #999;
-                        }
-                    }
+
+                &__nen{
+                    font-weight: 800;
                 }
-                &__selected-seat{
-                    font-weight: 300;
-                    font-size: 0.8rem;
+
+                &__name{
+                    font-size: 1.5rem;
+                    font-weight: 800;
+                    font-family: "Josefin Sans", sans-serif;
+
+                }
+              }
+            }
+          }
+
+          &__image-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+
+            &__image-1,
+            &__image-2 {
+              width: 256px;
+              height: 230px;
+              background-size: contain;
+              display: block;
+              padding: 0 10px;
+
+              border-image: linear-gradient(
+                    to bottom,
+                    transparent 20%,
+                    $tertiary-color 30%,
+                    $tertiary-color 70%,
+                    transparent 80%,
+                ) 1;
+            }
+            // linear gradient with percentage
+
+            &__image-1 {
+                border-left: 6px solid $primary-color;
+
+            }
+
+            &__vs {
+                width: 70px;
+                height: 70x;
+
+                // filter: black to secondary color
+                filter: invert(1) sepia(5) brightness(0.35) hue-rotate(273deg) saturate(100);
+
+            }
+
+            &__image-2 {
+                border-right: 6px solid $primary-color;
+                img{
+                    transform: scaleX(-1);
                 }
             }
+          }
+        }
+
+        &__referees {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            color: $primary-color;
 
             &__header {
-                margin-top: 5px;
-                color: #fff;
-
-                line-height: 1.5;
-                font-family: 'Noto Serif', serif;
-                font-size: 0.8rem;
-                font-weight: 400;
-                // widen space between characters
-                letter-spacing: 1px;
-            }
-
-            &__name {
-                margin-top: 5px;
-                color: #fff;
-
-                line-height: 1.5;
-                font-family: 'Noto Serif', serif;
-                font-size: 0.8rem;
-                font-weight: 400;
-                // widen space between characters
-                letter-spacing: 1px;
-            }
-
-            &__grid {
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                margin-top: 30px;
+                width: 100%;
+                padding: 0 10px;
+                font-size: 1.5rem;
+                font-weight: 700;
+            }
+            &__primary-referee {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                padding: 0 10px;
+                font-size: 1.25rem;
 
-                &__row {
+            }
+        }
+      }
+    }
+
+    &__stadium {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 15px 20px;
+        width: 500px;
+
+        font-family: Helvetica, sans-serif;
+        font-weight: 600;
+        font-size: 1.05rem;
+
+        &__button-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+            &__button, &__button--disabled {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                background-color: $secondary-color;
+                padding: 10px 20px;
+                height: 40px;
+                color: #fff;
+                font-family: Helvetica, sans-serif;
+                font-weight: 600;
+                font-size: 1.05rem;
+                margin: 0 10px;
+                cursor: pointer;
+                transition: all 0.1s ease-in-out;
+                &:hover {
+                    background-color: $secondary-color;
+                }
+                &--disabled {
+                    background-color: #999;
+                    cursor: not-allowed;
+                    &:hover {
+                        background-color: #999;
+                    }
+                }
+            }
+            &__selected-seat{
+                font-weight: 300;
+                font-size: 0.8rem;
+            }
+        }
+
+        &__header {
+            margin-top: 5px;
+            color: $primary-color;
+
+            line-height: 1.5;
+            font-family: 'Noto Serif', serif;
+            font-size: 0.8rem;
+            font-weight: 400;
+            // widen space between characters
+            letter-spacing: 1px;
+        }
+
+        &__name {
+            margin-top: 5px;
+            color: $tertiary-color;
+
+            line-height: 1.5;
+            font-family: 'Noto Serif', serif;
+            font-size: 0.8rem;
+            font-weight: 400;
+            // widen space between characters
+            letter-spacing: 1px;
+        }
+
+        &__grid {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 30px;
+
+            &__row {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+
+                &__label, &__label--selected {
+                    font-size: 0.8rem;
+                    width: 15px;
+                    font-weight: 400;
+                    color: $primary-color;
+                    &--selected {
+                        color: $secondary-color;
+                        font-weight: 700;
+                    }
+                }
+
+                &__seat, &__seat--reserved, &__seat--selected {
                     display: flex;
-                    flex-direction: row;
                     justify-content: center;
                     align-items: center;
+                    width: 20px;
+                    height: 20px;
+                    background-color: #fff;
+                    border: 2px solid $primary-color;
+                    border-radius: 50%;
+                    cursor: pointer;
+                    position: relative;
 
-                    &__label, &__label--selected {
+                    &__above-label, &__above-label--selected {
+                        position: absolute;
+                        top: -20px;
                         font-size: 0.8rem;
-                        width: 15px;
                         font-weight: 400;
-                        color: $character-border-color;
+                        color: $primary-color;
+
                         &--selected {
-                            color: #fff;
+                            color: $secondary-color;
                             font-weight: 700;
                         }
                     }
 
-                    &__seat, &__seat--reserved, &__seat--selected {
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        width: 20px;
-                        height: 20px;
-                        background-color: #fff;
-                        border: 2px solid $character-border-color;
-                        border-radius: 50%;
-                        cursor: pointer;
-                        position: relative;
-
-                        &__above-label, &__above-label--selected {
-                            position: absolute;
-                            top: -20px;
-                            font-size: 0.8rem;
-                            font-weight: 400;
-                            color: $character-border-color;
-
-                            &--selected {
-                                color: #fff;
-                                font-weight: 700;
-                            }
-                        }
-
-                        &--reserved {
-                            cursor: not-allowed;
-                            background-color: #999;
-                            border-color: #999;
-                        }
-
-                        &--selected {
-                            background-color: darken($character-border-color, 20);
-                            border-color: $secondary-color;
-                        }
-                    }
-                    &__seat--selected, &__seat {
-                        &:hover {
-                            background-color: $character-border-color;
-                            border-color: darken($character-border-color, 20);
-
-                        }
+                    &--reserved {
+                        cursor: not-allowed;
+                        background-color: #999;
+                        border-color: #999;
                     }
 
+                    &--selected {
+                        background-color: $secondary-color;
+                        border-color: $primary-color;
+                    }
                 }
+                &__seat--selected, &__seat {
+                    &:hover {
+                        background-color: $tertiary-color;
+                        border-color: lighten($primary-color, 10);
+
+                    }
+                }
+
             }
-
-
         }
 
 
     }
-
-
+    margin-bottom: 50px;
+  }
 }
