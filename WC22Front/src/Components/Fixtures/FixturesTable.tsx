@@ -1,11 +1,13 @@
 import '../../styles/Fixtures.scss'
 import { Match } from '../../Types';
+import { useNavigate } from 'react-router-dom';
 
 interface FixturesTableProps {
     matches: Match[];
 }
 
 const FixturesTable: React.FunctionComponent<FixturesTableProps> = ({ matches }) => {
+    const navigate = useNavigate();
     return (
         <div className="fixtures__table">
             <div className="fixtures__table__header">
@@ -16,7 +18,11 @@ const FixturesTable: React.FunctionComponent<FixturesTableProps> = ({ matches })
             {
                 matches.map((match, index) => {
                     return (
-                        <div className="fixtures__table__row" key={index}>
+                        <div className="fixtures__table__row" key={index} onClick={
+                            () => {
+                                navigate(`/match/${match.id}`)
+                            }
+                        }>
                             <div className="fixtures__table__row__teams">
                                 <span className="fixtures__table__row__teams__team-name team1-name">{match.team1}</span>
                                 <span className="fixtures__table__row__teams__team-logo">
@@ -36,9 +42,9 @@ const FixturesTable: React.FunctionComponent<FixturesTableProps> = ({ matches })
                             </div>
 
                             <div className="fixtures__table__row__stadium">
-                                <span className="fixtures__table__row__stadium__stadium-logo">
-                                </span>
-                                <span className="fixtures__table__row__stadium__stadium-name">{match.stadium}</span>
+
+                                <span className="fixtures__table__row__stadium__stadium-name">Match Details</span>
+                                <span className='arrow-right'></span>
                             </div>
                         </div>
                     )

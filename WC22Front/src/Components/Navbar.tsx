@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useContext } from 'react'
 import { UserContext } from '../contexts/userContext'
 import { useNavigate } from 'react-router-dom'
+import { apiBaseUrl } from '../config.json'
 
 
 interface NavbarProps {
@@ -16,7 +17,7 @@ const Navbar: React.FunctionComponent<NavbarProps> = () => {
 
     const handleSignOut = async () => {
 
-        const response = await fetch('https://7ae6-197-52-11-114.eu.ngrok.io/logout', {
+        const response = await fetch(`${apiBaseUrl}/logout`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

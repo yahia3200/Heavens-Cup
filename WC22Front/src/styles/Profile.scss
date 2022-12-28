@@ -65,5 +65,15 @@
         &__value {
             font-size: 1.2rem;
         }
+
+        button {
+            padding: 0.8rem 1rem;
+            background: #37003c;
+            color: white;
+            border: none;
+            font-size: 1.2rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
     }
 }
