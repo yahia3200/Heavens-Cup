@@ -17,6 +17,7 @@ export type Match = {
     team2: string;
     referees: string[];
     stadium: string;
+    id: string;
 };
 
 // stadium type

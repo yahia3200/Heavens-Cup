@@ -62,15 +62,21 @@ const Profile: React.FunctionComponent<ProfileProps> = ({ user }) => {
                                 </div>
 
 
+
                             </div>
 
                             <img src='/src/assets/Chars/Gon.png' />
+                        </div>
+                        <div className="profile__info__row">
+                            <div className="profile__info__item">
+                                <button>Edit your information</button>
+                            </div>
                         </div>
 
                     </div>
                 </div>
 
-                <div className='page-section'>
+                {user.type === "fan" && <div className='page-section'>
                     <h2 className="page-section__header">My Matches</h2>
                     <FixturesTable matches={
                         [
@@ -80,7 +86,8 @@ const Profile: React.FunctionComponent<ProfileProps> = ({ user }) => {
                                 team1: "First Team",
                                 team2: "Second Team",
                                 referees: ["referee 1", "referee 2", "referee 3"],
-                                stadium: "Stadium Name"
+                                stadium: "Stadium Name",
+                                id: "1",
                             },
                             {
                                 date: 'Saturday 12 December 2012',
@@ -88,7 +95,8 @@ const Profile: React.FunctionComponent<ProfileProps> = ({ user }) => {
                                 team1: "First Team",
                                 team2: "Second Team",
                                 referees: ["referee 1", "referee 2", "referee 3"],
-                                stadium: "Stadium Name"
+                                stadium: "Stadium Name",
+                                id: "1",
                             },
                             {
                                 date: 'Saturday 12 December 2012',
@@ -96,11 +104,12 @@ const Profile: React.FunctionComponent<ProfileProps> = ({ user }) => {
                                 team1: "First Team",
                                 team2: "Second Team",
                                 referees: ["referee 1", "referee 2", "referee 3"],
-                                stadium: "Stadium Name"
+                                stadium: "Stadium Name",
+                                id: "1",
                             },
                         ]
                     } />
-                </div>
+                </div>}
             </div>
         </div>
     );
