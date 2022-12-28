@@ -1,5 +1,5 @@
 # Create a Docker image for the WC22Back application using the node:10.9.0-alpine image as a base image
-FROM node:10.9.0-alpine
+FROM node:16.18.0-alpine
 
 # Set the working directory to /app
 WORKDIR /app
