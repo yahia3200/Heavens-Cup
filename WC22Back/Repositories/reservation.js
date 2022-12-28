@@ -12,27 +12,47 @@ module.exports = {
     insertReservation : async function (body) {
         try {
             const reservations = await pool.query(
-                "INSERT INTO reservations (chair_id, match_id, user_id) VALUES (?,?,?) RETURNING id",
+                "INSERT INTO reservations (chair_id, match_id, user_id) VALUES ($1,$2,$3);",
                 [
                     body.chair_id,
                     body.match_id,
                     body.user_id
                 ]);
-                return reservations[0];
+                return reservations.rows[0];
         } catch (error) {
             throw error;
-        } finally {
-            pool.end();
+        }
+    },
+    getCustomerReservations : async function (user_id) {
+        try {
+            const reservations = await pool.query(
+                "SELECT * FROM reservations WHERE user_id = $1;",
+                [
+                    user_id
+                ]);
+                return reservations.rows;
+        } catch (error) {
+            throw error;
+        }
+    },
+    getMatchReservations : async function (match_id) {
+        try {
+            const reservations = await pool.query(
+                "SELECT * FROM reservations WHERE match_id = $1;",
+                [
+                    match_id
+                ]);
+                return reservations.rows;
+        } catch (error) {
+            throw error;
         }
     },
     deleteReservation : async function ( chair_id, match_id) {
         try {
-            const reservations = await pool.query("DELETE FROM reservations WHERE chair_id = ? AND match_id = ?", [chair_id, match_id]);
-            return reservations[0];
+            const reservations = await pool.query("DELETE FROM reservations WHERE chair_id = $1 AND match_id = $2;", [chair_id, match_id]);
+            return reservations.rows[0];
         } catch (error) {
             throw error;
-        } finally {
-            pool.end();
         }
     }
 };

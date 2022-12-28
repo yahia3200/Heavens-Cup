@@ -1,3 +1,4 @@
+import FixturesTable from "../Components/Fixtures/FixturesTable";
 import PageHeader from "../Components/PageHeader";
 import '../styles/Fixtures.scss'
 
@@ -11,228 +12,99 @@ const Fixtures: React.FunctionComponent<FixturesProps> = () => {
             <PageHeader headerText='Fixtures' />
 
             <div className='wrapper'>
-                <div className="fixtures__table">
-                    <div className="fixtures__table__header">
-                        <h2>Monday 26 December 2022</h2>
-                        <span className="logo"></span>
-                    </div>
+                <FixturesTable matches={
+                    [
+                        {
+                            date: 'Saturday 12 December 2012',
+                            time: '14:30',
+                            team1: "First Team",
+                            team2: "Second Team",
+                            referees: ["referee 1", "referee 2", "referee 3"],
+                            stadium: "Stadium Name"
+                        },
+                        {
+                            date: 'Saturday 12 December 2012',
+                            time: '14:30',
+                            team1: "First Team",
+                            team2: "Second Team",
+                            referees: ["referee 1", "referee 2", "referee 3"],
+                            stadium: "Stadium Name"
+                        },
+                        {
+                            date: 'Saturday 12 December 2012',
+                            time: '14:30',
+                            team1: "First Team",
+                            team2: "Second Team",
+                            referees: ["referee 1", "referee 2", "referee 3"],
+                            stadium: "Stadium Name"
+                        },
+                        {
+                            date: 'Saturday 12 December 2012',
+                            time: '14:30',
+                            team1: "First Team",
+                            team2: "Second Team",
+                            referees: ["referee 1", "referee 2", "referee 3"],
+                            stadium: "Stadium Name"
+                        },
+                    ]
+                } />
+                <FixturesTable matches={
+                    [
+                        {
+                            date: 'Saturday 13 December 2012',
+                            time: '14:30',
+                            team1: "First Team",
+                            team2: "Second Team",
+                            referees: ["referee 1", "referee 2", "referee 3"],
+                            stadium: "Stadium Name"
+                        },
+                        {
+                            date: 'Saturday 12 December 2012',
+                            time: '14:30',
+                            team1: "First Team",
+                            team2: "Second Team",
+                            referees: ["referee 1", "referee 2", "referee 3"],
+                            stadium: "Stadium Name"
+                        },
+                        {
+                            date: 'Saturday 12 December 2012',
+                            time: '14:30',
+                            team1: "First Team",
+                            team2: "Second Team",
+                            referees: ["referee 1", "referee 2", "referee 3"],
+                            stadium: "Stadium Name"
+                        },
+                    ]
+                } />
 
-                    <div className="fixtures__table__row">
-                        <div className="fixtures__table__row__teams">
-                            <span className="fixtures__table__row__teams__team-name team1-name">Team 1</span>
-                            <span className="fixtures__table__row__teams__team-logo">
-                                <img src="https://resources.premierleague.com/premierleague/badges/25/t94.png" alt="" />
-                            </span>
-                            <time >14:30</time>
-                            <span className="fixtures__table__row__teams__team-logo">
-                                <img src="https://resources.premierleague.com/premierleague/badges/25/t94.png" alt="" />
-                            </span>
-                            <span className="fixtures__table__row__teams__team-name team2-name">Team 2</span>
-                        </div>
-
-                        <div className="fixtures__table__row__stadium">
-                            <span className="fixtures__table__row__stadium__stadium-logo">
-                            </span>
-                            <span className="fixtures__table__row__stadium__stadium-name">Stadium Name</span>
-                        </div>
-
-                        <div className="fixtures__table__row__stadium">
-                            <span className="fixtures__table__row__stadium__stadium-logo">
-                            </span>
-                            <span className="fixtures__table__row__stadium__stadium-name">Stadium Name</span>
-                        </div>
-                    </div>
-
-                    <div className="fixtures__table__row">
-                        <div className="fixtures__table__row__teams">
-                            <span className="fixtures__table__row__teams__team-name team1-name">Team 1 Team</span>
-                            <span className="fixtures__table__row__teams__team-logo">
-                                <img src="https://resources.premierleague.com/premierleague/badges/25/t94.png" alt="" />
-                            </span>
-                            <time >14:30</time>
-                            <span className="fixtures__table__row__teams__team-logo">
-                                <img src="https://resources.premierleague.com/premierleague/badges/25/t94.png" alt="" />
-                            </span>
-                            <span className="fixtures__table__row__teams__team-name team2-name">Team 2 Team</span>
-                        </div>
-
-                        <div className="fixtures__table__row__stadium">
-                            <span className="fixtures__table__row__stadium__stadium-logo">
-                            </span>
-                            <span className="fixtures__table__row__stadium__stadium-name">Stadium Name</span>
-                        </div>
-
-                        <div className="fixtures__table__row__stadium">
-                            <span className="fixtures__table__row__stadium__stadium-logo">
-                            </span>
-                            <span className="fixtures__table__row__stadium__stadium-name">Stadium Name</span>
-                        </div>
-                    </div>
-
-                    <div className="fixtures__table__row">
-                        <div className="fixtures__table__row__teams">
-                            <span className="fixtures__table__row__teams__team-name team1-name">Team 1 Team</span>
-                            <span className="fixtures__table__row__teams__team-logo">
-                                <img src="https://resources.premierleague.com/premierleague/badges/25/t94.png" alt="" />
-                            </span>
-                            <time >14:30</time>
-                            <span className="fixtures__table__row__teams__team-logo">
-                                <img src="https://resources.premierleague.com/premierleague/badges/25/t94.png" alt="" />
-                            </span>
-                            <span className="fixtures__table__row__teams__team-name team2-name">Team 2 Team</span>
-                        </div>
-
-                        <div className="fixtures__table__row__stadium">
-                            <span className="fixtures__table__row__stadium__stadium-logo">
-                            </span>
-                            <span className="fixtures__table__row__stadium__stadium-name">Stadium Name</span>
-                        </div>
-
-                        <div className="fixtures__table__row__stadium">
-                            <span className="fixtures__table__row__stadium__stadium-logo">
-                            </span>
-                            <span className="fixtures__table__row__stadium__stadium-name">Stadium Name</span>
-                        </div>
-                    </div>
-
-                    <div className="fixtures__table__row">
-                        <div className="fixtures__table__row__teams">
-                            <span className="fixtures__table__row__teams__team-name team1-name">Team 1 Team</span>
-                            <span className="fixtures__table__row__teams__team-logo">
-                                <img src="https://resources.premierleague.com/premierleague/badges/25/t94.png" alt="" />
-                            </span>
-                            <time >14:30</time>
-                            <span className="fixtures__table__row__teams__team-logo">
-                                <img src="https://resources.premierleague.com/premierleague/badges/25/t94.png" alt="" />
-                            </span>
-                            <span className="fixtures__table__row__teams__team-name team2-name">Team 2 Team</span>
-                        </div>
-
-                        <div className="fixtures__table__row__stadium">
-                            <span className="fixtures__table__row__stadium__stadium-logo">
-                            </span>
-                            <span className="fixtures__table__row__stadium__stadium-name">Stadium Name</span>
-                        </div>
-
-                        <div className="fixtures__table__row__stadium">
-                            <span className="fixtures__table__row__stadium__stadium-logo">
-                            </span>
-                            <span className="fixtures__table__row__stadium__stadium-name">Stadium Name</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="fixtures__table">
-                    <div className="fixtures__table__header">
-                        <h2>Monday 26 December 2022</h2>
-                        <span className="logo"></span>
-                    </div>
-
-                    <div className="fixtures__table__row">
-                        <div className="fixtures__table__row__teams">
-                            <span className="fixtures__table__row__teams__team-name team1-name">Team 1</span>
-                            <span className="fixtures__table__row__teams__team-logo">
-                                <img src="https://resources.premierleague.com/premierleague/badges/25/t94.png" alt="" />
-                            </span>
-                            <time >14:30</time>
-                            <span className="fixtures__table__row__teams__team-logo">
-                                <img src="https://resources.premierleague.com/premierleague/badges/25/t94.png" alt="" />
-                            </span>
-                            <span className="fixtures__table__row__teams__team-name team2-name">Team 2</span>
-                        </div>
-
-                        <div className="fixtures__table__row__stadium">
-                            <span className="fixtures__table__row__stadium__stadium-logo">
-                            </span>
-                            <span className="fixtures__table__row__stadium__stadium-name">Stadium Name</span>
-                        </div>
-
-                        <div className="fixtures__table__row__stadium">
-                            <span className="fixtures__table__row__stadium__stadium-logo">
-                            </span>
-                            <span className="fixtures__table__row__stadium__stadium-name">Stadium Name</span>
-                        </div>
-                    </div>
-
-                    <div className="fixtures__table__row">
-                        <div className="fixtures__table__row__teams">
-                            <span className="fixtures__table__row__teams__team-name team1-name">Team 1 Team</span>
-                            <span className="fixtures__table__row__teams__team-logo">
-                                <img src="https://resources.premierleague.com/premierleague/badges/25/t94.png" alt="" />
-                            </span>
-                            <time >14:30</time>
-                            <span className="fixtures__table__row__teams__team-logo">
-                                <img src="https://resources.premierleague.com/premierleague/badges/25/t94.png" alt="" />
-                            </span>
-                            <span className="fixtures__table__row__teams__team-name team2-name">Team 2 Team</span>
-                        </div>
-
-                        <div className="fixtures__table__row__stadium">
-                            <span className="fixtures__table__row__stadium__stadium-logo">
-                            </span>
-                            <span className="fixtures__table__row__stadium__stadium-name">Stadium Name</span>
-                        </div>
-
-                        <div className="fixtures__table__row__stadium">
-                            <span className="fixtures__table__row__stadium__stadium-logo">
-                            </span>
-                            <span className="fixtures__table__row__stadium__stadium-name">Stadium Name</span>
-                        </div>
-                    </div>
-
-                    <div className="fixtures__table__row">
-                        <div className="fixtures__table__row__teams">
-                            <span className="fixtures__table__row__teams__team-name team1-name">Team 1 Team</span>
-                            <span className="fixtures__table__row__teams__team-logo">
-                                <img src="https://resources.premierleague.com/premierleague/badges/25/t94.png" alt="" />
-                            </span>
-                            <time >14:30</time>
-                            <span className="fixtures__table__row__teams__team-logo">
-                                <img src="https://resources.premierleague.com/premierleague/badges/25/t94.png" alt="" />
-                            </span>
-                            <span className="fixtures__table__row__teams__team-name team2-name">Team 2 Team</span>
-                        </div>
-
-                        <div className="fixtures__table__row__stadium">
-                            <span className="fixtures__table__row__stadium__stadium-logo">
-                            </span>
-                            <span className="fixtures__table__row__stadium__stadium-name">Stadium Name</span>
-                        </div>
-
-                        <div className="fixtures__table__row__stadium">
-                            <span className="fixtures__table__row__stadium__stadium-logo">
-                            </span>
-                            <span className="fixtures__table__row__stadium__stadium-name">Stadium Name</span>
-                        </div>
-                    </div>
-
-                    <div className="fixtures__table__row">
-                        <div className="fixtures__table__row__teams">
-                            <span className="fixtures__table__row__teams__team-name team1-name">Team 1 Team</span>
-                            <span className="fixtures__table__row__teams__team-logo">
-                                <img src="https://resources.premierleague.com/premierleague/badges/25/t94.png" alt="" />
-                            </span>
-                            <time >14:30</time>
-                            <span className="fixtures__table__row__teams__team-logo">
-                                <img src="https://resources.premierleague.com/premierleague/badges/25/t94.png" alt="" />
-                            </span>
-                            <span className="fixtures__table__row__teams__team-name team2-name">Team 2 Team</span>
-                        </div>
-
-                        <div className="fixtures__table__row__stadium">
-                            <span className="fixtures__table__row__stadium__stadium-logo">
-                            </span>
-                            <span className="fixtures__table__row__stadium__stadium-name">Stadium Name</span>
-                        </div>
-
-                        <div className="fixtures__table__row__stadium">
-                            <span className="fixtures__table__row__stadium__stadium-logo">
-                            </span>
-                            <span className="fixtures__table__row__stadium__stadium-name">Stadium Name</span>
-                        </div>
-                    </div>
-                </div>
-
+                <FixturesTable matches={
+                    [
+                        {
+                            date: 'Saturday 13 December 2012',
+                            time: '14:30',
+                            team1: "First Team",
+                            team2: "Second Team",
+                            referees: ["referee 1", "referee 2", "referee 3"],
+                            stadium: "Stadium Name"
+                        },
+                        {
+                            date: 'Saturday 12 December 2012',
+                            time: '14:30',
+                            team1: "First Team",
+                            team2: "Second Team",
+                            referees: ["referee 1", "referee 2", "referee 3"],
+                            stadium: "Stadium Name"
+                        },
+                        {
+                            date: 'Saturday 12 December 2012',
+                            time: '14:30',
+                            team1: "First Team",
+                            team2: "Second Team",
+                            referees: ["referee 1", "referee 2", "referee 3"],
+                            stadium: "Stadium Name"
+                        },
+                    ]
+                } />
             </div>
         </div>
     );
