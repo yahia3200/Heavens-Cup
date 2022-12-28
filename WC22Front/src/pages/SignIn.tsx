@@ -4,6 +4,7 @@ import { UserContext } from '../contexts/userContext';
 import '../styles/SignIn.scss';
 import PageHeader from '../Components/PageHeader';
 import { Email, userType, CustomDate } from '../Types';
+import { apiBaseUrl } from '../config.json'
 
 import { useNavigate } from 'react-router-dom';
 
@@ -82,7 +83,7 @@ const SignIN: React.FunctionComponent<SignINProps> = () => {
         const success = checkRegister();
         if (!success) return;
 
-        const response = await fetch('https://7ae6-197-52-11-114.eu.ngrok.io/signup', {
+        const response = await fetch(`${apiBaseUrl}/signup`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -150,7 +151,7 @@ const SignIN: React.FunctionComponent<SignINProps> = () => {
 
         checkLogin();
         if (loginError !== '') return;
-        const response = await fetch('https://7ae6-197-52-11-114.eu.ngrok.io/login', {
+        const response = await fetch(`${apiBaseUrl}/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -319,7 +320,6 @@ const SignIN: React.FunctionComponent<SignINProps> = () => {
                             <select name="userType" id="userType" value={userType} onChange={
                                 (e) => {
                                     setUserType(e.target.value);
-                                    console.log(e.target.value === 'moderator');
                                 }
                             }>
                                 <option value="fan">Fan</option>

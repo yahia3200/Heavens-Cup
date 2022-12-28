@@ -37,6 +37,11 @@
             background: url(https://www.premierleague.com/resources/prod/v6.110.0-4750/i/sprites/global-sprite.png) -423px -488px no-repeat;
         }
 
+        &:hover .arrow-right {
+            background: url(https://www.premierleague.com/resources/prod/v6.110.0-4750/i/sprites/arrows-sprite.png) -56px -58px no-repeat;
+            left: 8.5rem;
+        }
+
         display: flex;
         width: 100%;
         justify-content: space-around;
@@ -72,8 +77,21 @@
         }
 
         &__stadium {
+            width: 16%;
             display: flex;
             align-items: center;
+            position: relative;
+
+            .arrow-right {
+                background: url(https://www.premierleague.com/resources/prod/v6.110.0-4750/i/sprites/arrows-sprite.png) -56px -47px no-repeat;
+                width: 15px;
+                height: 11px;
+                position: absolute;
+                left: 7.5rem;
+                // margin: 0 1rem;
+                transition: right .2s;
+
+            }
 
             &__stadium-logo {
                 background: url(https://www.premierleague.com/resources/prod/v6.110.0-4750/i/sprites/global-sprite.png) no-repeat;

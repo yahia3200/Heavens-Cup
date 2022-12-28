@@ -20,7 +20,8 @@ const Fixtures: React.FunctionComponent<FixturesProps> = () => {
                             team1: "First Team",
                             team2: "Second Team",
                             referees: ["referee 1", "referee 2", "referee 3"],
-                            stadium: "Stadium Name"
+                            stadium: "Boavista Stadium",
+                            id: "1",
                         },
                         {
                             date: 'Saturday 12 December 2012',
@@ -28,7 +29,8 @@ const Fixtures: React.FunctionComponent<FixturesProps> = () => {
                             team1: "First Team",
                             team2: "Second Team",
                             referees: ["referee 1", "referee 2", "referee 3"],
-                            stadium: "Stadium Name"
+                            stadium: "Alianz Arena",
+                            id: "2",
                         },
                         {
                             date: 'Saturday 12 December 2012',
@@ -36,7 +38,8 @@ const Fixtures: React.FunctionComponent<FixturesProps> = () => {
                             team1: "First Team",
                             team2: "Second Team",
                             referees: ["referee 1", "referee 2", "referee 3"],
-                            stadium: "Stadium Name"
+                            stadium: "San Siro",
+                            id: "3",
                         },
                         {
                             date: 'Saturday 12 December 2012',
@@ -44,7 +47,8 @@ const Fixtures: React.FunctionComponent<FixturesProps> = () => {
                             team1: "First Team",
                             team2: "Second Team",
                             referees: ["referee 1", "referee 2", "referee 3"],
-                            stadium: "Stadium Name"
+                            stadium: "Santrian Stadium",
+                            id: "4",
                         },
                     ]
                 } />
@@ -56,7 +60,8 @@ const Fixtures: React.FunctionComponent<FixturesProps> = () => {
                             team1: "First Team",
                             team2: "Second Team",
                             referees: ["referee 1", "referee 2", "referee 3"],
-                            stadium: "Stadium Name"
+                            stadium: "Stadium Name",
+                            id: "5",
                         },
                         {
                             date: 'Saturday 12 December 2012',
@@ -64,7 +69,8 @@ const Fixtures: React.FunctionComponent<FixturesProps> = () => {
                             team1: "First Team",
                             team2: "Second Team",
                             referees: ["referee 1", "referee 2", "referee 3"],
-                            stadium: "Stadium Name"
+                            stadium: "Stadium Name",
+                            id: "6",
                         },
                         {
                             date: 'Saturday 12 December 2012',
@@ -72,7 +78,8 @@ const Fixtures: React.FunctionComponent<FixturesProps> = () => {
                             team1: "First Team",
                             team2: "Second Team",
                             referees: ["referee 1", "referee 2", "referee 3"],
-                            stadium: "Stadium Name"
+                            stadium: "Stadium Name",
+                            id: "7",
                         },
                     ]
                 } />
@@ -85,7 +92,8 @@ const Fixtures: React.FunctionComponent<FixturesProps> = () => {
                             team1: "First Team",
                             team2: "Second Team",
                             referees: ["referee 1", "referee 2", "referee 3"],
-                            stadium: "Stadium Name"
+                            stadium: "Stadium Name",
+                            id: "8",
                         },
                         {
                             date: 'Saturday 12 December 2012',
@@ -93,7 +101,8 @@ const Fixtures: React.FunctionComponent<FixturesProps> = () => {
                             team1: "First Team",
                             team2: "Second Team",
                             referees: ["referee 1", "referee 2", "referee 3"],
-                            stadium: "Stadium Name"
+                            stadium: "Stadium Name",
+                            id: "1",
                         },
                         {
                             date: 'Saturday 12 December 2012',
@@ -101,7 +110,8 @@ const Fixtures: React.FunctionComponent<FixturesProps> = () => {
                             team1: "First Team",
                             team2: "Second Team",
                             referees: ["referee 1", "referee 2", "referee 3"],
-                            stadium: "Stadium Name"
+                            stadium: "Stadium Name",
+                            id: "1",
                         },
                     ]
                 } />
