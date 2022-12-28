@@ -4,12 +4,36 @@
     left: 0;
     right: 0;
     z-index: 100;
+
+    display: grid;
+    grid-template-areas:
+    'logo chars'
+    'logo nav';
+
+    grid-template-columns: max-content;
+    grid-template-rows: max-content;
+
+    &__logo {
+        z-index: 200;
+        background-color: #37003c;
+        grid-area: logo;
+        height: 10rem;
+        img {
+            background: #fff;
+            border-radius: 0 5rem 0 0;
+            padding: 30px;
+            padding-right: 50px;
+
+        }
+    }
 }
 
 .navbar__rapper {
     background: #37003c;
     padding-left: 40px;
     width: 100%;
+    grid-area: chars;
+
 
 }
 
@@ -18,34 +42,37 @@
     max-width: 1200px;
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: start;
+    align-items: center;
+    height: 5.5rem;
 
 
     img {
-        transform: scale(.6);
         transition: all .1s ease-in-out;
-        width: 5.5rem;
-        height: 5.5rem;
+        width: 3.5rem;
+        height: 3.5rem;
+        margin: 0 0.5rem;
+        &:hover {
+            transform: scale(1.1);
+            filter: brightness(1.1) saturate(1.2);
+        }
     }
 }
 
 .navbar__main {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    grid-area: nav;
+
     background-color: #fff;
     padding: 0rem 3rem;
     box-shadow: 0 0 10px rgba(0, 0, 0, .1);
 
-    &__logo {
-
-        img {
-            width: 10rem;
-        }
-    }
-
 
     &__links {
+
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        height: 4.5rem;
 
         a,
         button {

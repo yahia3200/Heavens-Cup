@@ -226,9 +226,9 @@ export default function MatchPage() {
 
             <div className="match-page__match__stadium__button-container">
               {selectedSeat && (
-                <div className="match-page__match__stadium__button-containerselected-seat">
+                <div className="match-page__match__stadium__button-container__selected-seat">
                   Selected Seat:
-                  <span className="match-page__match__stadium__button-containerselected-seat__seat-number" >
+                  <span className="match-page__match__stadium__button-container__selected-seat__seat-number" >
                    {selectedSeat.x + 1}, {String.fromCharCode(65 + selectedSeat.y)}
                   </span>
                 </div>
