@@ -7,6 +7,7 @@ import SignIn from './pages/SignIn';
 import MatchPage from './pages/MatchPage';
 import Fixtures from './pages/Fixtures';
 import Profile from './pages/Profile';
+import AdminPage from './pages/AdminPage';
 interface ApplicationProps {
 
 }
@@ -23,6 +24,8 @@ const Application: React.FunctionComponent<ApplicationProps> = () => {
         <Route path="/match/:id" element={<MatchPage />} />
         <Route path="/fixtures" element={<Fixtures />} />
         {user && <Route path="/profile" element={<Profile user={user} />} />}
+        <Route path="/admin" element={<AdminPage />} />
+        <Route path="*" element={<h1>404</h1>} />
       </Routes>
     </BrowserRouter>
 

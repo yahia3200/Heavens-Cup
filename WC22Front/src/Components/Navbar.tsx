@@ -40,7 +40,7 @@ const Navbar: React.FunctionComponent<NavbarProps> = () => {
     return (
         <div className="navbar">
             <div className="navbar__logo">
-                <img src="/src/assets/Hunter-x-Hunter-Logo.png" alt="" />
+                <img src="/src/assets/logo.png" alt="" />
             </div>
 
             <div className="navbar__rapper">

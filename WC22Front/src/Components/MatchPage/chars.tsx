@@ -106,6 +106,13 @@ export const charsData = new Map<string, CharData>([
         nen: "Transmuter",
         hunterpedia: "https://hunterxhunter.fandom.com/wiki/Hisoka_Morow",
     }],
+    ["Neferpitou", {
+        name: "Neferpitou",
+        image: "/src/assets/Chars/Neferpitou.png",
+        "hue-rotate": "20deg",
+        nen: "Specialist",
+        hunterpedia: "https://hunterxhunter.fandom.com/wiki/Neferpitou",
+    }],
     ["Netero", {
         name: "Isaac Netero",
         image: "/src/assets/Chars/Netero.png",
@@ -113,13 +120,41 @@ export const charsData = new Map<string, CharData>([
         nen: "Enhancer",
         hunterpedia: "https://hunterxhunter.fandom.com/wiki/Isaac_Netero",
     }],
-    ["Neferpitou", {
-        name: "Neferpitou",
-        image: "/src/assets/Chars/Neferpitou.png",
-        "hue-rotate": "10deg",
-        nen: "Specialist",
-        hunterpedia: "https://hunterxhunter.fandom.com/wiki/Neferpitou",
+    ["Meruem", {
+        name: "King Meruem",
+        image: "/src/assets/Chars/Meruem.png",
+        "hue-rotate": "0deg",
+        nen: "Emitter",
+        hunterpedia: "https://hunterxhunter.fandom.com/wiki/Meruem",
     }],
+    ["Ging", {
+        name: "Ging Freecss",
+        image: "/src/assets/Chars/Ging.png",
+        "hue-rotate": "60deg",
+        nen: "Specialist",
+        hunterpedia: "https://hunterxhunter.fandom.com/wiki/Ging_Freecss",
+    }],
+    ["Kite", {
+        name: "Kite",
+        image: "/src/assets/Chars/Kite.png",
+        "hue-rotate": "340deg",
+        nen: 'Conjurer',
+        hunterpedia: "https://hunterxhunter.fandom.com/wiki/Kite",
+    }],
+    ["Chrollo", {
+        name: "Chrollo Lucilfer",
+        image: "/src/assets/Chars/Chrollo.png",
+        "hue-rotate": "350deg",
+        nen: "Specialist",
+        hunterpedia: "https://hunterxhunter.fandom.com/wiki/Chrollo_Lucilfer",
+    }],
+    ["Feitan", {
+        name: "Fetian Portor",
+        image: "/src/assets/Chars/Feitan.png",
+        "hue-rotate": "340deg",
+        nen: "Transmuter",
+        hunterpedia: "https://hunterxhunter.fandom.com/wiki/Feitan_Portor",
+    }]
 ])
 
 // length of chars array = 39

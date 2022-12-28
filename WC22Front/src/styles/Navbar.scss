@@ -13,16 +13,20 @@
     grid-template-columns: max-content;
     grid-template-rows: max-content;
 
+    box-shadow: 0 0 25px rgba(0, 0, 0, .2);
+
+
     &__logo {
         z-index: 200;
         background-color: #37003c;
         grid-area: logo;
         height: 10rem;
+
         img {
             background: #fff;
             border-radius: 0 5rem 0 0;
-            padding: 30px;
-            padding-right: 50px;
+            padding: 25px 15px;
+            padding-right: 25px;
 
         }
     }
@@ -49,11 +53,11 @@
 
     img {
         transition: all .1s ease-in-out;
-        width: 3.5rem;
-        height: 3.5rem;
-        margin: 0 0.5rem;
+        width: 4.25rem;
+        height: 4.25rem;
+        margin: 0 0.2rem;
         &:hover {
-            transform: scale(1.1);
+            transform: scale(1.2);
             filter: brightness(1.1) saturate(1.2);
         }
     }
@@ -64,7 +68,6 @@
 
     background-color: #fff;
     padding: 0rem 3rem;
-    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
 
 
     &__links {
