@@ -232,7 +232,7 @@ $tertiary-color: #963cff;
 
         &__button-container {
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             margin-top: 10px;
@@ -252,7 +252,7 @@ $tertiary-color: #963cff;
                 cursor: pointer;
                 transition: all 0.1s ease-in-out;
                 &:hover {
-                    background-color: $secondary-color;
+                    background-color: $tertiary-color;
                 }
                 &--disabled {
                     background-color: #999;
@@ -263,8 +263,12 @@ $tertiary-color: #963cff;
                 }
             }
             &__selected-seat{
-                font-weight: 300;
-                font-size: 0.8rem;
+                color: $primary-color;
+                margin: 10px 0;
+                &__seat-number {
+                    margin: 0 10px;
+                    color: $secondary-color;
+                }
             }
         }
 
