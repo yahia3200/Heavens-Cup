@@ -1,11 +1,14 @@
 require('dotenv').config();
 
 //Require the express module
+const cors = require('cors');
 const express = require('express');
 
 //Import the Routes files
 // const homeRoutes = require('./Routes/homeRoutes');
 const authRoutes = require('./Routes/authRoutes');
+const guestRoutes = require('./Routes/guestRoutes');
+const customerRoutes = require('./Routes/customerRoutes');
 // const fansRoutes = require('./Routes/fansRoutes');
 // const managerRoutes = require("./Routes/managerRoutes");
 // const adminRoutes = require('./Routes/adminRoutes');
@@ -19,6 +22,13 @@ const app = express();
 //this is used to read the json file accompanying the req 
 //and convert it to a readable javascript object
 app.use(express.json());
+app.use(cors());
+
+const corsOptions = {
+    origin: true,
+    credentials: true
+  }
+app.options('*', cors(corsOptions));
 
 //start listening for requests on the server
 var app_port = (process.env.PORT || 3000);
@@ -31,6 +41,7 @@ app.listen(app_port, () => {
 //Authentication verifecation
 // app.use(homeRoutes);
 app.use(authRoutes);
+app.use(customerRoutes);
 // app.use(fansRoutes);
 // app.use(managerRoutes);
 // app.use(adminRoutes);
