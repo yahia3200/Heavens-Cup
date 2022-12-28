@@ -5,7 +5,7 @@
 
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        align-items: flex-end;
         margin-top: 4rem;
 
         h2 {
@@ -17,9 +17,10 @@
 
         .logo {
             content: "";
-            background: url(https://www.premierleague.com/resources/prod/v6.110.0-4750/i/sprites/global-sprite.png) -227px -366px no-repeat;
-            width: 170px;
-            height: 28px;
+            background: url(../assets/Hunter-x-Hunter-Logo.png) no-repeat;
+            width: 140px;
+            height: 80px;
+            background-size: contain;
             display: block;
         }
     }

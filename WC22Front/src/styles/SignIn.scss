@@ -30,6 +30,13 @@
         flex-direction: column;
         padding: 1rem 2rem;
 
+        &__error {
+            color: red;
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+        }
+
         &__input {
             display: flex;
             flex-direction: column;
@@ -48,6 +55,17 @@
                 border-bottom: 1px solid #76766f;
                 background: #e8e8e8;
             }
+
+            select {
+                padding: 0.5rem;
+                border: 1px solid #ccc;
+                margin-bottom: 2rem;
+                border: none;
+                padding: 15px;
+                border-bottom: 1px solid #76766f;
+                background: #e8e8e8;
+            }
+
 
             input:focus {
                 background: white;

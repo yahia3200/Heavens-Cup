@@ -34,19 +34,28 @@
     justify-content: space-between;
     align-items: center;
     background-color: #fff;
-    padding: 1rem 3rem;
+    padding: 0rem 3rem;
     box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+
+    &__logo {
+
+        img {
+            width: 10rem;
+        }
+    }
 
 
     &__links {
 
-        a {
+        a,
+        button {
             color: #37003c;
             text-decoration: none;
             font-size: 1.2rem;
             font-weight: 600;
             padding: 0 1rem;
             transition: all .1s ease-in-out;
+            cursor: pointer;
         }
     }
 }

@@ -13,7 +13,6 @@ interface ApplicationProps {
 
 const Application: React.FunctionComponent<ApplicationProps> = () => {
   const { user } = useContext(UserContext);
-  console.log(user);
 
   return (
     <BrowserRouter>
