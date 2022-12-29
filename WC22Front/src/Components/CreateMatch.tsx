@@ -4,7 +4,7 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import { charsData } from '../Components/MatchPage/chars'
 import { apiBaseUrl } from '../config.json';
-import { Stadium, Referee } from '../Types';
+import { Stadium, Referee, Character } from '../Types';
 
 interface CreateMatchProps {
     open: boolean;
@@ -34,7 +34,17 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
 
     const [availableStadiums, setAvailableStadiums] = useState<Stadium[]>([]);
     const [availableReferees, setAvailableReferees] = useState<Referee[]>([]);
+    const [availableChars, setAvailableChars] = useState<Character[]>()
+
     const handleClose = () => setOpen(false);
+
+    const [firstTeam, setFirstTeam] = useState('');
+    const [secondTeam, setSecondTeam] = useState('');
+    const [arena, setArena] = useState('');
+    const [referee, setReferee] = useState('');
+    const [firstLinesmen, setFirstLinesmen] = useState('');
+    const [secondLinesmen, setSecondLinesmen] = useState('');
+    const [date, setDate] = useState('');
 
     useEffect(() => {
         fetch(`${apiBaseUrl}/get_all_stadiums`, {
@@ -84,6 +94,44 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
             })
     }, [open])
 
+    useEffect(() => {
+        fetch(`${apiBaseUrl}/get_all_teams`, {
+            method: 'GET',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                const chars = data.teams.map((char: any) => {
+                    return {
+                        name: char.team_name,
+                        id: char.team_id,
+                        image: char.image_url,
+                        nen: char.nen,
+                        hue_rotate: char.hue_rotate,
+                        hunterpedia: char.hunterpedia
+                    }
+                });
+                setAvailableChars(chars);
+            })
+    }, [open])
+
+    const handleSubmit = () => {
+        const firstTeamId = availableChars?.find(char => char.name === firstTeam)?.id;
+        const secondTeamId = availableChars?.find(char => char.name === secondTeam)?.id;
+        const arenaId = availableStadiums.find(stadium => stadium.name === arena)?.id;
+        const refereeId = availableReferees.find(av_referee => av_referee.name === referee)?.id;
+        const firstLinesmenId = availableReferees.find(referee => referee.name === firstLinesmen)?.id;
+        const secondLinesmenId = availableReferees.find(referee => referee.name === secondLinesmen)?.id;
+
+        console.log(firstTeamId, secondTeamId, arenaId, refereeId, firstLinesmenId, secondLinesmenId, date)
+    }
+
+
     return (
         <div>
             <Modal
@@ -101,16 +149,25 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
                             <label htmlFor='second-linesmen'>Second Linesmen: </label>
                         </div>
                         <div className="modal-col">
-                            <select name="team1" id="team1">
+                            <select name="team1" id="team1" value={firstTeam} onChange={
+                                (e) => {
+                                    setFirstTeam(e.target.value)
+                                }
+                            }>
                                 {
-                                    Array.from(charsData.keys()).map(char => {
+                                    availableChars?.map(char => {
                                         return (
-                                            <option key={char} value={char}>{charsData.get(char)?.name}</option>
+                                            <option key={char.name} value={char.name}>{char.name}
+                                            </option>
                                         )
                                     })
                                 }
                             </select>
-                            <select name="arena" id="arena">
+                            <select name="arena" id="arena" value={arena} onChange={
+                                (e) => {
+                                    setArena(e.target.value)
+                                }
+                            }>
                                 {
                                     availableStadiums.map(stadium => {
                                         return (
@@ -119,7 +176,11 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
                                     })
                                 }
                             </select>
-                            <select name="main-ref" id="main-ref">
+                            <select name="main-ref" id="main-ref" value={referee} onChange={
+                                (e) => {
+                                    setReferee(e.target.value)
+                                }
+                            }>
                                 {
                                     availableReferees.map(referee => {
                                         return (
@@ -129,7 +190,11 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
                                 }
                             </select>
 
-                            <select name="second-linesmen" id="second-linesmen">
+                            <select name="second-linesmen" id="second-linesmen" value={secondLinesmen} onChange={
+                                (e) => {
+                                    setSecondLinesmen(e.target.value)
+                                }
+                            }>
                                 {
                                     availableReferees.map(referee => {
                                         return (
@@ -145,17 +210,30 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
                             <label htmlFor='first-linesmen'>First Linesmen: </label>
                         </div>
                         <div className="modal-col">
-                            <select name="team2" id="team2">
+                            <select name="team2" id="team2" value={secondTeam} onChange={
+                                (e) => {
+                                    setSecondTeam(e.target.value)
+                                }
+                            }>
                                 {
-                                    Array.from(charsData.keys()).map(char => {
+                                    availableChars?.map(char => {
                                         return (
-                                            <option key={char} value={char}>{charsData.get(char)?.name}</option>
+                                            <option key={char.name} value={char.name}>{char.name}
+                                            </option>
                                         )
                                     })
                                 }
                             </select>
-                            <input name='date' id='date' type="date" />
-                            <select name="first-linesmen" id="first-linesmen">
+                            <input name='date' id='date' type="date" value={date} onChange={
+                                (e) => {
+                                    setDate(e.target.value)
+                                }
+                            } />
+                            <select name="first-linesmen" id="first-linesmen" value={firstLinesmen} onChange={
+                                (e) => {
+                                    setFirstLinesmen(e.target.value)
+                                }
+                            }>
                                 {
                                     availableReferees.map(referee => {
                                         return (
@@ -168,12 +246,17 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
                         </div>
                     </div>
                     <div className='SignIn__form__button'>
-                        <button type='submit'>Create Match</button>
+                        <button type='submit' onClick={
+                            e => {
+                                e.preventDefault();
+                                handleSubmit();
+                            }
+                        }>Create Match</button>
                     </div>
                 </Box>
 
             </Modal>
-        </div>
+        </div >
     );
 }
 
