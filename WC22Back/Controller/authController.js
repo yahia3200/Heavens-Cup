@@ -14,7 +14,7 @@ module.exports = {
             const hash = await bcrypt.hash(password, 10);
             req.body.hash = hash;
             const user = await poolconnection.insertUser( req.body );
-            const token = createToken(user.id, user.username, user.userrole, user.approved);
+            const token = createToken(user.id, req.body.username, req.body.userrole, req.body.approved);
             res.status(200).json({ user: user.id, token });
         }
         catch (err) {

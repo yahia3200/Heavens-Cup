@@ -24,13 +24,6 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const corsOptions = {
-    origin: true,
-    credentials: true,
-    methods: true
-  }
-app.options('*', cors(corsOptions));
-
 //start listening for requests on the server
 var app_port = (process.env.PORT || 3000);
 app.listen(app_port, () => {

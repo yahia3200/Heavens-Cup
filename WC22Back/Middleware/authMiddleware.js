@@ -4,8 +4,7 @@ const poolconnection = require('../Repositories/user');
 
 //This function is called when you need to confirm that the user is authenticated
 const authVerifier = (req, res, next) => {
-    //const token = req.headers.Authorization.split(' ')[1];
-    const token = req.body.token;
+    const token = req.headers.authorization.split(' ')[1];
     // check json web token exists & is verified
     if (!token) {
         return res.status(401).json({ message: "Missing token" });
@@ -23,16 +22,9 @@ const authVerifier = (req, res, next) => {
 }
 
 const isClient = (req, res, next) => {
-    //const token = req.headers.Authorization.split(' ')[1];
-    const token = req.body.token;
-    if(!token){
-        return res.status(400).json({error: "Missing token"});
-    }
     try{
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        console.log(decoded);
-        if(decoded.approved === true){
-            if(decoded.role === 0){
+        if(req.user.approved === true){
+            if(req.user.role === 0){
                 next();
             }
             else{
@@ -49,15 +41,9 @@ const isClient = (req, res, next) => {
 }
 
 const isManager = (req, res, next) => {
-    //const token = req.headers.Authorization.split(' ')[1];
-    const token = req.body.token;
-    if(!token){
-        return res.status(401).json({message: "Missing token"});
-    }
     try{
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        if(decoded.approved === true || true){
-            if(decoded.role === 1){
+        if(req.user.approved === true || true){
+            if(req.user.role === 1){
                 next();
             }
             else{
