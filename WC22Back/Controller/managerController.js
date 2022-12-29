@@ -1,7 +1,7 @@
 const matchconnection = require('../Repositories/match');
 const teamconnection = require('../Repositories/team');
 const stadiumconnection = require('../Repositories/stadium');
-const refreeconnection = require('../Repositories/referee');
+const refereeconnection = require('../Repositories/referee');
 const team = require('../Repositories/team');
 
 module.exports = {
@@ -31,18 +31,18 @@ module.exports = {
                     }
                 });
 
-                refreeconnection.getRefrees().then((refrees) => {
-                    for(refree in refrees) {
-                        if(refree.id == match.main_ref) {
-                            result_details.main_refree = refree.id;
+                refereeconnection.getReferees().then((referees) => {
+                    for(referee in referees) {
+                        if(referee.id == match.main_ref) {
+                            result_details.main_referee = referee.id;
                             break;
                         }
-                        else if(refree.id == match.line_man_1) {
-                            result_details.line_man_1 = refree.id;
+                        else if(referee.id == match.line_man_1) {
+                            result_details.line_man_1 = referee.id;
                             break;
                         }
-                        else if(refree.id == match.line_man_2) {
-                            result_details.line_man_1 = refree.id;
+                        else if(referee.id == match.line_man_2) {
+                            result_details.line_man_1 = referee.id;
                             break;
                         }
                     }
@@ -86,6 +86,38 @@ module.exports = {
             res.status(200).json({stad_id: stad.id});
         } catch (err) {
             console.log(err);
+            res.status(400).json({error: err.detail});
+        }
+    },
+    get_all_matches: async (req, res) => {
+        try {
+            const matches = await matchconnection.getMatches();
+            res.status(200).json(matches);
+        } catch (err) {
+            res.status(400).json({error: err.detail});
+        }
+    },
+    get_all_stadiums: async (req, res) => {
+        try {
+            const stads = await stadiumconnection.getStads();
+            res.status(200).json(stads);
+        } catch (err) {
+            res.status(400).json({error: err.detail});
+        }
+    },
+    get_all_refrees: async (req, res) => {
+        try {
+            const referees = await refereeconnection.getReferees();
+            res.status(200).json(referees);
+        } catch (err) {
+            res.status(400).json({error: err.detail});
+        }
+    },
+    get_all_teams: async (req, res) => {
+        try {
+            const teams = await teamconnection.getTeams();
+            res.status(200).json(teams);
+        } catch (err) {
             res.status(400).json({error: err.detail});
         }
     }
