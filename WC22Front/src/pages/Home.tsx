@@ -8,7 +8,7 @@ interface HomeProps {
 const Home: React.FunctionComponent<HomeProps> = () => {
     return (
         <div>
-            <PageHeader headerText='Home' />
+            <PageHeader headerText='Heavens Cup' />
         </div>
     );
 }

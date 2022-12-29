@@ -46,7 +46,6 @@
     }
 
     &__row {
-        width: 100%;
         display: flex;
         justify-content: space-between;
 
@@ -150,4 +149,8 @@
     input:focus {
         background: white;
     }
+}
+
+.add-padding-right {
+    padding-right: 4rem;
 }
