@@ -20,12 +20,12 @@ create table users
 );
 
 create table teams
-{
+(
     id uuid NOT NULL DEFAULT uuid_generate_v4(),
     primary key (id),
     team_name text not null unique,
     image text not null
-};
+);
 
 CREATE table referee
 (
