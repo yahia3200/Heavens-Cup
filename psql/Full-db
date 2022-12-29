@@ -28,12 +28,16 @@ create table adminstrators
 
     primary key (id)
 );
+
 create table teams
 (
     id uuid NOT NULL DEFAULT uuid_generate_v4(),
     primary key (id),
     team_name text not null unique,
-    image text not null
+    nen text NOT NULL ,
+    hue-rotate text NOT NULL ,
+    hunterpedia text NOT NULL,
+    image_url text not null
 );
 
 CREATE table referee

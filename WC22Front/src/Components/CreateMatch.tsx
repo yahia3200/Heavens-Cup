@@ -4,6 +4,7 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import { charsData } from '../Components/MatchPage/chars'
 import { apiBaseUrl } from '../config.json';
+import { Stadium, Referee } from '../Types';
 
 interface CreateMatchProps {
     open: boolean;
@@ -31,11 +32,12 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
     const { user } = useContext(UserContext);
     const token = user?.token
 
-    const [availableStadiums, setAvailableStadiums] = useState<string[]>([]);
+    const [availableStadiums, setAvailableStadiums] = useState<Stadium[]>([]);
+    const [availableReferees, setAvailableReferees] = useState<Referee[]>([]);
     const handleClose = () => setOpen(false);
 
     useEffect(() => {
-        fetch(`${apiBaseUrl}/get_all_teams`, {
+        fetch(`${apiBaseUrl}/get_all_stadiums`, {
             method: 'GET',
             mode: 'cors',
             headers: {
@@ -46,12 +48,39 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
-                // const stadiums = data.stads.map((stadium: any) => stadium.stad_name);
-                // console.log(stadiums);
-                // setAvailableStadiums(data.stadiums);
+                const stadiums = data.stads.map((stadium: any) => {
+                    return {
+                        name: stadium.stad_name,
+                        height: stadium.num_rows,
+                        width: stadium.seats_per_row,
+                        id: stadium.stad_id
+                    }
+                });
+                setAvailableStadiums(stadiums);
             })
-    }, [])
+    }, [open])
+
+    useEffect(() => {
+        fetch(`${apiBaseUrl}/get_all_refrees`, {
+            method: 'GET',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        })
+            .then(res => res.json())
+            .then(data => {
+                const referees = data.referees.map((referee: any) => {
+                    return {
+                        name: referee.ref_name,
+                        id: referee.ref_id
+                    }
+                });
+                setAvailableReferees(referees);
+            })
+    }, [open])
 
     return (
         <div>
@@ -83,13 +112,30 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
                                 {
                                     availableStadiums.map(stadium => {
                                         return (
-                                            <option key={stadium} value={stadium}>{stadium}</option>
+                                            <option key={stadium.name} value={stadium.name}>{stadium.name}</option>
                                         )
                                     })
                                 }
                             </select>
-                            <input name='main-ref' id='main-ref' type="text" />
-                            <input name='second-linesmen' id='second-linesmen' type="text" />
+                            <select name="main-ref" id="main-ref">
+                                {
+                                    availableReferees.map(referee => {
+                                        return (
+                                            <option key={referee.name} value={referee.name}>{referee.name}</option>
+                                        )
+                                    })
+                                }
+                            </select>
+
+                            <select name="second-linesmen" id="second-linesmen">
+                                {
+                                    availableReferees.map(referee => {
+                                        return (
+                                            <option key={referee.name} value={referee.name}>{referee.name}</option>
+                                        )
+                                    })
+                                }
+                            </select>
                         </div>
                         <div className="modal-col">
                             <label htmlFor='team2'>Second Team: </label>
@@ -107,7 +153,16 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
                                 }
                             </select>
                             <input name='date' id='date' type="date" />
-                            <input name='first-linesmen' id='first-linesmen' type="text" />
+                            <select name="first-linesmen" id="first-linesmen">
+                                {
+                                    availableReferees.map(referee => {
+                                        return (
+                                            <option key={referee.name} value={referee.name}>{referee.name}</option>
+                                        )
+                                    })
+                                }
+                            </select>
+
                         </div>
                     </div>
                     <div className='SignIn__form__button'>

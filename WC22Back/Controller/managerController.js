@@ -117,7 +117,7 @@ module.exports = {
     get_all_refrees: async (req, res) => {
         try {
             const referees = await refereeconnection.getReferees();
-            res.status(200).json(referees);
+            res.status(200).json({referees: referees});
         } catch (err) {
             res.status(400).json({error: err.detail});
         }

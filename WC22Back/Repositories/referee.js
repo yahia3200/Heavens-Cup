@@ -9,9 +9,9 @@ const pool = new Pool({
 });
 
 module.exports = {
-    getReferees : async function (role) {
+    getReferees : async function () {
         try {
-            const referees = await pool.query("SELECT * FROM referees WHERE ref_role = $1;", [role]);
+            const referees = await pool.query("SELECT * FROM referee;");
             return referees.rows;
         } catch (error) {
             throw error;

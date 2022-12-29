@@ -43,7 +43,11 @@ const AddStadium: React.FunctionComponent<AddStadiumProps> = ({ open, setOpen })
 
         const response = await fetch(`${apiBaseUrl}/create_stadium`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${token}`
+             },
             body: JSON.stringify({
                 stad_name: arenaName,
                 num_rows: nRows,
