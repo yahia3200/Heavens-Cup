@@ -61,7 +61,10 @@ module.exports = {
         try {
             // Check if the teams are not present in a match on the same day or refrees are not present in a match on the same day or stadium is not reserved on the same day
             const matches = await matchconnection.getMatches();
-            for(match in matches) {
+            // Check if matches are not zero
+            if(matches.length != 0) {
+            
+            matches.forEach(match => {
                 if((match.team1 == req.body.team1 || match.team2 == req.body.team1) ||
                  (match.team1 == req.body.team2 || match.team2 == req.body.team2) ||
                  (match.main_ref == req.body.main_ref) || (match.line_man_1 == req.body.main_ref) || (match.line_man_2 == req.body.main_ref) ||
@@ -69,19 +72,21 @@ module.exports = {
                  (match.main_ref == req.body.line_man_2) || (match.line_man_1 == req.body.line_man_2) || (match.line_man_2 == req.body.line_man_2) ||
                  (match.stad_id == req.body.stad_id))
                 {
-                    // First split the start time of the match to get the day of the match
-                    const match_start_time = match.start_time.split(' ')[0];
-                    // Check if the match is on the same day
-                    if(match_start_time == req.body.start_time) {
+                    
+                    const match_date = "";
+                    
+                    // Compare the day of the match with the day of the new match
+                    if(match_date == req.body.start_time) {
                         console.log('There is another match on the same day');
-                        res.status(400).json({ error: 'There is another match on the same day'});
+                        res.status(405).json({ error: 'There is another match on the same day'});
                         return;
                     }   
-                }
-            }
-            console.log(match);
+                }                
+            });
+        }
+            console.log('No match on the same day');
             const match = await matchconnection.insertMatch(req.body);
-            res.status(200).json(match.id);
+            res.status(200).json({ id: match.id, message: 'Match created successfully' });
         } catch (err) {
             res.status(400).json(err);
         }
@@ -130,7 +135,7 @@ module.exports = {
     get_all_teams: async (req, res) => {
         try {
             const teams = await teamconnection.getTeams();
-            res.status(200).json(teams);
+            res.status(200).json({teams: teams});
         } catch (err) {
             res.status(400).json({error: err.detail});
         }

@@ -134,9 +134,36 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
         const refereeId = availableReferees.find(av_referee => av_referee.name === referee)?.id;
         const firstLinesmenId = availableReferees.find(referee => referee.name === firstLinesmen)?.id;
         const secondLinesmenId = availableReferees.find(referee => referee.name === secondLinesmen)?.id;
+        // Convert date from standard format to 22-10-2021 20:00
+        const matchDate = date.replace('T', ' ');
+        console.log(matchDate)
 
-        console.log(firstTeam, secondTeam, arena, referee, firstLinesmen, secondLinesmen, date)
-        console.log(firstTeamId, secondTeamId, arenaId, refereeId, firstLinesmenId, secondLinesmenId, date)
+        fetch(`${apiBaseUrl}/create_match`, {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                 'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                team1: firstTeamId,
+                team2: secondTeamId,
+                stad_id: arenaId,
+                main_ref: refereeId,
+                line_man_1: firstLinesmenId,
+                line_man_2: secondLinesmenId,
+                start_time: matchDate
+            })
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                if (data.message === 'Match created successfully') {
+                    setOpen(false);
+                }
+            }
+            )
     }
 
 
