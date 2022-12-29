@@ -68,6 +68,7 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
                     }
                 });
                 setAvailableStadiums(stadiums);
+                setArena(stadiums[0].name);
             })
     }, [open])
 
@@ -91,6 +92,9 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
                     }
                 });
                 setAvailableReferees(referees);
+                setReferee(referees[0].name);
+                setFirstLinesmen(referees[0].name);
+                setSecondLinesmen(referees[0].name);
             })
     }, [open])
 
@@ -118,6 +122,8 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
                     }
                 });
                 setAvailableChars(chars);
+                setFirstTeam(chars[0].name);
+                setSecondTeam(chars[0].name);
             })
     }, [open])
 
