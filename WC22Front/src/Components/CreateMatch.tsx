@@ -43,11 +43,12 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                'Authorization': `Bearer ${token}`
+                'Authorization': `Bearer ${token}`,
             },
         })
             .then(res => res.json())
             .then(data => {
+                console.log(data)
                 const stadiums = data.stads.map((stadium: any) => {
                     return {
                         name: stadium.stad_name,
@@ -72,6 +73,7 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
         })
             .then(res => res.json())
             .then(data => {
+                console.log(data)
                 const referees = data.referees.map((referee: any) => {
                     return {
                         name: referee.ref_name,
@@ -103,7 +105,7 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
                                 {
                                     Array.from(charsData.keys()).map(char => {
                                         return (
-                                            <option key={char} value={char}>{charsData[char].name}</option>
+                                            <option key={char} value={char}>{charsData.get(char)?.name}</option>
                                         )
                                     })
                                 }
@@ -147,7 +149,7 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
                                 {
                                     Array.from(charsData.keys()).map(char => {
                                         return (
-                                            <option key={char} value={char}>{char}</option>
+                                            <option key={char} value={char}>{charsData.get(char)?.name}</option>
                                         )
                                     })
                                 }
