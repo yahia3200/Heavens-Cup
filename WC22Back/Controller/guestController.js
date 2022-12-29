@@ -61,10 +61,12 @@ module.exports = {
             if(stads) {
                 res.status(200).json({stads: stads});
             } else {
+                console.log(stads);
                 res.status(400).json({ error: 'No stadiums found'});
             }
         } catch (err) {
-            res.status(400).json({err: err});
+            console.log(err);
+            res.status(400).json({err: err.detail});
         }
     }
 }

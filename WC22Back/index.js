@@ -41,9 +41,9 @@ app.listen(app_port, () => {
 //Authentication verifecation
 // app.use(homeRoutes);
 app.use(authRoutes);
+app.use(guestRoutes);
 app.use(customerRoutes);
 app.use(managerRoutes);
-app.use(guestRoutes);
 // app.use(fansRoutes);
 // app.use(adminRoutes);
 
