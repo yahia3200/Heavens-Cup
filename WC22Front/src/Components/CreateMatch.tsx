@@ -64,7 +64,7 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
                         name: stadium.stad_name,
                         height: stadium.num_rows,
                         width: stadium.seats_per_row,
-                        id: stadium.stad_id
+                        id: stadium.id
                     }
                 });
                 setAvailableStadiums(stadiums);
@@ -88,7 +88,7 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
                 const referees = data.referees.map((referee: any) => {
                     return {
                         name: referee.ref_name,
-                        id: referee.ref_id
+                        id: referee.id
                     }
                 });
                 setAvailableReferees(referees);
@@ -113,7 +113,7 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
                 const chars = data.teams.map((char: any) => {
                     return {
                         name: char.team_name,
-                        id: char.team_id,
+                        id: char.id,
                         image: char.image_url,
                         nen: char.nen,
                         hue_rotate: char.hue_rotate,
