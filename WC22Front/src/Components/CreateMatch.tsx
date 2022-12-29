@@ -101,6 +101,7 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
+                'Authorization': `Bearer ${token}`
             }
         })
             .then(res => res.json())
@@ -128,6 +129,7 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
         const firstLinesmenId = availableReferees.find(referee => referee.name === firstLinesmen)?.id;
         const secondLinesmenId = availableReferees.find(referee => referee.name === secondLinesmen)?.id;
 
+        console.log(firstTeam, secondTeam, arena, referee, firstLinesmen, secondLinesmen, date)
         console.log(firstTeamId, secondTeamId, arenaId, refereeId, firstLinesmenId, secondLinesmenId, date)
     }
 
