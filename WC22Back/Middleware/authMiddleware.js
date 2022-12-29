@@ -25,19 +25,24 @@ const isClient = (req, res, next) => {
     //const token = req.headers.Authorization.split(' ')[1];
     const token = req.body.token;
     if(!token){
-        return res.status(401).json({message: "Missing token"});
+        return res.status(400).json({error: "Missing token"});
     }
     try{
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        if(decoded.role === 0){
-            next();
+        if(decoded.approved === true){
+            if(decoded.role === 0){
+                next();
+            }
+            else{
+                return res.status(400).json({error: "Not a client"});
+            }
         }
         else{
-            return res.status(401).json({message: "Not a client"});
+            return res.status(400).json({error: "Not approved be adminstrator"});
         }
     }catch(err){
         console.log(err);
-        return res.status(401).json({message: "Invalid token"});
+        return res.status(400).json({error: "Invalid token"});
     }
 }
 
@@ -49,15 +54,20 @@ const isManager = (req, res, next) => {
     }
     try{
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        if(decoded.role === 1){
-            next();
+        if(decoded.approved === true){
+            if(decoded.role === 1){
+                next();
+            }
+            else{
+                return res.status(400).json({error: "Not a manager"});
+            }
         }
         else{
-            return res.status(401).json({message: "Not a manager"});
+            return res.status(400).json({error: "Not approved be adminstrator"});
         }
     }catch(err){
         console.log(err);
-        return res.status(401).json({message: "Invalid token"});
+        return res.status(400).json({error: "Invalid token"});
     }
 }
 

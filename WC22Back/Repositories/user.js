@@ -13,7 +13,7 @@ module.exports = {
   insertUser: async function (body) {
     try {
       const users = await pool.query(
-        "INSERT INTO users (fname, lname, username, email, userrole, gender, birthdate, nationality, hash) VALUES ( $1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id;",
+        "INSERT INTO users (fname, lname, username, email, userrole, gender, birthdate, nationality, hash, approved) VALUES ( $1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING id;",
         [
           body.fname,
           body.lname,
@@ -23,7 +23,8 @@ module.exports = {
           body.gender,
           body.birthdate,
           body.nationality,
-          body.hash
+          body.hash,
+          false
         ]);
         console.log(users.rows[0]);
         return users.rows[0];
