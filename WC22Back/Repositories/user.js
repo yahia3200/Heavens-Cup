@@ -50,6 +50,14 @@ module.exports = {
       throw error;
     }
   },
+  approveUser : async function (username) {
+    try {
+      const users = await pool.query("UPDATE users SET approved = true WHERE username = $1 RETURNING id;", [username]);
+      return users.rows[0];
+    } catch (error) {
+      throw error;
+    }
+  },
   deleteUser : async function (username) {
     try {
       const users = await pool.query("DELETE FROM users WHERE username = $1 RETURNING id;", [username]);
