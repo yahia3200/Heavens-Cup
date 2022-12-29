@@ -26,7 +26,8 @@ app.use(cors());
 
 const corsOptions = {
     origin: true,
-    credentials: true
+    credentials: true,
+    methods: true
   }
 app.options('*', cors(corsOptions));
 
@@ -41,6 +42,7 @@ app.listen(app_port, () => {
 //Authentication verifecation
 // app.use(homeRoutes);
 app.use(authRoutes);
+app.use(guestRoutes);
 app.use(customerRoutes);
 app.use(managerRoutes);
 // app.use(fansRoutes);

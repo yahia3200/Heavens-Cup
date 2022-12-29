@@ -2,9 +2,9 @@ const poolconnection = require('../Repositories/user');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
-const createToken = (id, userName, role) => {
+const createToken = (id, userName, role, approved) => {
     const maxAge = 24 * 60 * 60; // 24 hours
-    return jwt.sign({ id, userName, role }, process.env.JWT_SECRET, { expiresIn: maxAge });
+    return jwt.sign({ id: id, userName: userName, role: role, approved: approved }, process.env.JWT_SECRET, { expiresIn: maxAge });
 }
 
 module.exports = { 
@@ -14,7 +14,7 @@ module.exports = {
             const hash = await bcrypt.hash(password, 10);
             req.body.hash = hash;
             const user = await poolconnection.insertUser( req.body );
-            const token = createToken(user.id, user.username, user.userrole);
+            const token = createToken(user.id, user.username, user.userrole, user.approved);
             res.status(200).json({ user: user.id, token });
         }
         catch (err) {
@@ -29,7 +29,7 @@ module.exports = {
             if (user) {
                 const auth = await bcrypt.compare(password, user.hash);
                 if (auth) {
-                    const token = createToken(user.id, user.username, user.userrole);
+                    const token = createToken(user.id, user.username, user.userrole, user.approved);
                     res.status(200).json({token, user: user});
                 } else {
                     res.status(400).json({"error":'Incorrect password'});
