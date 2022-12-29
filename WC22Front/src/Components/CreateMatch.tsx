@@ -103,7 +103,7 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
                                 {
                                     Array.from(charsData.keys()).map(char => {
                                         return (
-                                            <option key={char} value={char}>{char}</option>
+                                            <option key={char} value={char}>{charsData[char].name}</option>
                                         )
                                     })
                                 }

@@ -59,17 +59,22 @@ module.exports = {
     },
     create_match: async (req, res) => {
         try {
-            // Check if the teams are not present in a match at the same time
+            // Check if the teams are not present in a match on the same day or refrees are not present in a match on the same day or stadium is not reserved on the same day
             const matches = await matchconnection.getMatches();
             for(match in matches) {
-                if((match.team1 == req.body.team1 || match.team2 == req.body.team1) || (match.team1 == req.body.team2 || match.team2 == req.body.team2))
+                if((match.team1 == req.body.team1 || match.team2 == req.body.team1) ||
+                 (match.team1 == req.body.team2 || match.team2 == req.body.team2) ||
+                 (match.main_ref == req.body.main_ref) || (match.line_man_1 == req.body.main_ref) || (match.line_man_2 == req.body.main_ref) ||
+                 (match.main_ref == req.body.line_man_1) || (match.line_man_1 == req.body.line_man_1) || (match.line_man_2 == req.body.line_man_1) ||
+                 (match.main_ref == req.body.line_man_2) || (match.line_man_1 == req.body.line_man_2) || (match.line_man_2 == req.body.line_man_2) ||
+                 (match.stad_id == req.body.stad_id))
                 {
                     // First split the start time of the match to get the day of the match
                     const match_start_time = match.start_time.split(' ')[0];
                     // Check if the match is on the same day
                     if(match_start_time == req.body.start_time) {
-                        console.log('Teams are already playing on the same day');
-                        res.status(400).json('Teams are already playing on the same day');
+                        console.log('There is another match on the same day');
+                        res.status(400).json({ error: 'There is another match on the same day'});
                         return;
                     }   
                 }
