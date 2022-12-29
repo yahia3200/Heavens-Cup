@@ -70,8 +70,7 @@ module.exports = {
                         console.log('Teams are already playing on the same day');
                         res.status(400).json('Teams are already playing on the same day');
                         return;
-                    }
-                    
+                    }   
                 }
             }
             console.log(match);
@@ -79,6 +78,15 @@ module.exports = {
             res.status(200).json(match.id);
         } catch (err) {
             res.status(400).json(err);
+        }
+    },
+    create_stadium: async (req, res) => {
+        try {
+            const stad = await stadiumconnection.insertStad(req.body);
+            res.status(200).json({stad_id: stad.id});
+        } catch (err) {
+            console.log(err);
+            res.status(400).json({error: err.detail});
         }
     }
 }

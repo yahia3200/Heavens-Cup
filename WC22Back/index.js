@@ -43,6 +43,7 @@ app.listen(app_port, () => {
 app.use(authRoutes);
 app.use(customerRoutes);
 app.use(managerRoutes);
+app.use(guestRoutes);
 // app.use(fansRoutes);
 // app.use(adminRoutes);
 
