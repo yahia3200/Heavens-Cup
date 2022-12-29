@@ -5,13 +5,11 @@ const cors = require('cors');
 const express = require('express');
 
 //Import the Routes files
-// const homeRoutes = require('./Routes/homeRoutes');
 const authRoutes = require('./Routes/authRoutes');
+const adminRoutes = require('./Routes/adminRoutes');
 const guestRoutes = require('./Routes/guestRoutes');
 const customerRoutes = require('./Routes/customerRoutes');
 const managerRoutes = require("./Routes/managerRoutes");
-// const fansRoutes = require('./Routes/fansRoutes');
-// const adminRoutes = require('./Routes/adminRoutes');
 
 // //import the authentication verification function
 // const {authVerifier, getUser} = require('./Middleware/authmiddleware');
@@ -33,15 +31,13 @@ app.listen(app_port, () => {
 
 
 //Authentication verifecation
-// app.use(homeRoutes);
 app.use(authRoutes);
+app.use(adminRoutes);
 app.use(guestRoutes);
 app.use(customerRoutes);
 app.use(managerRoutes);
-// app.use(fansRoutes);
-// app.use(adminRoutes);
 
 app.get('*', (req, res)=>{
-    return res.json({ message: '404 jkjkkkjPage Not Found'} )
+    return res.json({ message: 'Welcome to ne2asha server'} )
 });
 
