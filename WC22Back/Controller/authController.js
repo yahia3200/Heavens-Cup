@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 
 const createToken = (id, userName, role, approved) => {
     const maxAge = 24 * 60 * 60; // 24 hours
-    return jwt.sign({ id, userName, role, approved }, process.env.JWT_SECRET, { expiresIn: maxAge });
+    return jwt.sign({ id: id, userName: userName, role: role }, process.env.JWT_SECRET, { expiresIn: maxAge });
 }
 
 module.exports = { 

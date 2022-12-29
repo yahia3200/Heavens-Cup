@@ -54,5 +54,17 @@ module.exports = {
         } catch (err) {
             res.status(400).json(err);
         }
+    },
+    get_all_stadiums: async (req, res) => {
+        try {
+            const stads = await stadiumconnection.getStads();
+            if(stads) {
+                res.status(200).json({stads: stads});
+            } else {
+                res.status(400).json({ error: 'No stadiums found'});
+            }
+        } catch (err) {
+            res.status(400).json({err: err});
+        }
     }
 }
