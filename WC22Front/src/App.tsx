@@ -24,8 +24,8 @@ const Application: React.FunctionComponent<ApplicationProps> = () => {
         <Route path="/match/:id" element={<MatchPage />} />
         <Route path="/fixtures" element={<Fixtures />} />
         <Route path="/admin" element={<AdminPage />} />
-        <Route path="*" element={<h1>404</h1>} />
         {user && <Route path="/profile" element={<Profile />} />}
+        <Route path="*" element={<h1>404</h1>} />
       </Routes>
     </BrowserRouter>
 

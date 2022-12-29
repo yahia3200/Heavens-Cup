@@ -3,10 +3,11 @@ import { UserContext } from '../contexts/userContext'
 import PageHeader from '../Components/PageHeader'
 import FixturesTable from '../Components/Fixtures/FixturesTable'
 import '../styles/Profile.scss'
-import { User, CustomDate } from '../Types'
+import { CustomDate } from '../Types'
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import CreateMatch from '../Components/CreateMatch'
+import AddStadium from '../Components/AddStadium'
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -34,6 +35,9 @@ const Profile: React.FunctionComponent<ProfileProps> = () => {
     const [open, setOpen] = useState(false)
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+
+    const [createMatchOpen, setCreateMatchOpen] = useState(false);
+    const [addStadiumOpen, setAddStadiumOpen] = useState(false);
 
     const [firstName, setFirstName] = useState(user?.firstName)
     const [lastName, setLastName] = useState(user?.lastName)
@@ -122,7 +126,7 @@ const Profile: React.FunctionComponent<ProfileProps> = () => {
                                 <div className="profile__info__row">
                                     <div className="profile__info__item">
                                         <div className="profile__info__item__label">First Name: </div>
-                                        <div className="profile__info__item__value">{user?.firstName}</div>
+                                        <div className="profile__info__item__value add-padding-right">{user?.firstName}</div>
                                     </div>
                                     <div className="profile__info__item">
                                         <div className="profile__info__item__label">Last Name: </div>
@@ -201,7 +205,25 @@ const Profile: React.FunctionComponent<ProfileProps> = () => {
                 </div>}
 
                 {user?.type === "manager" && <div className='page-section'>
-                    <h2 className="page-section__header">My Matches</h2>
+                    <h2 className="page-section__header">My Actions</h2>
+                    <div className="profile__info__row">
+                        <div className="profile__info__item">
+                            <button onClick={
+                                () => {
+                                    setCreateMatchOpen(true)
+                                }
+                            }>Create new match</button>
+                            <CreateMatch open={createMatchOpen} setOpen={setCreateMatchOpen} />
+                        </div>
+                        <div className="profile__info__item">
+                            <button onClick={
+                                () => {
+                                    setAddStadiumOpen(true)
+                                }
+                            }>Add new stadium</button>
+                            <AddStadium open={addStadiumOpen} setOpen={setAddStadiumOpen} />
+                        </div>
+                    </div>
 
                 </div>
                 }
