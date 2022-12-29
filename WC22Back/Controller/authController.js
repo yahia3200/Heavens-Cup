@@ -15,6 +15,7 @@ module.exports = {
             req.body.hash = hash;
             const user = await poolconnection.insertUser( req.body );
             const token = createToken(user.id, user.username, user.userrole, user.approved);
+            console.log(token);
             res.status(200).json({ user: user.id, token });
         }
         catch (err) {

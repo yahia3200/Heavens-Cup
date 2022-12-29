@@ -51,6 +51,7 @@ const isClient = (req, res, next) => {
 const isManager = (req, res, next) => {
     //const token = req.headers.Authorization.split(' ')[1];
     const token = req.body.token;
+    console.log(token);
     if(!token){
         return res.status(401).json({message: "Missing token"});
     }

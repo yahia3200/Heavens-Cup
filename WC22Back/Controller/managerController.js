@@ -2,6 +2,7 @@ const matchconnection = require('../Repositories/match');
 const teamconnection = require('../Repositories/team');
 const stadiumconnection = require('../Repositories/stadium');
 const refereeconnection = require('../Repositories/referee');
+const resconnection = require('../Repositories/reservation');
 const team = require('../Repositories/team');
 
 module.exports = {
@@ -89,6 +90,14 @@ module.exports = {
             res.status(400).json({error: err.detail});
         }
     },
+    edit_match: async (req, res) => {
+        try {
+            const match = await matchconnection.updateMatch(req.body.match);
+            res.status(200).json(match.id);
+        } catch (err) {
+            res.status(400).json({error: err.detail});
+        }
+    },
     get_all_matches: async (req, res) => {
         try {
             const matches = await matchconnection.getMatches();
@@ -117,6 +126,19 @@ module.exports = {
         try {
             const teams = await teamconnection.getTeams();
             res.status(200).json(teams);
+        } catch (err) {
+            res.status(400).json({error: err.detail});
+        }
+    },
+    get_match_reservations: async (req, res) => {
+        try {
+            const reservations = await resconnection.getMatchReservations(req.body.id);
+            if(reservations) {
+                res.status(200).json(reservations);
+            }
+            else {
+                res.status(400).json('No reservations found');
+            }
         } catch (err) {
             res.status(400).json({error: err.detail});
         }

@@ -18,4 +18,6 @@ router.get('/get_all_refrees',authVerifier, isManager , managerController.get_al
 
 router.get('/get_all_teams',authVerifier, isManager , managerController.get_all_teams);
 
+router.get('/get_match_reservations',authVerifier, isManager , managerController.get_match_reservations);
+
 module.exports = router;
