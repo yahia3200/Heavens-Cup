@@ -26,7 +26,8 @@ app.use(cors());
 
 const corsOptions = {
     origin: true,
-    credentials: true
+    credentials: true,
+    methods: true
   }
 app.options('*', cors(corsOptions));
 
