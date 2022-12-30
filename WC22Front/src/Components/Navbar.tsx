@@ -41,7 +41,7 @@ const Navbar: React.FunctionComponent<NavbarProps> = () => {
     return (
         <div className="navbar">
             <div className="navbar__logo">
-                <img src="/src/assets/logo.png" alt="" />
+                <img src="/src/assets/logo2.png" alt="" />
             </div>
 
             <div className="navbar__rapper">
