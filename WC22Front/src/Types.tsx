@@ -26,6 +26,7 @@ export type Stadium = {
     width: number;
     height: number;
     reservedSeats: { x: number, y: number }[];
+    id: string;
 };
 
 // user type
@@ -41,4 +42,19 @@ export type User = {
     age: number;
     token: string;
     approved?: boolean;
+}
+
+// refre type
+export type Referee = {
+    name: string;
+    id: string;
+}
+
+export type Character = {
+    name: string;
+    id: string;
+    image: string;
+    nen: string;
+    hunterpedia: string | null;
+    hueRotate: string;
 }

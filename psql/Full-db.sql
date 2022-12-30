@@ -13,18 +13,32 @@ create table users
     gender int not null default 0,
     birthdate date not null,
     nationality text,
-    hash text not null,    
+    hash text not null,
+    approved boolean not null default false, 
+
+    primary key (id)
+);
+
+create table adminstrators
+(
+    id uuid NOT NULL DEFAULT uuid_generate_v4(),
+    username text not null unique,
+    hash text not null,
+    userrole int not null default 2,
 
     primary key (id)
 );
 
 create table teams
-{
+(
     id uuid NOT NULL DEFAULT uuid_generate_v4(),
     primary key (id),
     team_name text not null unique,
-    image text not null
-};
+    nen text NOT NULL ,
+    hue_rotate text NOT NULL ,
+    hunterpedia text NOT NULL,
+    image_url text not null
+);
 
 CREATE table referee
 (

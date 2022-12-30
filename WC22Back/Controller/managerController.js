@@ -1,7 +1,8 @@
 const matchconnection = require('../Repositories/match');
 const teamconnection = require('../Repositories/team');
 const stadiumconnection = require('../Repositories/stadium');
-const refreeconnection = require('../Repositories/referee');
+const refereeconnection = require('../Repositories/referee');
+const resconnection = require('../Repositories/reservation');
 const team = require('../Repositories/team');
 
 module.exports = {
@@ -31,18 +32,18 @@ module.exports = {
                     }
                 });
 
-                refreeconnection.getRefrees().then((refrees) => {
-                    for(refree in refrees) {
-                        if(refree.id == match.main_ref) {
-                            result_details.main_refree = refree.id;
+                refereeconnection.getReferees().then((referees) => {
+                    for(referee in referees) {
+                        if(referee.id == match.main_ref) {
+                            result_details.main_referee = referee.id;
                             break;
                         }
-                        else if(refree.id == match.line_man_1) {
-                            result_details.line_man_1 = refree.id;
+                        else if(referee.id == match.line_man_1) {
+                            result_details.line_man_1 = referee.id;
                             break;
                         }
-                        else if(refree.id == match.line_man_2) {
-                            result_details.line_man_1 = refree.id;
+                        else if(referee.id == match.line_man_2) {
+                            result_details.line_man_1 = referee.id;
                             break;
                         }
                     }
@@ -58,27 +59,98 @@ module.exports = {
     },
     create_match: async (req, res) => {
         try {
-            // Check if the teams are not present in a match at the same time
+            // Check if the teams are not present in a match on the same day or refrees are not present in a match on the same day or stadium is not reserved on the same day
             const matches = await matchconnection.getMatches();
-            for(match in matches) {
-                if((match.team1 == req.body.team1 || match.team2 == req.body.team1) || (match.team1 == req.body.team2 || match.team2 == req.body.team2))
+            // Check if matches are not zero
+            if(matches.length != 0) {
+            
+            matches.forEach(match => {
+                if((match.team1 == req.body.team1 || match.team2 == req.body.team1) ||
+                 (match.team1 == req.body.team2 || match.team2 == req.body.team2) ||
+                 (match.main_ref == req.body.main_ref) || (match.line_man_1 == req.body.main_ref) || (match.line_man_2 == req.body.main_ref) ||
+                 (match.main_ref == req.body.line_man_1) || (match.line_man_1 == req.body.line_man_1) || (match.line_man_2 == req.body.line_man_1) ||
+                 (match.main_ref == req.body.line_man_2) || (match.line_man_1 == req.body.line_man_2) || (match.line_man_2 == req.body.line_man_2) ||
+                 (match.stad_id == req.body.stad_id))
                 {
-                    // First split the start time of the match to get the day of the match
-                    const match_start_time = match.start_time.split(' ')[0];
-                    // Check if the match is on the same day
-                    if(match_start_time == req.body.start_time) {
-                        console.log('Teams are already playing on the same day');
-                        res.status(400).json('Teams are already playing on the same day');
-                        return;
-                    }
                     
-                }
-            }
-            console.log(match);
+                    const match_date = "";
+                    
+                    // Compare the day of the match with the day of the new match
+                    if(match_date == req.body.start_time) {
+                        console.log('There is another match on the same day');
+                        res.status(405).json({ error: 'There is another match on the same day'});
+                        return;
+                    }   
+                }                
+            });
+        }
+            console.log('No match on the same day');
             const match = await matchconnection.insertMatch(req.body);
-            res.status(200).json(match.id);
+            res.status(200).json({ id: match.id, message: 'Match created successfully' });
         } catch (err) {
             res.status(400).json(err);
+        }
+    },
+    create_stadium: async (req, res) => {
+        try {
+            const stad = await stadiumconnection.insertStad(req.body);
+            res.status(200).json({stad_id: stad.id});
+        } catch (err) {
+            console.log(err);
+            res.status(400).json({error: err.detail});
+        }
+    },
+    edit_match: async (req, res) => {
+        try {
+            const match = await matchconnection.updateMatch(req.body.match);
+            res.status(200).json(match.id);
+        } catch (err) {
+            res.status(400).json({error: err.detail});
+        }
+    },
+    get_all_matches: async (req, res) => {
+        try {
+            const matches = await matchconnection.getMatches();
+            res.status(200).json(matches);
+        } catch (err) {
+            res.status(400).json({error: err.detail});
+        }
+    },
+    get_all_stadiums: async (req, res) => {
+        try {
+            const stads = await stadiumconnection.getStads();
+            res.status(200).json(stads);
+        } catch (err) {
+            res.status(400).json({error: err.detail});
+        }
+    },
+    get_all_refrees: async (req, res) => {
+        try {
+            const referees = await refereeconnection.getReferees();
+            res.status(200).json({referees: referees});
+        } catch (err) {
+            res.status(400).json({error: err.detail});
+        }
+    },
+    get_all_teams: async (req, res) => {
+        try {
+            const teams = await teamconnection.getTeams();
+            res.status(200).json({teams: teams});
+        } catch (err) {
+            res.status(400).json({error: err.detail});
+        }
+    },
+    get_match_reservations: async (req, res) => {
+        try {
+            const reservations = await resconnection.getMatchReservations(req.body.id);
+            if(reservations) {
+                res.status(200).json(reservations);
+            }
+            else {
+                res.status(400).json('No reservations found');
+            }
+        } catch (err) {
+            res.status(400).json({error: err.detail});
         }
     }
 }
