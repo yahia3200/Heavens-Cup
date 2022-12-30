@@ -10,6 +10,9 @@ $secondary-color: #e90052;
 // create a variable for the tertiary color
 $tertiary-color: #963cff;
 
+$red: #be1414;
+$green: #158615;
+
 .admin-page{
     margin-top: 20px;
     margin-bottom: 100px;
@@ -33,3 +36,52 @@ $tertiary-color: #963cff;
     }
 }
 
+.admin-page__approved-users__container__data-grid__delete-button {
+    background-color: $red;
+    color: white;
+    border: none;
+    border-radius: 80px;
+    padding: 5px 7.5px;
+    cursor: pointer;
+    transition: all .1s ease-in-out;
+    font-weight: 800;
+    &:hover {
+        background-color: saturate(lighten($red, 20), $amount: 30);
+    }
+}
+
+.admin-page__pending-users__container__data-grid__actions{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100px;
+    margin: 0 auto;
+
+    &__approve-button {
+        background-color: $green;
+        color: white;
+        border: none;
+        border-radius: 80px;
+        padding: 5px 7.5px;
+        cursor: pointer;
+        transition: all .1s ease-in-out;
+        font-weight: 800;
+        &:hover {
+            background-color: saturate(lighten($green, 10), $amount: 25);
+        }
+    }
+
+    &__reject-button {
+        background-color: $red;
+        color: white;
+        border: none;
+        border-radius: 80px;
+        padding: 5px 7.5px;
+        cursor: pointer;
+        transition: all .1s ease-in-out;
+        font-weight: 800;
+        &:hover {
+            background-color: saturate(lighten($red, 20), $amount: 30);
+        }
+    }
+}
