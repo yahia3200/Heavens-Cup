@@ -53,9 +53,9 @@
 
     img {
         transition: all .1s ease-in-out;
-        width: 4.25rem;
-        height: 4.25rem;
-        margin: 0 0.2rem;
+        width: 4rem;
+        height: 4rem;
+        margin: 0 0.5rem;
         &:hover {
             transform: scale(1.2);
             filter: brightness(1.1) saturate(1.2);

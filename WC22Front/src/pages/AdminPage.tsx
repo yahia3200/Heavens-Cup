@@ -1,7 +1,8 @@
-import React from 'react'
-import { User } from '../Types'
-import UserList from '../Components/AdminPage/userList'
-import PageHeader from '../Components/PageHeader'
+import React from "react";
+import { User } from "../Types";
+import PageHeader from "../Components/PageHeader";
+import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
+import "../styles/AdminPage.scss";
 /*
 firstName: string;
 lastName: string;
@@ -18,83 +19,322 @@ export default function AdminPage() {
   // list of users
   const users: User[] = [
     {
-      firstName: 'John',
-      lastName: 'Doe',
-      gender: 'male',
-      email: 'john.doe@x.d',
-      username: 'johndoe',
-      birthDate: 'Monday 1 January 2010',
-      type: 'fan',
-      nationality: 'American',
+      firstName: "John",
+      lastName: "Doe",
+      gender: "male",
+      email: "john.doe@x.d",
+      username: "johndoe",
+      birthDate: "Monday 1 January 2010",
+      type: "fan",
+      nationality: "American",
       age: 11,
-      token: '1234567890',
-      approved: true
+      token: "1234567890",
+      approved: true,
     },
     {
-      firstName: 'Jane',
-      lastName: 'Doe',
-      gender: 'female',
-      email: 'jane.faf@x.f',
-      username: 'fwfag',
-      birthDate: 'Monday 4 February 2000',
-      type: 'manager',
-      nationality: 'American',
+      firstName: "Jane",
+      lastName: "Doe",
+      gender: "female",
+      email: "jane.faf@x.f",
+      username: "fwfag",
+      birthDate: "Monday 4 February 2000",
+      type: "manager",
+      nationality: "American",
       age: 21,
-      token: 'agwgagawcsz',
-      approved: true
+      token: "agwgagawcsz",
+      approved: true,
     },
     {
-      firstName: 'Freddy',
-      lastName: 'Mercury',
-      gender: 'male',
-      email: 'gwadac@fwafawf.fwaf',
-      username: 'fwafawf',
-      birthDate: 'Monday 1 February 1999',
-      type: 'fan',
-      nationality: 'English',
+      firstName: "John",
+      lastName: "Doe",
+      gender: "male",
+      email: "john.doe@x.d",
+      username: "johndoe",
+      birthDate: "Monday 1 January 2010",
+      type: "fan",
+      nationality: "American",
+      age: 11,
+      token: "1234567890",
+      approved: true,
+    },
+    {
+      firstName: "Jane",
+      lastName: "Doe",
+      gender: "female",
+      email: "jane.faf@x.f",
+      username: "fwfag",
+      birthDate: "Monday 4 February 2000",
+      type: "manager",
+      nationality: "American",
+      age: 21,
+      token: "agwgagawcsz",
+      approved: true,
+    },
+    {
+      firstName: "John",
+      lastName: "Doe",
+      gender: "male",
+      email: "john.doe@x.d",
+      username: "johndoe",
+      birthDate: "Monday 1 January 2010",
+      type: "fan",
+      nationality: "American",
+      age: 11,
+      token: "1234567890",
+      approved: true,
+    },
+    {
+      firstName: "Jane",
+      lastName: "Doe",
+      gender: "female",
+      email: "jane.faf@x.f",
+      username: "fwfag",
+      birthDate: "Monday 4 February 2000",
+      type: "manager",
+      nationality: "American",
+      age: 21,
+      token: "agwgagawcsz",
+      approved: true,
+    },
+    {
+      firstName: "Freddy",
+      lastName: "Mercury",
+      gender: "male",
+      email: "gwadac@fwafawf.fwaf",
+      username: "fwafawf",
+      birthDate: "Monday 1 February 1999",
+      type: "fan",
+      nationality: "English",
       age: 22,
-      token: 'f1e2rqtqeg',
-      approved: false
+      token: "f1e2rqtqeg",
+      approved: false,
     },
     {
       // a user from egypt
-      firstName: 'Mohamed',
-      lastName: 'Salah',
-      gender: 'male',
-      email: 'sfwafgag@wfaa.waf',
-      username: 'solwf',
-      birthDate: 'Monday 1 February 1999',
-      type: 'fan',
-      nationality: 'Egyptian',
+      firstName: "Mohamed",
+      lastName: "Salah",
+      gender: "male",
+      email: "sfwafgag@wfaa.waf",
+      username: "solwf",
+      birthDate: "Monday 1 February 1999",
+      type: "fan",
+      nationality: "Egyptian",
       age: 22,
-      token: 'f1e2rqtqeg',
-      approved: false
+      token: "f1e2rqtqeg",
+      approved: false,
     },
     {
       // a user from japan
-      firstName: 'Hiroshi',
-      lastName: 'Yamaguchi',
-      gender: 'male',
-      email: 'dwaf@wafawf.waf',
-      username: 'wafawf',
-      birthDate: 'Monday 1 February 1997',
-      type: 'fan',
-      nationality: 'Japanese',
+      firstName: "Hiroshi",
+      lastName: "Yamaguchi",
+      gender: "male",
+      email: "dwaf@wafawf.waf",
+      username: "wafawf",
+      birthDate: "Monday 1 February 1997",
+      type: "fan",
+      nationality: "Japanese",
       age: 24,
-      token: 'f1e2rqtqeg',
-      approved: false
+      token: "f1e2rqtqeg",
+      approved: false,
     },
   ];
-
 
   return (
     <div>
       <PageHeader headerText="Admin Page" />
-      <UserList users={users.filter(user => user.approved)} />
-      <UserList users={users.filter(user => !user.approved)} />
+      <div className="wrapper">
+        <div className="admin-page">
+          <div className="admin-page__approved-users">
+            <h1>Approved Users</h1>
+            <div
+              className="admin-page__approved-users__container"
+              style={{
+                height:
+                  Math.min(
+                    users.filter((user) => user.approved === true).length,
+                    5
+                  ) *
+                    52 +
+                  56 * 2,
+              }}
+            >
+              <DataGrid
+                className="admin-page__approved-users__container__data-grid"
+                rows={users
+                  .filter((user) => user.approved === true)
+                  .map((user, index) => ({ ...user, id: index }))}
+                columns={[
+                  {
+                    field: "firstName",
+                    headerName: "First name",
+                    flex: 1,
+                    minWidth: 100,
+                  },
+                  {
+                    field: "lastName",
+                    headerName: "Last name",
+                    flex: 1,
+                    minWidth: 100,
+                  },
+                  {
+                    field: "gender",
+                    headerName: "Gender",
+                    flex: 0.5,
+                    minWidth: 50,
+                  },
+                  {
+                    field: "email",
+                    headerName: "Email",
+                    flex: 1.5,
+                    minWidth: 150,
+                  },
+                  {
+                    field: "username",
+                    headerName: "Username",
+                    flex: 1,
+                    minWidth: 100,
+                  },
+                  {
+                    field: "nationality",
+                    headerName: "Nationality",
+                    flex: 1,
+                    minWidth: 100,
+                  },
+                  { field: "age", headerName: "Age", flex: 0.5, minWidth: 50 },
+                  {
+                    field: "type",
+                    headerName: "Type",
+                    flex: 0.5,
+                    minWidth: 50,
+                  },
+                  // add a column for the delete user button
+                  {
+                    field: "delete",
+                    headerName: "Delete",
+                    flex: 0.5,
+                    minWidth: 50,
+                    renderCell: (params: GridValueGetterParams) => (
+                      <button
+                        className="admin-page__approved-users__container__data-grid__delete-button"
+                        onClick={() => {
+                          // delete the user
+                          console.log("delete user" + params.row.id);
+                        }}
+                      >
+                        &#10005;
+                      </button>
+                    ),
+                    disableClickEventBubbling: true,
+                  },
+                ]}
+                pageSize={5}
+                rowsPerPageOptions={[5]}
+                disableSelectionOnClick
+              />
+            </div>
+          </div>
+          <div className="admin-page__pending-users">
+            <h1>Pending Users</h1>
+            <div
+              className="admin-page__pending-users__container"
+              style={{
+                height:
+                  Math.min(
+                    users.filter((user) => user.approved === false).length,
+                    5
+                  ) *
+                    52 +
+                  56 * 2,
+              }}
+            >
+              <DataGrid
+                className="admin-page__pending-users__container__data-grid"
+                rows={users
+                  .filter((user) => user.approved === false)
+                  .map((user, index) => ({ ...user, id: index }))}
+                columns={[
+                  {
+                    field: "firstName",
+                    headerName: "First name",
+                    flex: 1,
+                    minWidth: 100,
+                  },
+                  {
+                    field: "lastName",
+                    headerName: "Last name",
+                    flex: 1,
+                    minWidth: 100,
+                  },
+                  {
+                    field: "gender",
+                    headerName: "Gender",
+                    flex: 0.5,
+                    minWidth: 50,
+                  },
+                  {
+                    field: "email",
+                    headerName: "Email",
+                    flex: 1.5,
+                    minWidth: 150,
+                  },
+                  {
+                    field: "username",
+                    headerName: "Username",
+                    flex: 1,
+                    minWidth: 100,
+                  },
+                  {
+                    field: "nationality",
+                    headerName: "Nationality",
+                    flex: 1,
+                    minWidth: 100,
+                  },
+                  { field: "age", headerName: "Age", flex: 0.5, minWidth: 50 },
+                  {
+                    field: "type",
+                    headerName: "Type",
+                    flex: 0.5,
+                    minWidth: 50,
+                  },
+                  // add an actions column for the approve and reject buttons for each user
+                  {
+                    field: "actions",
+                    headerName: "Actions",
+                    flex: 0.5,
+                    minWidth: 50,
+                    renderCell: (params: GridValueGetterParams) => (
+                      <div className="admin-page__pending-users__container__data-grid__actions">
+                        <button
+                          className="admin-page__pending-users__container__data-grid__actions__approve-button"
+                          onClick={() => {
+                            // approve the user
+                            console.log("approve user" + params.row.id);
+                          }}
+                        >
+                          &#10003;
+                        </button>
+                        <button
+                          className="admin-page__pending-users__container__data-grid__actions__reject-button"
+                          onClick={() => {
+                            // reject the user
+                            console.log("reject user" + params.row.id);
+                          }}
+                        >
+                          &#10005;
+                        </button>
+                      </div>
+                    ),
+                    disableClickEventBubbling: true,
+                  },
+                ]}
+                pageSize={5}
+                rowsPerPageOptions={[5]}
+                disableSelectionOnClick
+              />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-
-
-
-  )
+  );
 }

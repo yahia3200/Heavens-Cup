@@ -1,0 +1,35 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
+
+// create a variable for the primary color
+$primary-color: #37003c;
+
+// create a variable for the secondary color
+$secondary-color: #e90052;
+
+// create a variable for the tertiary color
+$tertiary-color: #963cff;
+
+.admin-page{
+    margin-top: 20px;
+    margin-bottom: 100px;
+    &__approved-users, &__pending-users {
+        margin-bottom: 50px;
+
+        h1 {
+            font-family: 'Josefin Sans', sans-serif;
+            color: $primary-color;
+            margin-bottom: 10px;
+        }
+
+        &__container {
+            display: flex;
+
+            &__data-grid {
+                width: 100%;
+                margin: 10px 0;
+            }
+        }
+    }
+}
+

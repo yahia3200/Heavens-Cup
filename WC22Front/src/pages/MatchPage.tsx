@@ -19,8 +19,8 @@ export default function MatchPage() {
   const stadium = {
     name: "Heaven's Arena",
     image: "",
-    width: 25,
-    height: 15,
+    width: 20,
+    height: 10,
     reservedSeats: [
       { x: 1, y: 1 },
       { x: 1, y: 2 },
