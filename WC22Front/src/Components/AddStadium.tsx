@@ -99,7 +99,7 @@ const AddStadium: React.FunctionComponent<AddStadiumProps> = ({ open, setOpen })
                                 } />
                                 <input name='n-rows' id='n-rows' type="number" value={nRows} onChange={
                                     (e) => {
-                                        console.log(e.target.value);
+
                                         if (e.target.value === '') {
                                             setError('Please enter a number of rows');
                                             setNRows(NaN)
@@ -155,12 +155,12 @@ const AddStadium: React.FunctionComponent<AddStadiumProps> = ({ open, setOpen })
                         </div>
                         <div className='SignIn__form__button'>
                             <button className='match-page__match__stadium__button-container__button'
-                            disabled={error ? true : false} type='submit' onClick={
-                                (e) => {
-                                    e.preventDefault();
-                                    handleSubmit();
-                                }
-                            }>Add Arena</button>
+                                disabled={error ? true : false} type='submit' onClick={
+                                    (e) => {
+                                        e.preventDefault();
+                                        handleSubmit();
+                                    }
+                                }>Add Arena</button>
                         </div>
 
                         <div className='SignIn__form__error'>
@@ -176,6 +176,7 @@ const AddStadium: React.FunctionComponent<AddStadiumProps> = ({ open, setOpen })
                         disabled={true}
                         selectedSeat={null}
                         setSelectedSeat={null}
+                        userType={'manager'}
                     />
                 </Box>
 
