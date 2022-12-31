@@ -2,7 +2,7 @@ import "../styles/Home.scss";
 import PageHeader from "../Components/PageHeader";
 import { Link } from "react-router-dom";
 
-interface HomeProps {}
+interface HomeProps { }
 
 const Home: React.FunctionComponent<HomeProps> = () => {
   return (
@@ -17,17 +17,17 @@ const Home: React.FunctionComponent<HomeProps> = () => {
               <p>
                 In Heaven's Cup, you can manage matches, stadiums, and more.
                 Put Kakashi as a refree in the Marineford Stadium and
-                see what Hisoka fights with Gonnnn!
+                see how Hisoka fights with Gonnnn!
                 Create your own league and invite your fans to join!
               </p>
             </div>
             <div className="home__slide__image">
-              <img src="/src/assets/chars/slide0.png" alt="slide 1" />
+              <img src="/src/assets/Chars/Slide0.png" alt="slide 1" />
             </div>
           </div>
           <div className="home__slide slide-2">
             <div className="home__slide__image">
-              <img src="/src/assets/chars/slide1.png" alt="slide 2" />
+              <img src="/src/assets/Chars/Slide1.png" alt="slide 2" />
             </div>
             <div className="home__slide__content">
               <h1>Fans' League</h1>
@@ -47,11 +47,11 @@ const Home: React.FunctionComponent<HomeProps> = () => {
               </p>
               <div className="home__slide__form__buttons">
                 <Link className="home__slide__form__buttons__login"
-                to="/signin">
+                  to="/signin">
                   Login
                 </Link>
                 <Link className="home__slide__form__buttons__signup"
-                to="/signin">
+                  to="/signin">
                   Sign Up
                 </Link>
               </div>
