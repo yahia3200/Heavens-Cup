@@ -133,7 +133,9 @@ const Profile: React.FunctionComponent<ProfileProps> = () => {
 
                     </div>
                     <div className='SignIn__form__button'>
-                        <button type='submit' onClick={
+                        <button
+                        className='match-page__match__stadium__button-container__button'
+                        type='submit' onClick={
                             (e) => {
                                 e.preventDefault()
                                 handleEdit()
@@ -211,7 +213,8 @@ const Profile: React.FunctionComponent<ProfileProps> = () => {
                         </div>
                         <div className="profile__info__row">
                             <div className="profile__info__item">
-                                <button onClick={handleOpen}>Edit your information</button>
+                                <button className='match-page__match__stadium__button-container__button'
+                                 onClick={handleOpen}>Edit your information</button>
                             </div>
                         </div>
 
@@ -257,7 +260,8 @@ const Profile: React.FunctionComponent<ProfileProps> = () => {
                     <h2 className="page-section__header">My Actions</h2>
                     <div className="profile__info__row">
                         <div className="profile__info__item">
-                            <button onClick={
+                            <button className='match-page__match__stadium__button-container__button'
+                             onClick={
                                 () => {
                                     setCreateMatchOpen(true)
                                 }
@@ -265,7 +269,8 @@ const Profile: React.FunctionComponent<ProfileProps> = () => {
                             <CreateMatch open={createMatchOpen} setOpen={setCreateMatchOpen} />
                         </div>
                         <div className="profile__info__item">
-                            <button onClick={
+                            <button className='match-page__match__stadium__button-container__button'
+                             onClick={
                                 () => {
                                     setAddStadiumOpen(true)
                                 }
