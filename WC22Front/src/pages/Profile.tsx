@@ -43,8 +43,7 @@ const Profile: React.FunctionComponent<ProfileProps> = () => {
 
     const [firstName, setFirstName] = useState(user?.firstName)
     const [lastName, setLastName] = useState(user?.lastName)
-    console.log(typeof user?.birthDate)
-    const [birthDate, setBirthDate] = useState(formatDate(user.birthDate))
+    const [birthDate, setBirthDate] = useState(formatDate(user?.birthDate))
     const [gender, setGender] = useState(user?.gender)
 
 

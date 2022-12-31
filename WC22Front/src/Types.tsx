@@ -92,7 +92,8 @@ export const fromCustomDateToISO = (date: CustomDate): string => {
 }
 
 // format date to a string like 2021-01-01 and make sure that day is 2 digits
-export const formatDate = (date: Date): string => {
+export const formatDate = (date: Date | undefined): string => {
+    if (!date) return '';
     let formattedDate = date.getFullYear().toString();
     formattedDate += '-';
     formattedDate += date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1;
