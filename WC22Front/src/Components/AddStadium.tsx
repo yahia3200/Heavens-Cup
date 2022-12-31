@@ -3,6 +3,7 @@ import { UserContext } from '../contexts/userContext';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import { apiBaseUrl } from '../config.json';
+import Stadium from './MatchPage/Stadium';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -113,6 +114,16 @@ const AddStadium: React.FunctionComponent<AddStadiumProps> = ({ open, setOpen })
                             }>Add Arena</button>
                         </div>
                     </form>
+                    <Stadium
+                        stadium={{
+                            width: nCols,
+                            height: nRows,
+                            reservedSeats: [],
+                        }}
+                        disabled={true}
+                        selectedSeat={null}
+                        setSelectedSeat={null}
+                    />
                 </Box>
 
             </Modal>
