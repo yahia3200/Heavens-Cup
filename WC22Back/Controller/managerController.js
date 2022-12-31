@@ -34,15 +34,15 @@ module.exports = {
                  (match.stad_id == req.body.stad_id))
                 {
                     
-                    const match_date = "";
+                    const match_date = req.body.start_time;
                     
                     // Compare the day of the match with the day of the new match
-                    if(match_date == req.body.start_time) {
+                    if( new Date(match_date) == new Date(req.body.start_time) ) {
                         console.log('There is another match on the same day');
                         res.status(405).json({ error: 'There is another match on the same day'});
                         return;
-                    }   
-                }                
+                    }
+                }  
             });
         }
             console.log('No match on the same day');
