@@ -139,6 +139,21 @@ export default function AdminPage() {
     },
   ];
 
+  // Memoize users to avoid re-rendering
+  const memoizedApprovedUsers = React.useMemo(
+    () =>
+      users
+        .filter((user) => user.approved === true && user.type !== "admin"),
+    [users]
+  );
+
+  const memoizedUnapprovedUsers = React.useMemo(
+    () =>
+      users
+        .filter((user) => user.approved === false && user.type !== "admin"),
+    [users]
+  );
+
   return (
     <div>
       <PageHeader headerText="Admin Page" />
@@ -151,7 +166,7 @@ export default function AdminPage() {
               style={{
                 height:
                   Math.min(
-                    users.filter((user) => user.approved === true).length,
+                    memoizedApprovedUsers.length,
                     5
                   ) *
                     52 +
@@ -160,9 +175,7 @@ export default function AdminPage() {
             >
               <DataGrid
                 className="admin-page__approved-users__container__data-grid"
-                rows={users
-                  .filter((user) => user.approved === true)
-                  .map((user, index) => ({ ...user, id: index }))}
+                rows={memoizedApprovedUsers.map((user, index) => ({ ...user, id: index }))}
                 columns={[
                   {
                     field: "firstName",
@@ -240,7 +253,7 @@ export default function AdminPage() {
               style={{
                 height:
                   Math.min(
-                    users.filter((user) => user.approved === false).length,
+                    memoizedUnapprovedUsers.length,
                     5
                   ) *
                     52 +
@@ -249,9 +262,7 @@ export default function AdminPage() {
             >
               <DataGrid
                 className="admin-page__pending-users__container__data-grid"
-                rows={users
-                  .filter((user) => user.approved === false)
-                  .map((user, index) => ({ ...user, id: index }))}
+                rows={memoizedUnapprovedUsers.map((user, index) => ({ ...user, id: index }))}
                 columns={[
                   {
                     field: "firstName",
