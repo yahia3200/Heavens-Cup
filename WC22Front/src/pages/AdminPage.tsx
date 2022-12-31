@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { User } from "../Types";
 import PageHeader from "../Components/PageHeader";
 import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 import "../styles/AdminPage.scss";
 import { apiBaseUrl } from "../config.json";
+// import usercontext
+import { UserContext } from "../contexts/userContext";
 /*
 firstName: string;
 lastName: string;
@@ -140,50 +142,56 @@ export default function AdminPage() {
   //   },
   // ];
 
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<User[]>([]);
+  // get user from context
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
       fetch(`${apiBaseUrl}/get_all_users`, {
           method: 'GET',
           headers: {
               'Content-Type': 'application/json',
+              'Authorization': `Bearer ${user?.token}`,
           },
       }).then(res => res.json())
           .then(data => {
               console.log(data);
 
-              // const returnedUsers: User[] = data.users.map((match: any) => {
+              const returnedUsers: User[] = data.users.map((user: any) => {
               //     const date = new Date(match.start_time);
 
               //     // get hour and minutes from date in form of 14:30
               //     const time = date.toLocaleTimeString('en-us', { hour: '2-digit', minute: '2-digit' });
-
               //     // transform date to a string like Tuesday 1 January 2020
               //     const dateStr = `${date.toLocaleString('en-us', { weekday: 'long' })} ${date.getDate()} ${date.toLocaleString('en-us', { month: 'long' })} ${date.getFullYear()}`;
-              //     return {
-              //         date: dateStr,
-              //         time: time,
-              //         team1: match.team1_name,
-              //         team2: match.team2_name,
-              //         referees: [],
-              //         stadium: match.stad_name,
-              //         id: match.id,
-              //     }
-              // }
-              // );
+              // calculate age from birthdate
+              const age = calculateAge(user.birthdate);
+              function calculateAge(birthday: string) { // birthday is a date
+                  const birthDate = new Date(birthday);
+                  const ageDifMs = Date.now() - birthDate.getTime();
+                  const ageDate = new Date(ageDifMs); // miliseconds from epoch
+                  return Math.abs(ageDate.getUTCFullYear() - 1970);
+              }
 
-              // const matchesObj = matches.reduce((acc: any, match: Match) => {
-              //     if (acc[match.date]) {
-              //         acc[match.date].push(match);
-              //     } else {
-              //         acc[match.date] = [match];
-              //     }
-              //     return acc;
-              // }, {});
-              // setMatches(matchesObj);
+                   return {
+                       firstName: user.fname,
+                       lastName: user.lname,
+                       gender: user.gender === 0? 'male' : 'female',
+                       username: user.username,
+                       email: user.email,
+                       nationality: user.nationality,
+                       age: age,
+                       id: user.id,
+                       type: user.userrole === 0 ? "fan" : user.userrole === 1 ? "manager" : "admin",
+                       approved: user.approved,
+                   }
+               }
+               );
+
+              setUsers(returnedUsers);
 
           }
-          );
+          ).catch(err => console.log(err));
 
   }, []);
 
@@ -201,6 +209,67 @@ export default function AdminPage() {
         .filter((user) => user.approved === false && user.type !== "admin"),
     [users]
   );
+
+  function removeUser(id: number) {
+    const userId = memoizedApprovedUsers[id].username;
+    console.log(userId);
+    // send request to approve user with with id, to /approve_user
+    fetch(`${apiBaseUrl}/delete_user`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${user?.token}`,
+      },
+      body: JSON.stringify({
+        user: {
+          userName: userId
+        }
+      }),
+    }).then(res => res.json())
+      .then(data => {
+        console.log(data);
+      }
+      ).catch(err => console.log(err));  }
+
+  function rejectUser(id: number) {
+    const userId = memoizedUnapprovedUsers[id].username;
+    console.log(userId);
+    // send request to approve user with with id, to /approve_user
+    fetch(`${apiBaseUrl}/delete_user`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${user?.token}`,
+      },
+      body: JSON.stringify({
+        username: userId
+      }),
+    }).then(res => res.json())
+      .then(data => {
+        console.log(data);
+      }
+      ).catch(err => console.log(err));
+  }
+
+  function approveUser(id: number) {
+    const userId = memoizedUnapprovedUsers[id].username;
+    console.log(userId);
+    // send request to approve user with with id, to /approve_user
+    fetch(`${apiBaseUrl}/approve_user`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${user?.token}`,
+      },
+      body: JSON.stringify({
+        userName: userId
+      }),
+    }).then(res => res.json())
+      .then(data => {
+        console.log(data);
+      }
+      ).catch(err => console.log(err));
+  }
 
   return (
     <div>
@@ -270,17 +339,14 @@ export default function AdminPage() {
                   },
                   // add a column for the delete user button
                   {
-                    field: "delete",
-                    headerName: "Delete",
+                    field: "reomove",
+                    headerName: "Remove",
                     flex: 0.5,
                     minWidth: 50,
                     renderCell: (params: GridValueGetterParams) => (
                       <button
                         className="admin-page__approved-users__container__data-grid__delete-button"
-                        onClick={() => {
-                          // delete the user
-                          console.log("delete user" + params.row.id);
-                        }}
+                        onClick={() => removeUser(params.row.id)}
                       >
                         &#10005;
                       </button>
@@ -365,19 +431,13 @@ export default function AdminPage() {
                       <div className="admin-page__pending-users__container__data-grid__actions">
                         <button
                           className="admin-page__pending-users__container__data-grid__actions__approve-button"
-                          onClick={() => {
-                            // approve the user
-                            console.log("approve user" + params.row.id);
-                          }}
+                          onClick={() => approveUser(params.row.id)}
                         >
                           &#10003;
                         </button>
                         <button
                           className="admin-page__pending-users__container__data-grid__actions__reject-button"
-                          onClick={() => {
-                            // reject the user
-                            console.log("reject user" + params.row.id);
-                          }}
+                          onClick={() => rejectUser(params.row.id)}
                         >
                           &#10005;
                         </button>

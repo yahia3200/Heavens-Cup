@@ -176,6 +176,7 @@ const AddStadium: React.FunctionComponent<AddStadiumProps> = ({ open, setOpen })
                         disabled={true}
                         selectedSeat={null}
                         setSelectedSeat={null}
+                        userType={'manager'}
                     />
                 </Box>
 
