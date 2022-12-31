@@ -4,9 +4,10 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import { charsData } from '../Components/MatchPage/chars'
 import { apiBaseUrl } from '../config.json';
-import { Stadium, Referee, Character } from '../Types';
+import { Stadium, Referee, Character, Match } from '../Types';
 
-interface CreateMatchProps {
+interface EditMatchProps {
+    match: Match;
     open: boolean;
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -28,7 +29,7 @@ const style = {
     p: 4,
 };
 
-const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen }) => {
+const EditMatch: React.FunctionComponent<EditMatchProps> = ({ match, open, setOpen }) => {
     const { user } = useContext(UserContext);
     const token = user?.token
 
@@ -38,14 +39,41 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
 
     const handleClose = () => setOpen(false);
 
-    const [firstTeam, setFirstTeam] = useState('');
-    const [secondTeam, setSecondTeam] = useState('');
-    const [arena, setArena] = useState('');
-    const [referee, setReferee] = useState('');
-    const [firstLinesmen, setFirstLinesmen] = useState('');
-    const [secondLinesmen, setSecondLinesmen] = useState('');
-    const [date, setDate] = useState('');
-    const [matchTime, setMatchTime] = useState('');
+    const [firstTeam, setFirstTeam] = useState(charsData.get(match.team1)!.name);
+    const [secondTeam, setSecondTeam] = useState(charsData.get(match.team2)!.name);
+    const [arena, setArena] = useState(match.stadium);
+    const [referee, setReferee] = useState(match.referees[0]);
+    const [firstLinesmen, setFirstLinesmen] = useState(match.referees[1]);
+    const [secondLinesmen, setSecondLinesmen] = useState(match.referees[2]);
+    // transform date from Monday 1 January 2021 to mm/dd/yyyy
+    let transformedDate = match.date.split(' ');
+    // map month to 2-digit number of month
+    const monthMap = new Map([
+        ['January', '01'],
+        ['February', '02'],
+        ['March', '03'],
+        ['April', '04'],
+        ['May', '05'],
+        ['June', '06'],
+        ['July', '07'],
+        ['August', '08'],
+        ['September', '09'],
+        ['October', '10'],
+        ['November', '11'],
+        ['December', '12'],
+    ]);
+
+    transformedDate[2] = monthMap.get(transformedDate[2])!;
+
+    // make sure that day is 2 digits
+    if (transformedDate[1].length === 1) {
+        transformedDate[1] = '0' + transformedDate[1];
+    }
+
+    let formattedDate = transformedDate[3] + '-' + transformedDate[2] + '-' + transformedDate[1];
+    console.log(formattedDate);
+    const [date, setDate] = useState(formattedDate);
+    const [matchTime, setMatchTime] = useState(match.time as string);
 
     useEffect(() => {
         fetch(`${apiBaseUrl}/get_all_stadiums`, {
@@ -68,7 +96,7 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
                     }
                 });
                 setAvailableStadiums(stadiums);
-                setArena(stadiums[0]?.name);
+                //setArena(stadiums[0]?.name);
             })
     }, [open])
 
@@ -91,9 +119,9 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
                     }
                 });
                 setAvailableReferees(referees);
-                setReferee(referees[0]?.name);
-                setFirstLinesmen(referees[0]?.name);
-                setSecondLinesmen(referees[0]?.name);
+                //setReferee(referees[0]?.name);
+                //setFirstLinesmen(referees[0]?.name);
+                //setSecondLinesmen(referees[0]?.name);
             })
     }, [open])
 
@@ -120,8 +148,6 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
                     }
                 });
                 setAvailableChars(chars);
-                setFirstTeam(chars[0]?.name);
-                setSecondTeam(chars[0]?.name);
             })
     }, [open])
 
@@ -171,7 +197,7 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description" >
                 <Box sx={style}>
-                    <h2 className="page-section__header">Create new match</h2>
+                    <h2 className="page-section__header">Edit match</h2>
                     <div className="modal-container">
                         <div className="modal-col">
                             <label htmlFor='team1'>First Team: </label>
@@ -289,7 +315,7 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
                                 e.preventDefault();
                                 handleSubmit();
                             }
-                        }>Create Match</button>
+                        }>Edit Match</button>
                     </div>
                 </Box>
 
@@ -298,4 +324,4 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
     );
 }
 
-export default CreateMatch;
+export default EditMatch;

@@ -103,7 +103,8 @@ const Profile: React.FunctionComponent<ProfileProps> = () => {
 
                     </div>
                     <div className='SignIn__form__button'>
-                        <button type='submit'>Save Changes</button>
+                        <button className='match-page__match__stadium__button-container__button'
+                        type='submit'>Save Changes</button>
                     </div>
 
                 </Box>

@@ -44,7 +44,7 @@ const AddStadium: React.FunctionComponent<AddStadiumProps> = ({ open, setOpen })
 
         const response = await fetch(`${apiBaseUrl}/create_stadium`, {
             method: 'POST',
-            headers: { 
+            headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${token}`
@@ -106,7 +106,8 @@ const AddStadium: React.FunctionComponent<AddStadiumProps> = ({ open, setOpen })
                             </div>
                         </div>
                         <div className='SignIn__form__button'>
-                            <button type='submit' onClick={
+                            <button className='match-page__match__stadium__button-container__button'
+                            type='submit' onClick={
                                 (e) => {
                                     e.preventDefault();
                                     handleSubmit();

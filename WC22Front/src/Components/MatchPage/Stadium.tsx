@@ -1,4 +1,5 @@
 import React from "react";
+import { userType } from "../../Types";
 
 // props
 interface Props {
@@ -24,10 +25,11 @@ interface Props {
       ) => void)
     | null;
   disabled: boolean;
+  userType: userType | undefined;
 }
 
 export default function Stadium(props: Props) {
-  const { stadium, selectedSeat, setSelectedSeat } = props;
+  const { stadium, selectedSeat, setSelectedSeat, userType } = props;
 
   return (
     !(stadium.width >= 5 && stadium.height >= 5 && stadium.width <= 60 && stadium.height <= 25)?
@@ -43,6 +45,7 @@ export default function Stadium(props: Props) {
                 <>
                   {x == 0 && (
                     <div
+                      key={x + stadium.width * y}
                       className={`match-page__match__stadium__grid__row__label${
                         selectedSeat?.y === y ? "--selected" : ""
                       }`}
@@ -51,7 +54,8 @@ export default function Stadium(props: Props) {
                     </div>
                   )}
                   <div
-                    style={{
+                      key={x + stadium.width * y}
+                      style={{
                       width: `${
                         10 +
                         Math.ceil(
@@ -75,9 +79,10 @@ export default function Stadium(props: Props) {
                         selectedSeat?.x === x && selectedSeat?.y === y
                           ? "--selected"
                           : ""
-                      }`
+                      }` + ` match-page__match__stadium__grid__row__seat--${userType}`
                     }
                     onClick={() => {
+                      if (props.disabled || userType === "manager") return;
                       if (
                         stadium.reservedSeats.find(
                           (seat) => seat.x === x && seat.y === y
