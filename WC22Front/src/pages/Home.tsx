@@ -1,37 +1,66 @@
-import '../styles/Home.scss';
-import PageHeader from '../Components/PageHeader';
+import "../styles/Home.scss";
+import PageHeader from "../Components/PageHeader";
+import { Link } from "react-router-dom";
 
-interface HomeProps {
-
-}
+interface HomeProps {}
 
 const Home: React.FunctionComponent<HomeProps> = () => {
-    return (
-        <div>
-            <PageHeader headerText='Heavens Cup' />
-            {/* structure page as slides containing image on the side*/}
-            <div className='home'>
-                <div className='home__slide'>
-                    <div className='home__slide__content'>
-                        <h1>Slide 1</h1>
-                        <p>Slide 1 content</p>
-                    </div>
-                    <div className='home__slide__image'>
-                        <img src='https://www.w3schools.com/howto/img_nature_wide.jpg' alt='slide 1' />
-                    </div>
-                </div>
-                <div className='home__slide'>
-                    <div className='home__slide__content'>
-                        <h1>Slide 2</h1>
-                        <p>Slide 2 content</p>
-                    </div>
-                    <div className='home__slide__image'>
-                        <img src='https://www.w3schools.com/howto/img_snow_wide.jpg' alt='slide 2' />
-                    </div>
-                </div>
+  return (
+    <div>
+      <PageHeader headerText="Heavens Cup" />
+      {/* structure page as slides containing image on the side*/}
+      <div className="wrapper">
+        <div className="home">
+          <div className="home__slide slide-1">
+            <div className="home__slide__content">
+              <h1>Manage Matches!</h1>
+              <p>
+                In Heaven's Cup, you can manage matches, stadiums, and more.
+                Put Kakashi as a refree in the Marineford Stadium and
+                see what Hisoka fights with Gonnnn!
+                Create your own league and invite your fans to join!
+              </p>
             </div>
+            <div className="home__slide__image">
+              <img src="/src/assets/chars/slide0.png" alt="slide 1" />
+            </div>
+          </div>
+          <div className="home__slide slide-2">
+            <div className="home__slide__image">
+              <img src="/src/assets/chars/slide1.png" alt="slide 2" />
+            </div>
+            <div className="home__slide__content">
+              <h1>Fans' League</h1>
+              <p>
+                View matches and stadiums from everywhere in this fantasy world!
+                You can choose which match to watch and which stadium to visit!
+                Reserve your seat for the next match and cheer for your favorite
+                Character!
+              </p>
+            </div>
+          </div>
+          <div className="home__slide slide-3">
+            <div className="home__slide__form">
+              <p>
+                Join the league and start managing matches and stadiums!
+                Or just enjoy the fights between your favorite characters!
+              </p>
+              <div className="home__slide__form__buttons">
+                <Link className="home__slide__form__buttons__login"
+                to="/signin">
+                  Login
+                </Link>
+                <Link className="home__slide__form__buttons__signup"
+                to="/signin">
+                  Sign Up
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
-    );
-}
+      </div>
+    </div>
+  );
+};
 
 export default Home;
