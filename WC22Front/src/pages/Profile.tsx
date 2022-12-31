@@ -159,6 +159,10 @@ const Profile: React.FunctionComponent<ProfileProps> = () => {
                                         <div className="profile__info__item__label">Gender: </div>
                                         <div className="profile__info__item__value">{user?.gender}</div>
                                     </div>
+                                    <div className="profile__info__item">
+                                        <div className="profile__info__item__label">Status: </div>
+                                        <div className="profile__info__item__value">{user?.approved ? user?.approved : "Pending"}</div>
+                                    </div>
                                 </div>
 
 

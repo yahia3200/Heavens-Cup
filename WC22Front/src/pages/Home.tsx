@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import { UserContext } from "../contexts/userContext";
 import "../styles/Home.scss";
 import PageHeader from "../Components/PageHeader";
 import { Link } from "react-router-dom";
@@ -5,6 +7,8 @@ import { Link } from "react-router-dom";
 interface HomeProps { }
 
 const Home: React.FunctionComponent<HomeProps> = () => {
+  const { user } = useContext(UserContext);
+
   return (
     <div>
       <PageHeader headerText="Heavens Cup" />
@@ -46,14 +50,14 @@ const Home: React.FunctionComponent<HomeProps> = () => {
                 Or just enjoy the fights between your favorite characters!
               </p>
               <div className="home__slide__form__buttons">
-                <Link className="home__slide__form__buttons__login"
+                {!user && <Link className="home__slide__form__buttons__login"
                   to="/signin">
                   Login
-                </Link>
-                <Link className="home__slide__form__buttons__signup"
+                </Link>}
+                {!user && <Link className="home__slide__form__buttons__signup"
                   to="/signin">
                   Sign Up
-                </Link>
+                </Link>}
               </div>
             </div>
           </div>
