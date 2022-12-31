@@ -40,9 +40,9 @@ const Navbar: React.FunctionComponent<NavbarProps> = () => {
 
     return (
         <div className="navbar">
-            <div className="navbar__logo">
+            <Link className="navbar__logo" to='/'>
                 <img src="/src/assets/logo2.png" alt="" />
-            </div>
+            </Link>
 
             <div className="navbar__rapper">
                 <div className="navbar__teams-logos">
@@ -51,7 +51,7 @@ const Navbar: React.FunctionComponent<NavbarProps> = () => {
 
                         Array.from(charsData.keys()).map(char => {
                             return (
-                                <a href={charsData.get(char)!.hunterpedia} key={char}>
+                                <a href={charsData.get(char)!.hunterpedia} key={char} target="_blank">
                                     <img key={char} src={`/src/assets/Chars/${char}.png`} alt="" />
                                 </a>
                             )

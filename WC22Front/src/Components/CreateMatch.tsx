@@ -45,6 +45,7 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
     const [firstLinesmen, setFirstLinesmen] = useState('');
     const [secondLinesmen, setSecondLinesmen] = useState('');
     const [date, setDate] = useState('');
+    const [matchTime, setMatchTime] = useState('');
 
     useEffect(() => {
         fetch(`${apiBaseUrl}/get_all_stadiums`, {
@@ -58,7 +59,6 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
                 const stadiums = data.stads.map((stadium: any) => {
                     return {
                         name: stadium.stad_name,
@@ -68,7 +68,7 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
                     }
                 });
                 setAvailableStadiums(stadiums);
-                setArena(stadiums[0].name);
+                setArena(stadiums[0]?.name);
             })
     }, [open])
 
@@ -84,7 +84,6 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
                 const referees = data.referees.map((referee: any) => {
                     return {
                         name: referee.ref_name,
@@ -92,9 +91,9 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
                     }
                 });
                 setAvailableReferees(referees);
-                setReferee(referees[0].name);
-                setFirstLinesmen(referees[0].name);
-                setSecondLinesmen(referees[0].name);
+                setReferee(referees[0]?.name);
+                setFirstLinesmen(referees[0]?.name);
+                setSecondLinesmen(referees[0]?.name);
             })
     }, [open])
 
@@ -110,7 +109,6 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
                 const chars = data.teams.map((char: any) => {
                     return {
                         name: char.team_name,
@@ -122,8 +120,8 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
                     }
                 });
                 setAvailableChars(chars);
-                setFirstTeam(chars[0].name);
-                setSecondTeam(chars[0].name);
+                setFirstTeam(chars[0]?.name);
+                setSecondTeam(chars[0]?.name);
             })
     }, [open])
 
@@ -134,9 +132,7 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
         const refereeId = availableReferees.find(av_referee => av_referee.name === referee)?.id;
         const firstLinesmenId = availableReferees.find(referee => referee.name === firstLinesmen)?.id;
         const secondLinesmenId = availableReferees.find(referee => referee.name === secondLinesmen)?.id;
-        // Convert date from standard format to 22-10-2021 20:00
-        const matchDate = date.replace('T', ' ');
-        console.log(matchDate)
+        const matchDate = new Date(`${date}T${matchTime}`).toISOString();
 
         fetch(`${apiBaseUrl}/create_match`, {
             method: 'POST',
@@ -144,7 +140,7 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                 'Authorization': `Bearer ${token}`
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({
                 team1: firstTeamId,
@@ -242,6 +238,7 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
                         <div className="modal-col">
                             <label htmlFor='team2'>Second Team: </label>
                             <label htmlFor='date'>Date: </label>
+                            <label htmlFor='date'>Time: </label>
                             <label htmlFor='first-linesmen'>First Linesmen: </label>
                         </div>
                         <div className="modal-col">
@@ -262,6 +259,11 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
                             <input name='date' id='date' type="date" value={date} onChange={
                                 (e) => {
                                     setDate(e.target.value)
+                                }
+                            } />
+                            <input name='time' id='time' type="time" value={matchTime} onChange={
+                                (e) => {
+                                    setMatchTime(e.target.value)
                                 }
                             } />
                             <select name="first-linesmen" id="first-linesmen" value={firstLinesmen} onChange={
