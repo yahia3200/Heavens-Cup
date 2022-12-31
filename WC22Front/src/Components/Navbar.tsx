@@ -52,7 +52,7 @@ const Navbar: React.FunctionComponent<NavbarProps> = () => {
                         Array.from(charsData.keys()).map(char => {
                             return (
                                 <a href={charsData.get(char)!.hunterpedia} key={char} target="_blank">
-                                    <img key={char} src={`/src/assets/Chars/${char}.png`} alt="" />
+                                    <img key={char} src={charsData.get(char)!.image} alt="" />
                                 </a>
                             )
                         })

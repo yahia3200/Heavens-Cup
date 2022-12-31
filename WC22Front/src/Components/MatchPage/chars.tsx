@@ -113,14 +113,14 @@ export const charsData = new Map<string, CharData>([
         nen: "Specialist",
         hunterpedia: "https://hunterxhunter.fandom.com/wiki/Neferpitou",
     }],
-    ["Netero", {
+    ["Isaac", {
         name: "Isaac Netero",
         image: "/src/assets/Chars/Netero.png",
         "hue-rotate": "140deg",
         nen: "Enhancer",
         hunterpedia: "https://hunterxhunter.fandom.com/wiki/Isaac_Netero",
     }],
-    ["Meruem", {
+    ["King", {
         name: "King Meruem",
         image: "/src/assets/Chars/Meruem.png",
         "hue-rotate": "0deg",

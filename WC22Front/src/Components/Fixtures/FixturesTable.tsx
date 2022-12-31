@@ -1,6 +1,7 @@
 import '../../styles/Fixtures.scss'
 import { Match } from '../../Types';
 import { useNavigate } from 'react-router-dom';
+import { charsData } from '../MatchPage/chars';
 
 interface FixturesTableProps {
     matches: Match[];
@@ -26,11 +27,11 @@ const FixturesTable: React.FunctionComponent<FixturesTableProps> = ({ matches })
                             <div className="fixtures__table__row__teams">
                                 <span className="fixtures__table__row__teams__team-name team1-name">{match.team1}</span>
                                 <span className="fixtures__table__row__teams__team-logo">
-                                    <img src="https://resources.premierleague.com/premierleague/badges/25/t94.png" alt="" />
+                                    <img src={charsData.get(match.team1.split(' ')[0])?.image} alt="" />
                                 </span>
                                 <time >{match.time}</time>
                                 <span className="fixtures__table__row__teams__team-logo">
-                                    <img src="https://resources.premierleague.com/premierleague/badges/25/t94.png" alt="" />
+                                    <img src={charsData.get(match.team2.split(' ')[0])?.image} alt="" />
                                 </span>
                                 <span className="fixtures__table__row__teams__team-name team2-name">{match.team2}</span>
                             </div>
