@@ -6,6 +6,7 @@ import "../styles/AdminPage.scss";
 import { apiBaseUrl } from "../config.json";
 // import usercontext
 import { UserContext } from "../contexts/userContext";
+import { GridRenderCellParams } from "@mui/x-data-grid";
 /*
 firstName: string;
 lastName: string;
@@ -210,9 +211,7 @@ export default function AdminPage() {
     [users]
   );
 
-  function removeUser(id: number) {
-    const userId = memoizedApprovedUsers[id].username;
-    console.log(userId);
+  function removeUser(username: String) {
     // send request to approve user with with id, to /approve_user
     fetch(`${apiBaseUrl}/delete_user`, {
       method: 'PUT',
@@ -221,28 +220,7 @@ export default function AdminPage() {
         'Authorization': `Bearer ${user?.token}`,
       },
       body: JSON.stringify({
-        user: {
-          userName: userId
-        }
-      }),
-    }).then(res => res.json())
-      .then(data => {
-        console.log(data);
-      }
-      ).catch(err => console.log(err));  }
-
-  function rejectUser(id: number) {
-    const userId = memoizedUnapprovedUsers[id].username;
-    console.log(userId);
-    // send request to approve user with with id, to /approve_user
-    fetch(`${apiBaseUrl}/delete_user`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${user?.token}`,
-      },
-      body: JSON.stringify({
-        username: userId
+        userName: username
       }),
     }).then(res => res.json())
       .then(data => {
@@ -251,9 +229,11 @@ export default function AdminPage() {
       ).catch(err => console.log(err));
   }
 
-  function approveUser(id: number) {
-    const userId = memoizedUnapprovedUsers[id].username;
-    console.log(userId);
+  function approveUser(username: string) {
+    // add single quotes to username
+    username = "'" + username + "'";
+    console.log(username);
+
     // send request to approve user with with id, to /approve_user
     fetch(`${apiBaseUrl}/approve_user`, {
       method: 'PUT',
@@ -262,7 +242,7 @@ export default function AdminPage() {
         'Authorization': `Bearer ${user?.token}`,
       },
       body: JSON.stringify({
-        userName: userId
+        userName: username
       }),
     }).then(res => res.json())
       .then(data => {
@@ -292,7 +272,7 @@ export default function AdminPage() {
             >
               <DataGrid
                 className="admin-page__approved-users__container__data-grid"
-                rows={memoizedApprovedUsers.map((user, index) => ({ ...user, id: index }))}
+                rows={memoizedApprovedUsers}
                 columns={[
                   {
                     field: "firstName",
@@ -343,15 +323,14 @@ export default function AdminPage() {
                     headerName: "Remove",
                     flex: 0.5,
                     minWidth: 50,
-                    renderCell: (params: GridValueGetterParams) => (
+                    renderCell: (params: GridRenderCellParams<any, User, any>): any => (
                       <button
                         className="admin-page__approved-users__container__data-grid__delete-button"
-                        onClick={() => removeUser(params.row.id)}
+                        onClick={() => removeUser(params.row.username)}
                       >
                         &#10005;
                       </button>
                     ),
-                    disableClickEventBubbling: true,
                   },
                 ]}
                 pageSize={5}
@@ -376,7 +355,7 @@ export default function AdminPage() {
             >
               <DataGrid
                 className="admin-page__pending-users__container__data-grid"
-                rows={memoizedUnapprovedUsers.map((user, index) => ({ ...user, id: index }))}
+                rows={memoizedUnapprovedUsers}
                 columns={[
                   {
                     field: "firstName",
@@ -427,23 +406,22 @@ export default function AdminPage() {
                     headerName: "Actions",
                     flex: 0.5,
                     minWidth: 50,
-                    renderCell: (params: GridValueGetterParams) => (
+                    renderCell: (params: GridRenderCellParams<any, User, any>): any =>  (
                       <div className="admin-page__pending-users__container__data-grid__actions">
                         <button
                           className="admin-page__pending-users__container__data-grid__actions__approve-button"
-                          onClick={() => approveUser(params.row.id)}
+                          onClick={() => approveUser(params.row.username)}
                         >
                           &#10003;
                         </button>
                         <button
                           className="admin-page__pending-users__container__data-grid__actions__reject-button"
-                          onClick={() => rejectUser(params.row.id)}
+                          onClick={() => removeUser(params.row.username)}
                         >
                           &#10005;
                         </button>
                       </div>
                     ),
-                    disableClickEventBubbling: true,
                   },
                 ]}
                 pageSize={5}
