@@ -42,7 +42,7 @@ export default function MatchPage() {
   } | null>(null);
 
   function setSelectedSeatCallback(x: number, y: number) {
-      setSelectedSeat({ x, y });
+    setSelectedSeat({ x, y });
   }
 
   // skip endline in template literals
@@ -73,39 +73,35 @@ export default function MatchPage() {
                   <div
                     className="match-page__match__info__inner__teams__image-container__image-1"
                     style={{
-                      filter: `hue-rotate(${
-                        charsData.get(match.team1)!["hue-rotate"]
-                      })`,
+                      filter: `hue-rotate(${charsData.get(match.team1)!["hue-rotate"]
+                        })`,
                     }}
                   >
                     <img
                       src={charsData.get(match.team1)!.image}
                       alt=""
                       style={{
-                        filter: `hue-rotate(-${
-                          charsData.get(match.team1)!["hue-rotate"]
-                        })`,
+                        filter: `hue-rotate(-${charsData.get(match.team1)!["hue-rotate"]
+                          })`,
                       }}
                     />
                   </div>
                   <div className="match-page__match__info__inner__teams__image-container__vs">
-                    <img src="/src/assets/vs.png" alt="" />
+                    <img src="/src/assets/Vs.png" alt="" />
                   </div>
                   <div
                     className="match-page__match__info__inner__teams__image-container__image-2"
                     style={{
-                      filter: `hue-rotate(${
-                        charsData.get(match.team2)!["hue-rotate"]
-                      })`,
+                      filter: `hue-rotate(${charsData.get(match.team2)!["hue-rotate"]
+                        })`,
                     }}
                   >
                     <img
                       src={charsData.get(match.team2)!.image}
                       alt=""
                       style={{
-                        filter: `hue-rotate(-${
-                          charsData.get(match.team2)!["hue-rotate"]
-                        })`,
+                        filter: `hue-rotate(-${charsData.get(match.team2)!["hue-rotate"]
+                          })`,
                       }}
                     />
                   </div>
@@ -113,9 +109,8 @@ export default function MatchPage() {
                 <div className="match-page__match__info__inner__teams__team-name">
                   <div className="match-page__match__info__inner__teams__team-name-1">
                     <img
-                      src={`/src/assets/${
-                        charsData.get(match.team1)!.nen
-                      }.webp`}
+                      src={`/src/assets/${charsData.get(match.team1)!.nen
+                        }.webp`}
                       alt=""
                     />
                     <div className="match-page__match__info__inner__teams__team-name-1__name">
@@ -125,11 +120,10 @@ export default function MatchPage() {
                       <div
                         className="match-page__match__info__inner__teams__team-name-1__name__nen"
                         style={{
-                          color: `${
-                            nenColors[
-                              NenTypes[charsData.get(match.team1)!.nen!]
+                          color: `${nenColors[
+                            NenTypes[charsData.get(match.team1)!.nen!]
                             ]
-                          }`,
+                            }`,
                         }}
                       >
                         {charsData.get(match.team1)!.nen}
@@ -144,20 +138,18 @@ export default function MatchPage() {
                       <div
                         className="match-page__match__info__inner__teams__team-name-2__name__nen"
                         style={{
-                          color: `${
-                            nenColors[
-                              NenTypes[charsData.get(match.team2)!.nen!]
+                          color: `${nenColors[
+                            NenTypes[charsData.get(match.team2)!.nen!]
                             ]
-                          }`,
+                            }`,
                         }}
                       >
                         {charsData.get(match.team2)!.nen}
                       </div>
                     </div>
                     <img
-                      src={`/src/assets/${
-                        charsData.get(match.team2)!.nen
-                      }.webp`}
+                      src={`/src/assets/${charsData.get(match.team2)!.nen
+                        }.webp`}
                       alt=""
                     />
                   </div>
@@ -202,9 +194,8 @@ export default function MatchPage() {
                 )}
               </div>
               <button
-                className={`match-page__match__stadium__button-container__button${
-                  !selectedSeat ? "--disabled" : ""
-                }`}
+                className={`match-page__match__stadium__button-container__button${!selectedSeat ? "--disabled" : ""
+                  }`}
                 disabled={!selectedSeat}
               >
                 Reserve Seat
