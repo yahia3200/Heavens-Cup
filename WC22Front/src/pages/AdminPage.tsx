@@ -146,6 +146,8 @@ export default function AdminPage() {
   const [users, setUsers] = useState<User[]>([]);
   // get user from context
   const { user } = useContext(UserContext);
+  // state for triggering the fetch effect when the a user is approved or rejected
+  const [trigger, setTrigger] = useState<boolean>(false);
 
   useEffect(() => {
       fetch(`${apiBaseUrl}/get_all_users`, {
@@ -194,7 +196,7 @@ export default function AdminPage() {
           }
           ).catch(err => console.log(err));
 
-  }, []);
+  }, [trigger]);
 
   // Memoize users to avoid re-rendering
   const memoizedApprovedUsers = React.useMemo(
@@ -214,7 +216,7 @@ export default function AdminPage() {
   function removeUser(username: String) {
     // send request to approve user with with id, to /approve_user
     fetch(`${apiBaseUrl}/delete_user`, {
-      method: 'PUT',
+      method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${user?.token}`,
@@ -225,13 +227,13 @@ export default function AdminPage() {
     }).then(res => res.json())
       .then(data => {
         console.log(data);
+        setTrigger(!trigger);
       }
       ).catch(err => console.log(err));
   }
 
   function approveUser(username: string) {
     // add single quotes to username
-    username = "'" + username + "'";
     console.log(username);
 
     // send request to approve user with with id, to /approve_user
@@ -247,6 +249,7 @@ export default function AdminPage() {
     }).then(res => res.json())
       .then(data => {
         console.log(data);
+        setTrigger(!trigger);
       }
       ).catch(err => console.log(err));
   }
