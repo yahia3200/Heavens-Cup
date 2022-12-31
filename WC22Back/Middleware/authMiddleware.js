@@ -41,7 +41,7 @@ const isClient = (req, res, next) => {
 
 const isManager = (req, res, next) => {
     try{
-        if(req.user.approved === true || true){
+        if(req.user.approved === true){
             if(req.user.role === 1){
                 next();
             }
@@ -50,7 +50,7 @@ const isManager = (req, res, next) => {
             }
         }
         else{
-            return res.status(400).json({error: "Not approved be adminstrator"});
+            return res.status(400).json({error: "Not approved by adminstrator"});
         }
     }catch(err){
         console.log(err);

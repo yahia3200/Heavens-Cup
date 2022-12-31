@@ -83,6 +83,9 @@ const SignIN: React.FunctionComponent<SignINProps> = () => {
         const success = checkRegister();
         if (!success) return;
 
+        const birthDate = new Date(dob);
+        const dobString = birthDate.toISOString();
+
         const response = await fetch(`${apiBaseUrl}/signup`, {
             method: 'POST',
             headers: {
@@ -96,7 +99,7 @@ const SignIN: React.FunctionComponent<SignINProps> = () => {
                 email: registerEmail,
                 userrole: userType === 'fan' ? 0 : 1,
                 gender: gender === 'male' ? 0 : 1,
-                birthdate: dob,
+                birthdate: dobString,
                 nationality: nationality,
                 password: registerPassword
 
@@ -105,9 +108,6 @@ const SignIN: React.FunctionComponent<SignINProps> = () => {
 
         const data = await response.json();
         if (response.status === 200) {
-
-            // transform user birth date to match Tuesday 1 January 2020
-            const birthDate = `${dob.split('T')[0].split('-')[2]} ${dob.split('T')[0].split('-')[1]} ${dob.split('T')[0].split('-')[0]}`;
 
             // calculate user age
             const age = new Date().getFullYear() - parseInt(dob.split('T')[0].split('-')[0]);
@@ -120,7 +120,7 @@ const SignIN: React.FunctionComponent<SignINProps> = () => {
                 type: userType as userType,
                 token: data.token,
                 age: age,
-                birthDate: birthDate as CustomDate,
+                birthDate: birthDate,
                 nationality: nationality,
                 gender: gender as ('male' | 'female'),
             }
@@ -166,23 +166,19 @@ const SignIN: React.FunctionComponent<SignINProps> = () => {
         const data = await response.json();
         if (response.status === 200) {
 
-            const userDob = data.user.birthdate;
-
-            // transform user birth date to match Tuesday 1 January 2020
-            const birthDate = `${userDob.split('T')[0].split('-')[2]} ${userDob.split('T')[0].split('-')[1]} ${userDob.split('T')[0].split('-')[0]}`;
-
+            const userDob = new Date(data.user.birthdate);
             // calculate user age
-            const age = new Date().getFullYear() - parseInt(userDob.split('T')[0].split('-')[0]);
+            const age = new Date().getFullYear() - parseInt(data.user.birthdate.split('T')[0].split('-')[0]);
 
             const user = {
                 firstName: data.user.fname,
                 lastName: data.user.lname,
                 username: data.user.username,
                 email: data.user.email as Email,
-                type: data.user.userrole === 0 ? 'fan' : data.user.userrole === 1? 'manager' : 'admin' as userType,
+                type: data.user.userrole === 0 ? 'fan' : data.user.userrole === 1 ? 'manager' : 'admin' as userType,
                 token: data.token,
                 age: age,
-                birthDate: birthDate as CustomDate,
+                birthDate: userDob,
                 nationality: nationality,
                 gender: gender as ('male' | 'female'),
             }
@@ -232,12 +228,12 @@ const SignIN: React.FunctionComponent<SignINProps> = () => {
 
                         <div className='SignIn__form__button'>
                             <button className='match-page__match__stadium__button-container__button'
-                            type='submit' onClick={
-                                (e) => {
-                                    e.preventDefault();
-                                    signIn();
-                                }
-                            }>Sign in</button>
+                                type='submit' onClick={
+                                    (e) => {
+                                        e.preventDefault();
+                                        signIn();
+                                    }
+                                }>Sign in</button>
                         </div>
                     </form>
                 </div>
@@ -330,11 +326,11 @@ const SignIN: React.FunctionComponent<SignINProps> = () => {
 
                         <div className='SignIn__form__button'>
                             <button className='match-page__match__stadium__button-container__button'
-                            type='submit' onClick={(e) => {
-                                e.preventDefault();
-                                register();
+                                type='submit' onClick={(e) => {
+                                    e.preventDefault();
+                                    register();
 
-                            }}>Register</button>
+                                }}>Register</button>
 
                         </div>
                     </form>

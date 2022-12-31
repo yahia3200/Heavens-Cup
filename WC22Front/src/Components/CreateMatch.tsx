@@ -154,7 +154,7 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
+
                 if (data.message === 'Match created successfully') {
                     setOpen(false);
                 }
@@ -284,12 +284,12 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
                     </div>
                     <div className='SignIn__form__button'>
                         <button className='match-page__match__stadium__button-container__button'
-                        type='submit' onClick={
-                            e => {
-                                e.preventDefault();
-                                handleSubmit();
-                            }
-                        }>Create Match</button>
+                            type='submit' onClick={
+                                e => {
+                                    e.preventDefault();
+                                    handleSubmit();
+                                }
+                            }>Create Match</button>
                     </div>
                 </Box>
 

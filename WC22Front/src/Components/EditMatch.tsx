@@ -4,7 +4,7 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import { charsData } from '../Components/MatchPage/chars'
 import { apiBaseUrl } from '../config.json';
-import { Stadium, Referee, Character, Match } from '../Types';
+import { Stadium, Referee, Character, Match, fromCustomDateToISO } from '../Types';
 
 interface EditMatchProps {
     match: Match;
@@ -45,33 +45,8 @@ const EditMatch: React.FunctionComponent<EditMatchProps> = ({ match, open, setOp
     const [referee, setReferee] = useState(match.referees[0]);
     const [firstLinesmen, setFirstLinesmen] = useState(match.referees[1]);
     const [secondLinesmen, setSecondLinesmen] = useState(match.referees[2]);
-    // transform date from Monday 1 January 2021 to mm/dd/yyyy
-    let transformedDate = match.date.split(' ');
-    // map month to 2-digit number of month
-    const monthMap = new Map([
-        ['January', '01'],
-        ['February', '02'],
-        ['March', '03'],
-        ['April', '04'],
-        ['May', '05'],
-        ['June', '06'],
-        ['July', '07'],
-        ['August', '08'],
-        ['September', '09'],
-        ['October', '10'],
-        ['November', '11'],
-        ['December', '12'],
-    ]);
 
-    transformedDate[2] = monthMap.get(transformedDate[2])!;
-
-    // make sure that day is 2 digits
-    if (transformedDate[1].length === 1) {
-        transformedDate[1] = '0' + transformedDate[1];
-    }
-
-    let formattedDate = transformedDate[3] + '-' + transformedDate[2] + '-' + transformedDate[1];
-    console.log(formattedDate);
+    const formattedDate = fromCustomDateToISO(match.date)
     const [date, setDate] = useState(formattedDate);
     const [matchTime, setMatchTime] = useState(match.time as string);
 
@@ -180,7 +155,6 @@ const EditMatch: React.FunctionComponent<EditMatchProps> = ({ match, open, setOp
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
                 if (data.message === 'Match created successfully') {
                     setOpen(false);
                 }
@@ -310,12 +284,12 @@ const EditMatch: React.FunctionComponent<EditMatchProps> = ({ match, open, setOp
                     </div>
                     <div className='SignIn__form__button'>
                         <button className='match-page__match__stadium__button-container__button'
-                        type='submit' onClick={
-                            e => {
-                                e.preventDefault();
-                                handleSubmit();
-                            }
-                        }>Edit Match</button>
+                            type='submit' onClick={
+                                e => {
+                                    e.preventDefault();
+                                    handleSubmit();
+                                }
+                            }>Edit Match</button>
                     </div>
                 </Box>
 

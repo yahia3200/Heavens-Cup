@@ -9,6 +9,7 @@ type Props = { children: React.ReactNode }
 export default function UserContextProvider(props: Props) {
     const userString = localStorage.getItem('user');
     const storedUser = userString ? JSON.parse(userString) : null;
+    storedUser['birthDate'] = new Date(storedUser['birthDate']);
 
     // create a fake user for testing
     const fakeUser = {
