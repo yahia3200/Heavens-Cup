@@ -51,6 +51,9 @@ const Profile: React.FunctionComponent<ProfileProps> = () => {
     const randomChar = charsData.get(charsNames[Math.floor(Math.random() * charsNames.length)]);
     const randomCharRef = useRef(randomChar);
 
+    const handleEdit = () => {
+    }
+
     return (
         <div className="profile">
             <Modal
@@ -103,8 +106,14 @@ const Profile: React.FunctionComponent<ProfileProps> = () => {
 
                     </div>
                     <div className='SignIn__form__button'>
-                        <button className='match-page__match__stadium__button-container__button'
-                        type='submit'>Save Changes</button>
+                        <button
+                        className='match-page__match__stadium__button-container__button'
+                        type='submit' onClick={
+                            (e) => {
+                                e.preventDefault()
+                                handleEdit()
+                            }
+                        }>Save Changes</button>
                     </div>
 
                 </Box>
