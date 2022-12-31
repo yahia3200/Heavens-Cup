@@ -1,0 +1,87 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
+
+// create a variable for the primary color
+$primary-color: #37003c;
+
+// create a variable for the secondary color
+$secondary-color: #e90052;
+
+// create a variable for the tertiary color
+$tertiary-color: #963cff;
+
+$red: #be1414;
+$green: #158615;
+
+.admin-page{
+    margin-top: 20px;
+    margin-bottom: 100px;
+    &__approved-users, &__pending-users {
+        margin-bottom: 50px;
+
+        h1 {
+            font-family: 'Josefin Sans', sans-serif;
+            color: $primary-color;
+            margin-bottom: 10px;
+        }
+
+        &__container {
+            display: flex;
+
+            &__data-grid {
+                width: 100%;
+                margin: 10px 0;
+            }
+        }
+    }
+}
+
+.admin-page__approved-users__container__data-grid__delete-button {
+    background-color: $red;
+    color: white;
+    border: none;
+    border-radius: 80px;
+    padding: 5px 7.5px;
+    cursor: pointer;
+    transition: all .1s ease-in-out;
+    font-weight: 800;
+    &:hover {
+        background-color: saturate(lighten($red, 20), $amount: 30);
+    }
+}
+
+.admin-page__pending-users__container__data-grid__actions{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100px;
+    margin: 0 auto;
+
+    &__approve-button {
+        background-color: $green;
+        color: white;
+        border: none;
+        border-radius: 80px;
+        padding: 5px 7.5px;
+        cursor: pointer;
+        transition: all .1s ease-in-out;
+        font-weight: 800;
+        &:hover {
+            background-color: saturate(lighten($green, 10), $amount: 25);
+        }
+    }
+
+    &__reject-button {
+        background-color: $red;
+        color: white;
+        border: none;
+        border-radius: 80px;
+        padding: 5px 7.5px;
+        cursor: pointer;
+        transition: all .1s ease-in-out;
+        font-weight: 800;
+        &:hover {
+            background-color: saturate(lighten($red, 20), $amount: 30);
+        }
+    }
+}

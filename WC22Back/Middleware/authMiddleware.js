@@ -11,7 +11,6 @@ const authVerifier = (req, res, next) => {
     }
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET)
-        console.log(decoded);
         req.user = decoded;
         //next() will make you apple to porceed with the function called this Auth confirmation
         next();

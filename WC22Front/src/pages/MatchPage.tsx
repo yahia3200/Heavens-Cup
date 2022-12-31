@@ -7,6 +7,7 @@ import {
   NenTypes,
 } from "../Components/MatchPage/chars";
 import PageHeader from "../Components/PageHeader";
+import Stadium from "../Components/MatchPage/Stadium";
 
 export default function MatchPage() {
   const match = {
@@ -19,8 +20,8 @@ export default function MatchPage() {
   const stadium = {
     name: "Heaven's Arena",
     image: "",
-    width: 25,
-    height: 15,
+    width: 60,
+    height: 10,
     reservedSeats: [
       { x: 1, y: 1 },
       { x: 1, y: 2 },
@@ -39,6 +40,10 @@ export default function MatchPage() {
     x: number;
     y: number;
   } | null>(null);
+
+  function setSelectedSeatCallback(x: number, y: number) {
+      setSelectedSeat({ x, y });
+  }
 
   // skip endline in template literals
   // `hello \
@@ -180,76 +185,12 @@ export default function MatchPage() {
             <div className="match-page__match__stadium__name">
               {stadium.name}
             </div>
-            <div className="match-page__match__stadium__grid">
-              {Array.from(Array(stadium.height).keys()).map((y) => {
-                return (
-                  <div className="match-page__match__stadium__grid__row">
-                    {Array.from(Array(stadium.width).keys()).map((x) => {
-                      return (
-                        <>
-                          {x == 0 && (
-                            <div
-                              className={`match-page__match__stadium__grid__row__label${
-                                selectedSeat?.y === y ? "--selected" : ""
-                              }`}
-                            >
-                              {/* as a char */ String.fromCharCode(65 + y)}
-                            </div>
-                          )}
-                          <div
-                            style={{
-                              width: `${
-                                10 + Math.ceil(50 / Math.sqrt((Math.max(stadium.width, stadium.height) + 1)))
-                              }px`,
-                            }}
-                            className={
-                              `match-page__match__stadium__grid__row__seat` +
-                              `${
-                                stadium.reservedSeats.find(
-                                  (seat) => seat.x === x && seat.y === y
-                                )
-                                  ? "--reserved"
-                                  : ""
-                              }` +
-                              `${
-                                selectedSeat?.x === x && selectedSeat?.y === y
-                                  ? "--selected"
-                                  : ""
-                              }`
-                            }
-                            onClick={() => {
-                              if (
-                                stadium.reservedSeats.find(
-                                  (seat) => seat.x === x && seat.y === y
-                                )
-                              )
-                                return;
-                              if (
-                                selectedSeat?.x === x &&
-                                selectedSeat?.y === y
-                              )
-                                setSelectedSeat(null);
-                              else setSelectedSeat({ x, y });
-                            }}
-                          >
-                            {y == 0 && (
-                              <div
-                                className={`match-page__match__stadium__grid__row__seat__above-label${
-                                  selectedSeat?.x === x ? "--selected" : ""
-                                }`}
-                              >
-                                {x + 1}
-                              </div>
-                            )}
-                          </div>
-                        </>
-                      );
-                    })}
-                  </div>
-                );
-              })}
-            </div>
-
+            <Stadium
+              stadium={stadium}
+              selectedSeat={selectedSeat}
+              setSelectedSeat={setSelectedSeat}
+              disabled={false}
+            />
             <div className="match-page__match__stadium__button-container">
               <div className="match-page__match__stadium__button-container__selected-seat">
                 Selected Seat:
