@@ -3,7 +3,7 @@ const poolconnection = require('../Repositories/user');
 module.exports = {
     approveUser: async (req, res) => {
         try {
-            const user = await poolconnection.approveUser(req.user.userName);
+            const user = await poolconnection.approveUser(req.body.userName);
             res.status(200).json({ user: user });
         }
         catch (err) {
@@ -13,7 +13,7 @@ module.exports = {
     },
     deleteUser: async (req, res) => {
         try {
-            const user = await poolconnection.deleteUser(req.user.userName);
+            const user = await poolconnection.deleteUser(req.body.userName);
             res.status(200).json({ user: user });
         }
         catch (err) {
