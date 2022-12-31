@@ -82,7 +82,7 @@ export default function Stadium(props: Props) {
                       }` + ` match-page__match__stadium__grid__row__seat--${userType}`
                     }
                     onClick={() => {
-                      if (props.disabled || userType === "manager") return;
+                      if (props.disabled || !userType || userType === "manager") return;
                       if (
                         stadium.reservedSeats.find(
                           (seat) => seat.x === x && seat.y === y
