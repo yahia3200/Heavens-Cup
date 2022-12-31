@@ -9,6 +9,7 @@ import Box from '@mui/material/Box';
 import CreateMatch from '../Components/CreateMatch'
 import AddStadium from '../Components/AddStadium'
 import { charsData } from '../Components/MatchPage/chars'
+import { apiBaseUrl } from '../config.json'
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -52,6 +53,32 @@ const Profile: React.FunctionComponent<ProfileProps> = () => {
     const randomCharRef = useRef(randomChar);
 
     const handleEdit = () => {
+        const userData = {
+            fname: firstName,
+            lname: lastName,
+            email: user?.email,
+            gender: gender === 'male' ? 0 : 1,
+            birthdate: birthDate,
+            nationality: user?.nationality,
+            username: user?.username,
+        }
+
+        fetch(`${apiBaseUrl}/edit_data`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user?.token}`
+            },
+            body: JSON.stringify({ user: userData })
+        }).then(res => {
+            if (res.status === 200) {
+                handleClose();
+            }
+            else {
+                alert('Something went wrong')
+            }
+        })
+
     }
 
     return (
