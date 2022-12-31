@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { UserContext } from '../contexts/userContext';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
@@ -30,9 +30,9 @@ interface AddStadiumProps {
 
 const AddStadium: React.FunctionComponent<AddStadiumProps> = ({ open, setOpen }) => {
 
-    const [arenaName, setArenaName] = useState('');
-    const [nRows, setNRows] = useState(0);
-    const [nCols, setNCols] = useState(0);
+    const [arenaName, setArenaName] = useState('Arena 51');
+    const [nRows, setNRows] = useState(5);
+    const [nCols, setNCols] = useState(5);
 
     const [error, setError] = useState('');
     const handleClose = () => setOpen(false);
@@ -42,13 +42,18 @@ const AddStadium: React.FunctionComponent<AddStadiumProps> = ({ open, setOpen })
 
     const handleSubmit = async () => {
 
+        if (arenaName === '') {
+            setError('Please enter a name for the arena');
+            return;
+        }
+
         const response = await fetch(`${apiBaseUrl}/create_stadium`, {
             method: 'POST',
-            headers: { 
+            headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${token}`
-             },
+            },
             body: JSON.stringify({
                 stad_name: arenaName,
                 num_rows: nRows,
@@ -83,12 +88,37 @@ const AddStadium: React.FunctionComponent<AddStadiumProps> = ({ open, setOpen })
                             <div className="modal-col">
                                 <input name='arena-name' id='arena-name' type="text" value={arenaName} onChange={
                                     (e) => {
+                                        if (e.target.value === '') {
+                                            setError('Please enter a name for the arena');
+                                        }
+                                        else {
+                                            setError('');
+                                        }
                                         setArenaName(e.target.value);
                                     }
                                 } />
                                 <input name='n-rows' id='n-rows' type="number" value={nRows} onChange={
                                     (e) => {
-                                        setNRows(parseInt(e.target.value));
+                                        console.log(e.target.value);
+                                        if (e.target.value === '') {
+                                            setError('Please enter a number of rows');
+                                            setNRows(NaN)
+                                            return;
+                                        }
+
+                                        const currentNRows = parseInt(e.target.value);
+
+                                        if (currentNRows < 5) {
+                                            setError('Number of rows must be between 5 and 25');
+                                        }
+                                        else if (currentNRows > 25) {
+                                            setError('Number of rows must be between 5 and 25');
+                                        }
+                                        else {
+                                            setError('');
+                                        }
+
+                                        setNRows(currentNRows);
                                     }
                                 } />
                             </div>
@@ -100,18 +130,40 @@ const AddStadium: React.FunctionComponent<AddStadiumProps> = ({ open, setOpen })
                                 <label></label>
                                 <input name='n-cols' id='n-cols' type="number" value={nCols} onChange={
                                     (e) => {
-                                        setNCols(parseInt(e.target.value));
+                                        if (e.target.value === '') {
+                                            setError('Please enter a number of columns');
+                                            setNCols(NaN)
+                                            return;
+                                        }
+
+                                        const currentNCols = parseInt(e.target.value);
+
+                                        if (currentNCols < 5) {
+                                            setError('Number of columns must be between 5 and 25');
+                                        }
+                                        else if (currentNCols > 60) {
+                                            setError('Number of columns must be between 5 and 60');
+                                        }
+                                        else {
+                                            setError('');
+                                        }
+
+                                        setNCols(currentNCols);
                                     }
                                 } />
                             </div>
                         </div>
                         <div className='SignIn__form__button'>
-                            <button type='submit' onClick={
+                            <button disabled={error ? true : false} type='submit' onClick={
                                 (e) => {
                                     e.preventDefault();
                                     handleSubmit();
                                 }
                             }>Add Arena</button>
+                        </div>
+
+                        <div className='SignIn__form__error'>
+                            {error}
                         </div>
                     </form>
                     <Stadium
