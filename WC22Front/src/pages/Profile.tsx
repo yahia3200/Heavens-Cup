@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, useRef } from 'react'
 import { UserContext } from '../contexts/userContext'
 import PageHeader from '../Components/PageHeader'
 import FixturesTable from '../Components/Fixtures/FixturesTable'
@@ -8,6 +8,7 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import CreateMatch from '../Components/CreateMatch'
 import AddStadium from '../Components/AddStadium'
+import { charsData } from '../Components/MatchPage/chars'
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -43,6 +44,12 @@ const Profile: React.FunctionComponent<ProfileProps> = () => {
     const [lastName, setLastName] = useState(user?.lastName)
     const [birthDate, setBirthDate] = useState(user?.birthDate)
     const [gender, setGender] = useState(user?.gender)
+
+
+    // chose a random character for the characters data
+    const charsNames = Array.from(charsData.keys());
+    const randomChar = charsData.get(charsNames[Math.floor(Math.random() * charsNames.length)]);
+    const randomCharRef = useRef(randomChar);
 
     return (
         <div className="profile">
@@ -157,8 +164,11 @@ const Profile: React.FunctionComponent<ProfileProps> = () => {
 
 
                             </div>
+                            {
+                                // choose a random character
+                                <img src={randomCharRef.current?.image} />
+                            }
 
-                            <img src='/src/assets/Chars/Gon.png' />
                         </div>
                         <div className="profile__info__row">
                             <div className="profile__info__item">
