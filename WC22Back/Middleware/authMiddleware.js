@@ -59,8 +59,22 @@ const isManager = (req, res, next) => {
     }
 }
 
+const isAdmin = (req, res, next) => {
+    try{
+        if(req.user.role === 2){
+            next();
+        }
+        else{
+            return res.status(400).json({error: "Not an admin"});
+        }
+    }catch(err){
+        console.log(err);
+        return res.status(400).json({error: "Invalid token"});
+    }
+}
 module.exports = {
     authVerifier,
     isClient,
-    isManager
+    isManager,
+    isAdmin
 }; 
