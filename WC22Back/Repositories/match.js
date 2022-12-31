@@ -31,9 +31,8 @@ module.exports = {
     },
     getMatches : async function () {
         try {
-            const matches = await pool.query(`SELECT  matches.id, matches.start_time , 
-            team1.team_name AS team1_name, team2.team_name AS team2_name, 
-            stadiums.stad_name
+            const matches = await pool.query(`SELECT  matches.*, team1.team_name AS team1_name, 
+            team2.team_name AS team2_name, stadiums.stad_name
             FROM matches
             INNER JOIN teams AS team1 ON matches.team1 = team1.id
             INNER JOIN teams AS team2 ON matches.team2 = team2.id

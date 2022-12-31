@@ -20,5 +20,15 @@ module.exports = {
             console.log(err);
             res.status(400).json({ "error": err.detail });
         }
+    },
+    getAllUsers: async (req, res) => {
+        try {
+            const users = await poolconnection.getAllUsers();
+            res.status(200).json({ users: users });
+        }
+        catch (err) {
+            console.log(err);
+            res.status(400).json({ "error": err.detail });
+        }
     }
 }
