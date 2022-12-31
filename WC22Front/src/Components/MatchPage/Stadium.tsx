@@ -15,12 +15,14 @@ interface Props {
     y: number;
   } | null;
   // default value is null
-  setSelectedSeat?: ((
-    seat: {
-      x: number;
-      y: number;
-    } | null
-  ) => void )| null;
+  setSelectedSeat?:
+    | ((
+        seat: {
+          x: number;
+          y: number;
+        } | null
+      ) => void)
+    | null;
   disabled: boolean;
 }
 
@@ -28,6 +30,10 @@ export default function Stadium(props: Props) {
   const { stadium, selectedSeat, setSelectedSeat } = props;
 
   return (
+    !(stadium.width >= 5 && stadium.height >= 5 && stadium.width <= 60 && stadium.height <= 25)?
+    (<div className="match-page__match__stadium__grid__error"> width must be between 5 and 60 and height must be between 5 and 25 </div>)
+    :
+    (
     <div className="match-page__match__stadium__grid">
       {Array.from(Array(stadium.height).keys()).map((y) => {
         return (
@@ -60,8 +66,8 @@ export default function Stadium(props: Props) {
                       `match-page__match__stadium__grid__row__seat` +
                       `${
                         stadium.reservedSeats.find(
-                          ((seat) => seat.x === x && seat.y === y) || props.disabled
-                        )
+                          (seat) => seat.x === x && seat.y === y
+                        ) || props.disabled
                           ? "--reserved"
                           : ""
                       }` +
@@ -78,7 +84,11 @@ export default function Stadium(props: Props) {
                         )
                       )
                         return;
-                      if (selectedSeat?.x === x && selectedSeat?.y === y && setSelectedSeat)
+                      if (
+                        selectedSeat?.x === x &&
+                        selectedSeat?.y === y &&
+                        setSelectedSeat
+                      )
                         setSelectedSeat(null);
                       else if (setSelectedSeat) setSelectedSeat({ x, y });
                     }}
@@ -100,5 +110,5 @@ export default function Stadium(props: Props) {
         );
       })}
     </div>
-  );
+  ));
 }
