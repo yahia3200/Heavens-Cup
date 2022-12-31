@@ -22,7 +22,7 @@ module.exports = {
     updateMatch : async function (body) {
         try {
             const matches = await pool.query(`
-            UPDATE matches SET start_time = $1, main_ref = $2, line_man_1 = $3, line_man_2 = $4, stad_id = $5 WHERE id = '$6' RETURNING id;`
+            UPDATE matches SET start_time = $1, main_ref = $2, line_man_1 = $3, line_man_2 = $4, stad_id = $5 WHERE id = $6 RETURNING id;`
             , [body.start_time, body.main_ref, body.line_man_1, body.line_man_2, body.stad_id, body.id]);
             return matches.rows[0];
         } catch (error) {
@@ -56,7 +56,7 @@ module.exports = {
             INNER JOIN referee AS main_referee ON matches.main_ref = main_referee.id
             INNER JOIN referee AS lineman1 ON matches.line_man_1 = lineman1.id
             INNER JOIN referee AS lineman2 ON matches.line_man_2 = lineman2.id
-            WHERE matches.id = '$1';
+            WHERE matches.id = $1;
             `, [id]);
             return matches.rows[0];
         } catch (error) {
