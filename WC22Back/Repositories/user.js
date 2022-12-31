@@ -34,7 +34,7 @@ module.exports = {
   },
   getUser: async function (username) {
     try {
-      const users = await pool.query("SELECT * FROM users WHERE username = $1;", [username]);
+      const users = await pool.query("SELECT * FROM users WHERE username = '$1';", [username]);
       return users.rows[0];
     } catch (error) {
       throw error;
@@ -51,8 +51,8 @@ module.exports = {
   updateUser : async function (body) {
     try {
       const users = await pool.query(`
-      UPDATE users SET fname = $1, lname = $2, email = $3, gender = $4, birthdate = $5, nationality = $6, hash = $7 WHERE username = $8 RETURNING id;`
-      , [body.fname, body.lname, body.email, body.gender, body.birthdate, body.nationality, body.hash, body.username]);
+      UPDATE users SET fname = $1, lname = $2, email = $3, gender = $4, birthdate = $5, nationality = $6 WHERE username = '$7' RETURNING id;`
+      , [body.fname, body.lname, body.email, body.gender, body.birthdate, body.nationality, body.username]);
       return users.rows[0];
     } catch (error) {
       throw error;
@@ -60,7 +60,7 @@ module.exports = {
   },
   approveUser : async function (username) {
     try {
-      const users = await pool.query("UPDATE users SET approved = true WHERE username = $1 RETURNING id;", [username]);
+      const users = await pool.query("UPDATE users SET approved = true WHERE username = '$1' RETURNING id;", [username]);
       return users.rows[0];
     } catch (error) {
       throw error;
@@ -68,7 +68,7 @@ module.exports = {
   },
   deleteUser : async function (username) {
     try {
-      const users = await pool.query("DELETE FROM users WHERE username = $1 RETURNING id;", [username]);
+      const users = await pool.query("DELETE FROM users WHERE username = '$1' RETURNING id;", [username]);
       return users.rows[0];
     } catch (error) {
       throw error;

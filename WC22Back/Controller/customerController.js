@@ -7,10 +7,6 @@ module.exports = {
 
     edit_data:  async function (req, res) {
         try {
-            const password = req.body.user.password;
-            const hash = await bcrypt.hash(password, 10);
-            req.body.user.hash = hash;
-
             userConnection.updateUser(req.body.user).then((result) => {
                 if(result) {
                     res.status(200).json({message: 'Data updated successfully'});
