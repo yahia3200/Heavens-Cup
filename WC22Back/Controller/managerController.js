@@ -9,47 +9,8 @@ module.exports = {
     view_match_details: async (req, res) => {
         try {
             const match = await matchconnection.getMatch(req.body.id);
-            if(match) {
-                // Create a new object to hold the match details
-                result_details = {};
-                teamconnection.getTeams().then((teams) => {
-                    for(team in teams) {
-                        if(team.id == match.team1) {
-                            result_details.team1 = team.id;
-                        }
-                        else if(team.id == match.team2) {
-                            result_details.team2 = team.id;
-                        }
-                    }
-                });
-
-                stadiumconnection.getStads().then((stads) => {
-                    for(stad in stads) {
-                        if(stad.id == match.stad_id) {
-                            result_details.stad = stad.id;
-                            break;
-                        }
-                    }
-                });
-
-                refereeconnection.getReferees().then((referees) => {
-                    for(referee in referees) {
-                        if(referee.id == match.main_ref) {
-                            result_details.main_referee = referee.id;
-                            break;
-                        }
-                        else if(referee.id == match.line_man_1) {
-                            result_details.line_man_1 = referee.id;
-                            break;
-                        }
-                        else if(referee.id == match.line_man_2) {
-                            result_details.line_man_1 = referee.id;
-                            break;
-                        }
-                    }
-                });
-                
-                res.status(200).json(result_details);
+            if(match) {                
+                res.status(200).json({result: result_details});
             } else {
                 res.status(400).json('Match not found');
             }
@@ -103,7 +64,7 @@ module.exports = {
     edit_match: async (req, res) => {
         try {
             const match = await matchconnection.updateMatch(req.body.match);
-            res.status(200).json(match.id);
+            res.status(200).json({id: match.id});
         } catch (err) {
             res.status(400).json({error: err.detail});
         }
@@ -111,7 +72,7 @@ module.exports = {
     get_all_matches: async (req, res) => {
         try {
             const matches = await matchconnection.getMatches();
-            res.status(200).json(matches);
+            res.status(200).json({matches: matches});
         } catch (err) {
             res.status(400).json({error: err.detail});
         }
@@ -119,7 +80,7 @@ module.exports = {
     get_all_stadiums: async (req, res) => {
         try {
             const stads = await stadiumconnection.getStads();
-            res.status(200).json(stads);
+            res.status(200).json({stads: stads});
         } catch (err) {
             res.status(400).json({error: err.detail});
         }
@@ -144,10 +105,10 @@ module.exports = {
         try {
             const reservations = await resconnection.getMatchReservations(req.body.id);
             if(reservations) {
-                res.status(200).json(reservations);
+                res.status(200).json({reservations: reservations});
             }
             else {
-                res.status(400).json('No reservations found');
+                res.status(400).json({error: 'No reservations found'});
             }
         } catch (err) {
             res.status(400).json({error: err.detail});

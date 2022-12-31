@@ -4,8 +4,17 @@ docker build --tag osamamagdy/wc22_backend:latest .
 
 docker push osamamagdy/wc22_backend
 
+docker pull osamamagdy/wc22_backend
+
+# From container to host
 docker cp <containerId>:/dump.sql ~/web-project/WC22/psql/dump.sql 
 
+# From host to container
+docker cp ~/web-project/WC22/psql/dump.sql <containerId>:/tmp/dump.sql
+
+scp -i ~/Desktop/server_key.pem dump.sql azureuser@20.67.103.184:~/wc22/psql/dump.sql
+
+ssh -i ~/Desktop/server_key.pem azureuser@20.67.103.184
 
 pg_dump -v -U postgres --format=custom --exclude-table-data='pages' --file ./dump.sql wc22
 

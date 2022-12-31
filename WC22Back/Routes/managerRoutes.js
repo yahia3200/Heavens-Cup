@@ -8,16 +8,16 @@ router.post('/create_match',authVerifier, isManager , managerController.create_m
 
 router.post('/create_stadium',authVerifier, isManager , managerController.create_stadium);
 
-router.get('/view_match_details',authVerifier , managerController.view_match_details);
+router.post('/view_match_details', managerController.view_match_details);
 
-router.get('/get_all_matches',authVerifier, isManager , managerController.get_all_matches);
+router.get('/get_all_matches', managerController.get_all_matches);
 
-router.get('/get_all_stadiums',authVerifier, isManager , managerController.get_all_stadiums);
+router.get('/get_all_stadiums', managerController.get_all_stadiums);
 
-router.get('/get_all_refrees',authVerifier, isManager , managerController.get_all_refrees);
+router.get('/get_all_refrees', managerController.get_all_refrees);
 
-router.get('/get_all_teams',authVerifier, isManager , managerController.get_all_teams);
+router.get('/get_all_teams', managerController.get_all_teams);
 
-router.get('/get_match_reservations',authVerifier, isManager , managerController.get_match_reservations);
+router.post('/edit_match',authVerifier, isManager , managerController.edit_match);
 
 module.exports = router;
