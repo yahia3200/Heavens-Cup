@@ -17,13 +17,13 @@ interface Props {
   } | null;
   // default value is null
   setSelectedSeat?:
-  | ((
-    seat: {
-      x: number;
-      y: number;
-    } | null
-  ) => void)
-  | null;
+    | ((
+        seat: {
+          x: number;
+          y: number;
+        } | null
+      ) => void)
+    | null;
   disabled: boolean;
   userType: userType | undefined;
 }
@@ -37,24 +37,24 @@ export default function Stadium(props: Props) {
     :
     (
     <div className="match-page__match__stadium__grid">
-      {Array.from(Array(stadium.height).keys()).map((y) => {
+      {Array.from(Array(stadium.height).keys()).map((y, index1) => {
         return (
           <div className="match-page__match__stadium__grid__row">
-            {Array.from(Array(stadium.width).keys()).map((x) => {
+            {Array.from(Array(stadium.width).keys()).map((x, index2) => {
               return (
                 <>
                   {x == 0 && (
                     <div
-                      key={x + stadium.width * y}
+                      // get a unique key
+                      key={index1 * stadium.width + index2}
                       className={`match-page__match__stadium__grid__row__label${
                         selectedSeat?.y === y ? "--selected" : ""
                       }`}
                     >
-                      {/* as a char */ String.fromCharCode(65 + y)}
+                      {String.fromCharCode(65 + y)}
                     </div>
                   )}
                   <div
-                      key={x + stadium.width * y}
                       style={{
                       width: `${
                         10 +
@@ -100,63 +100,20 @@ export default function Stadium(props: Props) {
                   >
                     {y == 0 && (
                       <div
-                        style={{
-                          width: `${10 +
-                            Math.ceil(
-                              40 /
-                              Math.sqrt(
-                                Math.max(stadium.width, stadium.height) + 1
-                              )
-                            )
-                            }px`,
-                        }}
-                        className={
-                          `match-page__match__stadium__grid__row__seat` +
-                          `${stadium.reservedSeats.find(
-                            (seat) => seat.x === x && seat.y === y
-                          ) || props.disabled
-                            ? "--reserved"
-                            : ""
-                          }` +
-                          `${selectedSeat?.x === x && selectedSeat?.y === y
-                            ? "--selected"
-                            : ""
-                          }`
-                        }
-                        onClick={() => {
-                          if (
-                            stadium.reservedSeats.find(
-                              (seat) => seat.x === x && seat.y === y
-                            )
-                          )
-                            return;
-                          if (
-                            selectedSeat?.x === x &&
-                            selectedSeat?.y === y &&
-                            setSelectedSeat
-                          )
-                            setSelectedSeat(null);
-                          else if (setSelectedSeat) setSelectedSeat({ x, y });
-                        }}
+                        className={`match-page__match__stadium__grid__row__seat__above-label${
+                          selectedSeat?.x === x ? "--selected" : ""
+                        }`}
                       >
-                        {y == 0 && (
-                          <div
-                            className={`match-page__match__stadium__grid__row__seat__above-label${selectedSeat?.x === x ? "--selected" : ""
-                              }`}
-                          >
-                            {x + 1}
-                          </div>
-                        )}
+                        {x + 1}
                       </div>
                     )}
                   </div>
-
-                    </>
-                  );
-                })}
-              </div>
-            );
-          })}
-        </div>
-      ));
+                </>
+              );
+            })}
+          </div>
+        );
+      })}
+    </div>
+  ));
 }
