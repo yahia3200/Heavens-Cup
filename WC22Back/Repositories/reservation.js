@@ -26,7 +26,7 @@ module.exports = {
     getCustomerReservations : async function (user_id) {
         try {
             const reservations = await pool.query(
-                "SELECT * FROM reservations WHERE user_id = '$1';",
+                "SELECT * FROM reservations WHERE user_id = $1;",
                 [
                     user_id
                 ]);
@@ -38,7 +38,7 @@ module.exports = {
     getMatchReservations : async function (match_id) {
         try {
             const reservations = await pool.query(
-                "SELECT * FROM reservations WHERE match_id = '$1';",
+                "SELECT * FROM reservations WHERE match_id = $1;",
                 [
                     match_id
                 ]);
@@ -49,7 +49,7 @@ module.exports = {
     },
     deleteReservation : async function ( chair_id, match_id) {
         try {
-            const reservations = await pool.query("DELETE FROM reservations WHERE chair_id = '$1' AND match_id = '$2';", [chair_id, match_id]);
+            const reservations = await pool.query("DELETE FROM reservations WHERE chair_id = $1 AND match_id = $2;", [chair_id, match_id]);
             return reservations.rows[0];
         } catch (error) {
             throw error;

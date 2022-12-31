@@ -1,38 +1,46 @@
 version: "3.1"
 services:
-  # web_server:
-  #   image: nginx
-  #   container_name: web_server
-  #   ports:
-  #     - 80:80
-  #     - 443:443
-  #   networks:
-  #     - cmplr
-  #   restart: on-failure
-  #   depends_on:
-  #     - frontend
-  #     - backend
-  #   volumes:
-  #     - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf #. is not supposed to be ~ as the file is stored in the repo
-  #     - ~/nginx/nginx.key:/etc/nginx/certs/nginx.key
-  #     - ~/nginx/nginx-certificate.crt:/etc/nginx/certs/nginx-certificate.crt
+  web_server:
+    image: nginx
+    container_name: web_server
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - wc22
+    restart: on-failure
+    depends_on:
+      - frontend
+      - backend
+    volumes:
+      - ~/wc22/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ~/wc22/private.key:/etc/nginx/certs/nginx.key
+      - ~/wc22/certificate.crt:/etc/nginx/certs/nginx-certificate.crt
 
 
-  # frontend:
-  #   image: osamamagdy/cmplr_frontend:latest
-  #   container_name: frontend
-  #   networks:
-  #     - cmplr
-  #   restart: on-failure
-  #   depends_on:
-  #     - backend
+  frontend:
+    image: osamamagdy/wc22_frontend:latest
+    container_name: frontend
+    networks:
+      - wc22
+    restart: on-failure
+    depends_on:
+      - backend
 
 
   backend:
     image: osamamagdy/wc22_backend:latest
     container_name: backend
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_USER: ${DB_USER}
+      DB_PASSWARD: ${DB_PASSWARD}
+      PSQL_DB: ${PSQL_DB}
+      JWT_SECRET: ${JWT_SECRET}
+      PORT: ${PORT}
     ports:
-      - 3000:3000
+      - 80:3000
     networks:
       - wc22
     depends_on:
