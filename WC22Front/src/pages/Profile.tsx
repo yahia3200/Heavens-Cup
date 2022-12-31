@@ -3,7 +3,7 @@ import { UserContext } from '../contexts/userContext'
 import PageHeader from '../Components/PageHeader'
 import FixturesTable from '../Components/Fixtures/FixturesTable'
 import '../styles/Profile.scss'
-import { CustomDate } from '../Types'
+import { User, Gender, formatDate } from '../Types'
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import CreateMatch from '../Components/CreateMatch'
@@ -32,7 +32,7 @@ interface ProfileProps {
 }
 
 const Profile: React.FunctionComponent<ProfileProps> = () => {
-    const { user } = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
 
     const [open, setOpen] = useState(false)
     const handleOpen = () => setOpen(true);
@@ -43,7 +43,8 @@ const Profile: React.FunctionComponent<ProfileProps> = () => {
 
     const [firstName, setFirstName] = useState(user?.firstName)
     const [lastName, setLastName] = useState(user?.lastName)
-    const [birthDate, setBirthDate] = useState(user?.birthDate)
+    console.log(typeof user?.birthDate)
+    const [birthDate, setBirthDate] = useState(formatDate(user.birthDate))
     const [gender, setGender] = useState(user?.gender)
 
 
@@ -53,12 +54,17 @@ const Profile: React.FunctionComponent<ProfileProps> = () => {
     const randomCharRef = useRef(randomChar);
 
     const handleEdit = () => {
+        const dob = new Date(birthDate);
+
+        // calculate user age
+        const age = new Date().getFullYear() - parseInt(birthDate.split('T')[0].split('-')[0]);
+
         const userData = {
             fname: firstName,
             lname: lastName,
             email: user?.email,
             gender: gender === 'male' ? 0 : 1,
-            birthdate: birthDate,
+            birthdate: dob.toISOString(),
             nationality: user?.nationality,
             username: user?.username,
         }
@@ -72,6 +78,14 @@ const Profile: React.FunctionComponent<ProfileProps> = () => {
             body: JSON.stringify({ user: userData })
         }).then(res => {
             if (res.status === 200) {
+                setUser({
+                    ...user,
+                    firstName: firstName as string,
+                    lastName: lastName as string,
+                    birthDate: dob,
+                    gender: gender!,
+                    age: age
+                } as User)
                 handleClose();
             }
             else {
@@ -117,7 +131,7 @@ const Profile: React.FunctionComponent<ProfileProps> = () => {
                         <div className="modal-col">
                             <input name='dob' id='dob' type="date" value={birthDate} onChange={
                                 (e) => {
-                                    setBirthDate(e.target.value as CustomDate)
+                                    setBirthDate(e.target.value)
                                 }
                             } />
                             <select name="gender" id="gender" value={gender} onChange={
@@ -134,13 +148,13 @@ const Profile: React.FunctionComponent<ProfileProps> = () => {
                     </div>
                     <div className='SignIn__form__button'>
                         <button
-                        className='match-page__match__stadium__button-container__button'
-                        type='submit' onClick={
-                            (e) => {
-                                e.preventDefault()
-                                handleEdit()
-                            }
-                        }>Save Changes</button>
+                            className='match-page__match__stadium__button-container__button'
+                            type='submit' onClick={
+                                (e) => {
+                                    e.preventDefault()
+                                    handleEdit()
+                                }
+                            }>Save Changes</button>
                     </div>
 
                 </Box>
@@ -214,7 +228,7 @@ const Profile: React.FunctionComponent<ProfileProps> = () => {
                         <div className="profile__info__row">
                             <div className="profile__info__item">
                                 <button className='match-page__match__stadium__button-container__button'
-                                 onClick={handleOpen}>Edit your information</button>
+                                    onClick={handleOpen}>Edit your information</button>
                             </div>
                         </div>
 
@@ -261,20 +275,20 @@ const Profile: React.FunctionComponent<ProfileProps> = () => {
                     <div className="profile__info__row">
                         <div className="profile__info__item">
                             <button className='match-page__match__stadium__button-container__button'
-                             onClick={
-                                () => {
-                                    setCreateMatchOpen(true)
-                                }
-                            }>Create new match</button>
+                                onClick={
+                                    () => {
+                                        setCreateMatchOpen(true)
+                                    }
+                                }>Create new match</button>
                             <CreateMatch open={createMatchOpen} setOpen={setCreateMatchOpen} />
                         </div>
                         <div className="profile__info__item">
                             <button className='match-page__match__stadium__button-container__button'
-                             onClick={
-                                () => {
-                                    setAddStadiumOpen(true)
-                                }
-                            }>Add new stadium</button>
+                                onClick={
+                                    () => {
+                                        setAddStadiumOpen(true)
+                                    }
+                                }>Add new stadium</button>
                             <AddStadium open={addStadiumOpen} setOpen={setAddStadiumOpen} />
                         </div>
                     </div>
