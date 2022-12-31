@@ -23,7 +23,7 @@ const Application: React.FunctionComponent<ApplicationProps> = () => {
         {!user && <Route path="/signin" element={<SignIn />} />}
         <Route path="/match/:id" element={<MatchPage />} />
         <Route path="/fixtures" element={<Fixtures />} />
-        <Route path="/admin" element={<AdminPage />} />
+        {user && user.type === 'admin' && <Route path="/admin" element={<AdminPage />} />}
         {user && <Route path="/profile" element={<Profile />} />}
         <Route path="*" element={<h1>404</h1>} />
       </Routes>

@@ -179,7 +179,7 @@ const SignIN: React.FunctionComponent<SignINProps> = () => {
                 lastName: data.user.lname,
                 username: data.user.username,
                 email: data.user.email as Email,
-                type: data.user.userrole === 0 ? 'fan' : 'manager' as userType,
+                type: data.user.userrole === 0 ? 'fan' : data.user.userrole === 1? 'manager' : 'admin' as userType,
                 token: data.token,
                 age: age,
                 birthDate: birthDate as CustomDate,

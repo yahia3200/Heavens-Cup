@@ -7,7 +7,7 @@ export type CustomDate = `${'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'F
  ${'January' | 'February' | 'March' | 'April' | 'May' | 'June' | 'July' | 'August' | 'September' | 'October' | 'November' | 'December'}\
  ${number}`;
 export type Email = `${string}@${string}.${string}`;
-export type userType = 'fan' | 'manager';
+export type userType = 'fan' | 'manager' | 'admin';
 type Time = `${number}:${number}`;
 
 export type Match = {
