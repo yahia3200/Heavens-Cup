@@ -249,7 +249,7 @@ $tertiary-color: #963cff;
                 flex-direction: row;
                 justify-content: center;
                 align-items: center;
-                background-color: $secondary-color;
+                background-color: $primary-color;
                 padding: 10px 20px;
                 height: 40px;
                 color: #fff;
@@ -335,7 +335,6 @@ $tertiary-color: #963cff;
                     background-color: #fff;
                     border: 2px solid $primary-color;
                     border-radius: 50%;
-                    cursor: pointer;
                     position: relative;
 
                     &__above-label, &__above-label--selected {
@@ -362,7 +361,8 @@ $tertiary-color: #963cff;
                         border-color: $primary-color;
                     }
                 }
-                &__seat--selected, &__seat {
+                &__seat--selected, &__seat--fan {
+                    cursor: pointer;
                     &:hover {
                         background-color: $tertiary-color;
                         border-color: lighten($primary-color, 10);

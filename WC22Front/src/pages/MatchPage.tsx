@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "../styles/MatchPage.scss";
 import {
   chars,
@@ -8,31 +8,44 @@ import {
 } from "../Components/MatchPage/chars";
 import PageHeader from "../Components/PageHeader";
 import Stadium from "../Components/MatchPage/Stadium";
+import { UserContext } from "../contexts/userContext";
+import EditMatch from "../Components/EditMatch";
+import { Match } from "../Types";
+import PaymentForm from "../Components/PaymentForm";
+
+const match: Match = {
+  // add date based on type format of dateType
+  date: "Monday 1 January 2021",
+  time: "16:30",
+  team1: "Gon",
+  team2: "Killua",
+  referees: ["Keenan Crane", "Naruto", "Sasuke"],
+  stadium: "Marineford",
+  id: "1",
+};
+const stadium = {
+  name: "Heaven's Arena",
+  image: "",
+  width: 60,
+  height: 10,
+  reservedSeats: [
+    { x: 1, y: 1 },
+    { x: 1, y: 2 },
+    { x: 3, y: 4 },
+    { x: 4, y: 5 },
+    { x: 15, y: 6 },
+    { x: 0, y: 7 },
+    { x: 1, y: 8 },
+  ],
+};
 
 export default function MatchPage() {
-  const match = {
-    date: "11 - 06 - 2022",
-    time: "10:30",
-    team1: "Gon",
-    team2: "Killua",
-    referees: ["Keenan Crane", "Yalla Negro", "Amin Elhassan"],
-  };
-  const stadium = {
-    name: "Heaven's Arena",
-    image: "",
-    width: 60,
-    height: 10,
-    reservedSeats: [
-      { x: 1, y: 1 },
-      { x: 1, y: 2 },
-      { x: 3, y: 4 },
-      { x: 4, y: 5 },
-      { x: 15, y: 6 },
-      { x: 0, y: 7 },
-      { x: 1, y: 8 },
-    ],
-  };
-
+  // get current user from context
+  const { user } = useContext(UserContext);
+  // state for opening and closing editMatchModal
+  const [editMatchModalOpen, setEditMatchModalOpen] = useState(false);
+  // state for opening and closing PaymentModal
+  const [paymentModalOpen, setPaymentModalOpen] = useState(false);
   const [pageState, setPageState] = useState<
     "guest" | "watcher" | "manager-viewing" | "manager-editing"
   >("watcher");
@@ -45,9 +58,6 @@ export default function MatchPage() {
     setSelectedSeat({ x, y });
   }
 
-  // skip endline in template literals
-  // `hello \
-  // world`
   return (
     <>
       <PageHeader headerText="Match Page" />
@@ -73,16 +83,18 @@ export default function MatchPage() {
                   <div
                     className="match-page__match__info__inner__teams__image-container__image-1"
                     style={{
-                      filter: `hue-rotate(${charsData.get(match.team1)!["hue-rotate"]
-                        })`,
+                      filter: `hue-rotate(${
+                        charsData.get(match.team1)!["hue-rotate"]
+                      })`,
                     }}
                   >
                     <img
                       src={charsData.get(match.team1)!.image}
                       alt=""
                       style={{
-                        filter: `hue-rotate(-${charsData.get(match.team1)!["hue-rotate"]
-                          })`,
+                        filter: `hue-rotate(-${
+                          charsData.get(match.team1)!["hue-rotate"]
+                        })`,
                       }}
                     />
                   </div>
@@ -92,16 +104,18 @@ export default function MatchPage() {
                   <div
                     className="match-page__match__info__inner__teams__image-container__image-2"
                     style={{
-                      filter: `hue-rotate(${charsData.get(match.team2)!["hue-rotate"]
-                        })`,
+                      filter: `hue-rotate(${
+                        charsData.get(match.team2)!["hue-rotate"]
+                      })`,
                     }}
                   >
                     <img
                       src={charsData.get(match.team2)!.image}
                       alt=""
                       style={{
-                        filter: `hue-rotate(-${charsData.get(match.team2)!["hue-rotate"]
-                          })`,
+                        filter: `hue-rotate(-${
+                          charsData.get(match.team2)!["hue-rotate"]
+                        })`,
                       }}
                     />
                   </div>
@@ -109,8 +123,9 @@ export default function MatchPage() {
                 <div className="match-page__match__info__inner__teams__team-name">
                   <div className="match-page__match__info__inner__teams__team-name-1">
                     <img
-                      src={`/src/assets/${charsData.get(match.team1)!.nen
-                        }.webp`}
+                      src={`/src/assets/${
+                        charsData.get(match.team1)!.nen
+                      }.webp`}
                       alt=""
                     />
                     <div className="match-page__match__info__inner__teams__team-name-1__name">
@@ -120,10 +135,11 @@ export default function MatchPage() {
                       <div
                         className="match-page__match__info__inner__teams__team-name-1__name__nen"
                         style={{
-                          color: `${nenColors[
-                            NenTypes[charsData.get(match.team1)!.nen!]
+                          color: `${
+                            nenColors[
+                              NenTypes[charsData.get(match.team1)!.nen!]
                             ]
-                            }`,
+                          }`,
                         }}
                       >
                         {charsData.get(match.team1)!.nen}
@@ -138,18 +154,20 @@ export default function MatchPage() {
                       <div
                         className="match-page__match__info__inner__teams__team-name-2__name__nen"
                         style={{
-                          color: `${nenColors[
-                            NenTypes[charsData.get(match.team2)!.nen!]
+                          color: `${
+                            nenColors[
+                              NenTypes[charsData.get(match.team2)!.nen!]
                             ]
-                            }`,
+                          }`,
                         }}
                       >
                         {charsData.get(match.team2)!.nen}
                       </div>
                     </div>
                     <img
-                      src={`/src/assets/${charsData.get(match.team2)!.nen
-                        }.webp`}
+                      src={`/src/assets/${
+                        charsData.get(match.team2)!.nen
+                      }.webp`}
                       alt=""
                     />
                   </div>
@@ -181,6 +199,7 @@ export default function MatchPage() {
               stadium={stadium}
               selectedSeat={selectedSeat}
               setSelectedSeat={setSelectedSeat}
+              userType={user?.type}
               disabled={false}
             />
             <div className="match-page__match__stadium__button-container">
@@ -193,17 +212,54 @@ export default function MatchPage() {
                   </span>
                 )}
               </div>
-              <button
-                className={`match-page__match__stadium__button-container__button${!selectedSeat ? "--disabled" : ""
+              {/* if manager, make it editMatch Button, else reserve seat button */}
+              {user?.type === "manager" ? (
+                <button
+                  className={`match-page__match__stadium__button-container__button`}
+                  onClick={() => {
+                    setEditMatchModalOpen(true);
+                  }}
+                >
+                  Edit Match
+                </button>
+              ) : (
+                <button
+                  className={`match-page__match__stadium__button-container__button${
+                    !selectedSeat ? "--disabled" : ""
                   }`}
-                disabled={!selectedSeat}
-              >
-                Reserve Seat
-              </button>
+                  disabled={!selectedSeat}
+                  onClick={() => {
+                    if (selectedSeat) {
+                      setPaymentModalOpen(true);
+                    }
+                  }}
+                >
+                  Reserve Seat
+                </button>
+              )}
             </div>
           </div>
         </div>
       </div>
+      {
+        /* Edit Match Modal */ editMatchModalOpen && (
+          <EditMatch
+            match={match}
+            setOpen={setEditMatchModalOpen}
+            open={editMatchModalOpen}
+          />
+        )
+      }
+      {
+        /* Payment Modal */ paymentModalOpen && (
+          <PaymentForm
+            setOpen={setPaymentModalOpen}
+            open={paymentModalOpen}
+            match={match}
+            seat={selectedSeat!}
+          />
+        )
+      }
     </>
   );
 }

@@ -231,7 +231,8 @@ const SignIN: React.FunctionComponent<SignINProps> = () => {
                         </div>
 
                         <div className='SignIn__form__button'>
-                            <button type='submit' onClick={
+                            <button className='match-page__match__stadium__button-container__button'
+                            type='submit' onClick={
                                 (e) => {
                                     e.preventDefault();
                                     signIn();
@@ -328,7 +329,8 @@ const SignIN: React.FunctionComponent<SignINProps> = () => {
                         </div>
 
                         <div className='SignIn__form__button'>
-                            <button type='submit' onClick={(e) => {
+                            <button className='match-page__match__stadium__button-container__button'
+                            type='submit' onClick={(e) => {
                                 e.preventDefault();
                                 register();
 

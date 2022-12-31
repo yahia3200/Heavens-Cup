@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { User } from "../Types";
 import PageHeader from "../Components/PageHeader";
 import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 import "../styles/AdminPage.scss";
+import { apiBaseUrl } from "../config.json";
 /*
 firstName: string;
 lastName: string;
@@ -17,127 +18,174 @@ token: string;
 */
 export default function AdminPage() {
   // list of users
-  const users: User[] = [
-    {
-      firstName: "John",
-      lastName: "Doe",
-      gender: "male",
-      email: "john.doe@x.d",
-      username: "johndoe",
-      birthDate: "Monday 1 January 2010",
-      type: "fan",
-      nationality: "American",
-      age: 11,
-      token: "1234567890",
-      approved: true,
-    },
-    {
-      firstName: "Jane",
-      lastName: "Doe",
-      gender: "female",
-      email: "jane.faf@x.f",
-      username: "fwfag",
-      birthDate: "Monday 4 February 2000",
-      type: "manager",
-      nationality: "American",
-      age: 21,
-      token: "agwgagawcsz",
-      approved: true,
-    },
-    {
-      firstName: "John",
-      lastName: "Doe",
-      gender: "male",
-      email: "john.doe@x.d",
-      username: "johndoe",
-      birthDate: "Monday 1 January 2010",
-      type: "fan",
-      nationality: "American",
-      age: 11,
-      token: "1234567890",
-      approved: true,
-    },
-    {
-      firstName: "Jane",
-      lastName: "Doe",
-      gender: "female",
-      email: "jane.faf@x.f",
-      username: "fwfag",
-      birthDate: "Monday 4 February 2000",
-      type: "manager",
-      nationality: "American",
-      age: 21,
-      token: "agwgagawcsz",
-      approved: true,
-    },
-    {
-      firstName: "John",
-      lastName: "Doe",
-      gender: "male",
-      email: "john.doe@x.d",
-      username: "johndoe",
-      birthDate: "Monday 1 January 2010",
-      type: "fan",
-      nationality: "American",
-      age: 11,
-      token: "1234567890",
-      approved: true,
-    },
-    {
-      firstName: "Jane",
-      lastName: "Doe",
-      gender: "female",
-      email: "jane.faf@x.f",
-      username: "fwfag",
-      birthDate: "Monday 4 February 2000",
-      type: "manager",
-      nationality: "American",
-      age: 21,
-      token: "agwgagawcsz",
-      approved: true,
-    },
-    {
-      firstName: "Freddy",
-      lastName: "Mercury",
-      gender: "male",
-      email: "gwadac@fwafawf.fwaf",
-      username: "fwafawf",
-      birthDate: "Monday 1 February 1999",
-      type: "fan",
-      nationality: "English",
-      age: 22,
-      token: "f1e2rqtqeg",
-      approved: false,
-    },
-    {
-      // a user from egypt
-      firstName: "Mohamed",
-      lastName: "Salah",
-      gender: "male",
-      email: "sfwafgag@wfaa.waf",
-      username: "solwf",
-      birthDate: "Monday 1 February 1999",
-      type: "fan",
-      nationality: "Egyptian",
-      age: 22,
-      token: "f1e2rqtqeg",
-      approved: false,
-    },
-    {
-      // a user from japan
-      firstName: "Hiroshi",
-      lastName: "Yamaguchi",
-      gender: "male",
-      email: "dwaf@wafawf.waf",
-      username: "wafawf",
-      birthDate: "Monday 1 February 1997",
-      type: "fan",
-      nationality: "Japanese",
-      age: 24,
-      token: "f1e2rqtqeg",
-      approved: false,
-    },
-  ];
+  // const users: User[] = [
+  //   {
+  //     firstName: "John",
+  //     lastName: "Doe",
+  //     gender: "male",
+  //     email: "john.doe@x.d",
+  //     username: "johndoe",
+  //     birthDate: "Monday 1 January 2010",
+  //     type: "fan",
+  //     nationality: "American",
+  //     age: 11,
+  //     token: "1234567890",
+  //     approved: true,
+  //   },
+  //   {
+  //     firstName: "Jane",
+  //     lastName: "Doe",
+  //     gender: "female",
+  //     email: "jane.faf@x.f",
+  //     username: "fwfag",
+  //     birthDate: "Monday 4 February 2000",
+  //     type: "manager",
+  //     nationality: "American",
+  //     age: 21,
+  //     token: "agwgagawcsz",
+  //     approved: true,
+  //   },
+  //   {
+  //     firstName: "John",
+  //     lastName: "Doe",
+  //     gender: "male",
+  //     email: "john.doe@x.d",
+  //     username: "johndoe",
+  //     birthDate: "Monday 1 January 2010",
+  //     type: "fan",
+  //     nationality: "American",
+  //     age: 11,
+  //     token: "1234567890",
+  //     approved: true,
+  //   },
+  //   {
+  //     firstName: "Jane",
+  //     lastName: "Doe",
+  //     gender: "female",
+  //     email: "jane.faf@x.f",
+  //     username: "fwfag",
+  //     birthDate: "Monday 4 February 2000",
+  //     type: "manager",
+  //     nationality: "American",
+  //     age: 21,
+  //     token: "agwgagawcsz",
+  //     approved: true,
+  //   },
+  //   {
+  //     firstName: "John",
+  //     lastName: "Doe",
+  //     gender: "male",
+  //     email: "john.doe@x.d",
+  //     username: "johndoe",
+  //     birthDate: "Monday 1 January 2010",
+  //     type: "fan",
+  //     nationality: "American",
+  //     age: 11,
+  //     token: "1234567890",
+  //     approved: true,
+  //   },
+  //   {
+  //     firstName: "Jane",
+  //     lastName: "Doe",
+  //     gender: "female",
+  //     email: "jane.faf@x.f",
+  //     username: "fwfag",
+  //     birthDate: "Monday 4 February 2000",
+  //     type: "manager",
+  //     nationality: "American",
+  //     age: 21,
+  //     token: "agwgagawcsz",
+  //     approved: true,
+  //   },
+  //   {
+  //     firstName: "Freddy",
+  //     lastName: "Mercury",
+  //     gender: "male",
+  //     email: "gwadac@fwafawf.fwaf",
+  //     username: "fwafawf",
+  //     birthDate: "Monday 1 February 1999",
+  //     type: "fan",
+  //     nationality: "English",
+  //     age: 22,
+  //     token: "f1e2rqtqeg",
+  //     approved: false,
+  //   },
+  //   {
+  //     // a user from egypt
+  //     firstName: "Mohamed",
+  //     lastName: "Salah",
+  //     gender: "male",
+  //     email: "sfwafgag@wfaa.waf",
+  //     username: "solwf",
+  //     birthDate: "Monday 1 February 1999",
+  //     type: "fan",
+  //     nationality: "Egyptian",
+  //     age: 22,
+  //     token: "f1e2rqtqeg",
+  //     approved: false,
+  //   },
+  //   {
+  //     // a user from japan
+  //     firstName: "Hiroshi",
+  //     lastName: "Yamaguchi",
+  //     gender: "male",
+  //     email: "dwaf@wafawf.waf",
+  //     username: "wafawf",
+  //     birthDate: "Monday 1 February 1997",
+  //     type: "fan",
+  //     nationality: "Japanese",
+  //     age: 24,
+  //     token: "f1e2rqtqeg",
+  //     approved: false,
+  //   },
+  // ];
+
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+      fetch(`${apiBaseUrl}/get_all_users`, {
+          method: 'GET',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+      }).then(res => res.json())
+          .then(data => {
+              console.log(data);
+
+              // const returnedUsers: User[] = data.users.map((match: any) => {
+              //     const date = new Date(match.start_time);
+
+              //     // get hour and minutes from date in form of 14:30
+              //     const time = date.toLocaleTimeString('en-us', { hour: '2-digit', minute: '2-digit' });
+
+              //     // transform date to a string like Tuesday 1 January 2020
+              //     const dateStr = `${date.toLocaleString('en-us', { weekday: 'long' })} ${date.getDate()} ${date.toLocaleString('en-us', { month: 'long' })} ${date.getFullYear()}`;
+              //     return {
+              //         date: dateStr,
+              //         time: time,
+              //         team1: match.team1_name,
+              //         team2: match.team2_name,
+              //         referees: [],
+              //         stadium: match.stad_name,
+              //         id: match.id,
+              //     }
+              // }
+              // );
+
+              // const matchesObj = matches.reduce((acc: any, match: Match) => {
+              //     if (acc[match.date]) {
+              //         acc[match.date].push(match);
+              //     } else {
+              //         acc[match.date] = [match];
+              //     }
+              //     return acc;
+              // }, {});
+              // setMatches(matchesObj);
+
+          }
+          );
+
+  }, []);
 
   // Memoize users to avoid re-rendering
   const memoizedApprovedUsers = React.useMemo(
