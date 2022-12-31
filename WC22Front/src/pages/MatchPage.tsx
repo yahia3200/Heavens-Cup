@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "../styles/MatchPage.scss";
 import {
   chars,
@@ -12,6 +12,8 @@ import { UserContext } from "../contexts/userContext";
 import EditMatch from "../Components/EditMatch";
 import { Match } from "../Types";
 import PaymentForm from "../Components/PaymentForm";
+import { useParams } from 'react-router-dom'
+import { apiBaseUrl } from '../config.json'
 
 const match: Match = {
   // add date based on type format of dateType
@@ -40,6 +42,9 @@ const stadium = {
 };
 
 export default function MatchPage() {
+  const { id } = useParams<{ id: string }>();
+
+  console.log(id);
   // get current user from context
   const { user } = useContext(UserContext);
   // state for opening and closing editMatchModal
@@ -58,6 +63,25 @@ export default function MatchPage() {
     setSelectedSeat({ x, y });
   }
 
+  console.log(id);
+  useEffect(() => {
+    fetch(`${apiBaseUrl}/view_match_details`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: id
+      })
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   return (
     <>
       <PageHeader headerText="Match Page" />
@@ -83,18 +107,16 @@ export default function MatchPage() {
                   <div
                     className="match-page__match__info__inner__teams__image-container__image-1"
                     style={{
-                      filter: `hue-rotate(${
-                        charsData.get(match.team1)!["hue-rotate"]
-                      })`,
+                      filter: `hue-rotate(${charsData.get(match.team1)!["hue-rotate"]
+                        })`,
                     }}
                   >
                     <img
                       src={charsData.get(match.team1)!.image}
                       alt=""
                       style={{
-                        filter: `hue-rotate(-${
-                          charsData.get(match.team1)!["hue-rotate"]
-                        })`,
+                        filter: `hue-rotate(-${charsData.get(match.team1)!["hue-rotate"]
+                          })`,
                       }}
                     />
                   </div>
@@ -104,18 +126,16 @@ export default function MatchPage() {
                   <div
                     className="match-page__match__info__inner__teams__image-container__image-2"
                     style={{
-                      filter: `hue-rotate(${
-                        charsData.get(match.team2)!["hue-rotate"]
-                      })`,
+                      filter: `hue-rotate(${charsData.get(match.team2)!["hue-rotate"]
+                        })`,
                     }}
                   >
                     <img
                       src={charsData.get(match.team2)!.image}
                       alt=""
                       style={{
-                        filter: `hue-rotate(-${
-                          charsData.get(match.team2)!["hue-rotate"]
-                        })`,
+                        filter: `hue-rotate(-${charsData.get(match.team2)!["hue-rotate"]
+                          })`,
                       }}
                     />
                   </div>
@@ -123,9 +143,8 @@ export default function MatchPage() {
                 <div className="match-page__match__info__inner__teams__team-name">
                   <div className="match-page__match__info__inner__teams__team-name-1">
                     <img
-                      src={`/src/assets/${
-                        charsData.get(match.team1)!.nen
-                      }.webp`}
+                      src={`/src/assets/${charsData.get(match.team1)!.nen
+                        }.webp`}
                       alt=""
                     />
                     <div className="match-page__match__info__inner__teams__team-name-1__name">
@@ -135,11 +154,10 @@ export default function MatchPage() {
                       <div
                         className="match-page__match__info__inner__teams__team-name-1__name__nen"
                         style={{
-                          color: `${
-                            nenColors[
-                              NenTypes[charsData.get(match.team1)!.nen!]
-                            ]
-                          }`,
+                          color: `${nenColors[
+                            NenTypes[charsData.get(match.team1)!.nen!]
+                          ]
+                            }`,
                         }}
                       >
                         {charsData.get(match.team1)!.nen}
@@ -154,20 +172,18 @@ export default function MatchPage() {
                       <div
                         className="match-page__match__info__inner__teams__team-name-2__name__nen"
                         style={{
-                          color: `${
-                            nenColors[
-                              NenTypes[charsData.get(match.team2)!.nen!]
-                            ]
-                          }`,
+                          color: `${nenColors[
+                            NenTypes[charsData.get(match.team2)!.nen!]
+                          ]
+                            }`,
                         }}
                       >
                         {charsData.get(match.team2)!.nen}
                       </div>
                     </div>
                     <img
-                      src={`/src/assets/${
-                        charsData.get(match.team2)!.nen
-                      }.webp`}
+                      src={`/src/assets/${charsData.get(match.team2)!.nen
+                        }.webp`}
                       alt=""
                     />
                   </div>
@@ -224,9 +240,8 @@ export default function MatchPage() {
                 </button>
               ) : (
                 <button
-                  className={`match-page__match__stadium__button-container__button${
-                    !selectedSeat ? "--disabled" : ""
-                  }`}
+                  className={`match-page__match__stadium__button-container__button${!selectedSeat ? "--disabled" : ""
+                    }`}
                   disabled={!selectedSeat}
                   onClick={() => {
                     if (selectedSeat) {

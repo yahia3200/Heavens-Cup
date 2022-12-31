@@ -47,8 +47,6 @@
 
     &__row {
         display: flex;
-        justify-content: space-between;
-
         margin: 0 1rem;
     }
 
@@ -152,6 +150,10 @@
     }
 }
 
-.add-padding-right {
-    padding-right: 4rem;
+.fixed-width {
+    width: 200px;
+}
+
+.manger-action {
+    justify-content: space-between;
 }

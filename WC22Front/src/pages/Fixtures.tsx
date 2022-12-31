@@ -21,8 +21,6 @@ const Fixtures: React.FunctionComponent<FixturesProps> = () => {
             },
         }).then(res => res.json())
             .then(data => {
-                console.log(data);
-
                 const matches: Match[] = data.matches.map((match: any) => {
                     const date = new Date(match.start_time);
 

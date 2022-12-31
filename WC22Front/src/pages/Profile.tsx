@@ -181,9 +181,9 @@ const Profile: React.FunctionComponent<ProfileProps> = () => {
                                     </div>
                                 </div>
                                 <div className="profile__info__row">
-                                    <div className="profile__info__item">
+                                    <div className="profile__info__item fixed-width">
                                         <div className="profile__info__item__label">First Name: </div>
-                                        <div className="profile__info__item__value add-padding-right">{user?.firstName}</div>
+                                        <div className="profile__info__item__value">{user?.firstName}</div>
                                     </div>
                                     <div className="profile__info__item">
                                         <div className="profile__info__item__label">Last Name: </div>
@@ -205,13 +205,13 @@ const Profile: React.FunctionComponent<ProfileProps> = () => {
                                     </div>
                                 </div>
                                 <div className="profile__info__row">
-                                    <div className="profile__info__item">
+                                    <div className="profile__info__item fixed-width">
                                         <div className="profile__info__item__label">Gender: </div>
                                         <div className="profile__info__item__value">{user?.gender}</div>
                                     </div>
                                     <div className="profile__info__item">
                                         <div className="profile__info__item__label">Status: </div>
-                                        <div className="profile__info__item__value">{user?.approved ? user?.approved : "Pending"}</div>
+                                        <div className="profile__info__item__value">{user?.approved ? "Approved" : "Pending"}</div>
                                     </div>
                                 </div>
 
@@ -271,7 +271,7 @@ const Profile: React.FunctionComponent<ProfileProps> = () => {
 
                 {user?.type === "manager" && <div className='page-section'>
                     <h2 className="page-section__header">My Actions</h2>
-                    <div className="profile__info__row">
+                    <div className="profile__info__row manger-action">
                         <div className="profile__info__item">
                             <button className='match-page__match__stadium__button-container__button'
                                 onClick={

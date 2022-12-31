@@ -42,7 +42,7 @@ export type User = {
     nationality: string | null;
     age: number;
     token: string;
-    approved?: boolean;
+    approved: boolean;
     id?: string;
 }
 
