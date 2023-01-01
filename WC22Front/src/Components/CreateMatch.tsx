@@ -2,9 +2,8 @@ import { useEffect, useState, useContext } from 'react';
 import { UserContext } from '../contexts/userContext';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
-import { charsData } from '../Components/MatchPage/chars'
 import { apiBaseUrl } from '../config.json';
-import { Stadium, Referee, Character } from '../Types';
+import { StadiumType, Referee, Character } from '../Types';
 
 interface CreateMatchProps {
     open: boolean;
@@ -32,7 +31,7 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
     const { user } = useContext(UserContext);
     const token = user?.token
 
-    const [availableStadiums, setAvailableStadiums] = useState<Stadium[]>([]);
+    const [availableStadiums, setAvailableStadiums] = useState<StadiumType[]>([]);
     const [availableReferees, setAvailableReferees] = useState<Referee[]>([]);
     const [availableChars, setAvailableChars] = useState<Character[]>()
 
