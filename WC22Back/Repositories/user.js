@@ -40,6 +40,14 @@ module.exports = {
       throw error;
     }
   },
+  getUserByEmail: async function (email) {
+    try {
+      const users = await pool.query("SELECT * FROM users WHERE email = $1;", [email]);
+      return users.rows[0];
+    } catch (error) {
+      throw error;
+    }
+  },
   getAllUsers: async function () {
     try {
       const users = await pool.query("SELECT * FROM users;");

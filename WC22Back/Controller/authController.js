@@ -9,6 +9,11 @@ const createToken = (id, userName, role, approved) => {
 
 module.exports = { 
     signup_post: async (req, res) => {
+        // Finds the validation errors in this request and wraps them in an object with handy functions
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+        }
         try {
             const password = req.body.password;
             const hash = await bcrypt.hash(password, 10);
@@ -19,12 +24,12 @@ module.exports = {
         }
         catch (err) {
             console.log(err);
-            res.status(400).json({"error": err.detail});
+            res.status(400).json({error: err.detail});
         }
     },
     login_post: async (req, res) => {
-        const { username, password } = req.body;
         try {
+            const { username, password } = req.body;
             const user = await poolconnection.getUser(username);
             if (user) {
                 const auth = await bcrypt.compare(password, user.hash);
@@ -32,13 +37,13 @@ module.exports = {
                     const token = createToken(user.id, user.username, user.userrole, user.approved);
                     res.status(200).json({token, user: user});
                 } else {
-                    res.status(400).json({"error":'Incorrect password'});
+                    res.status(400).json({error :'Incorrect password'});
                 }
             } else {
-                res.status(400).json({"error":'Incorrect username'});
+                res.status(400).json({error :'Incorrect username'});
             }
         } catch (err) {
-            res.status(400).json({"error": err.detail});
+            res.status(400).json({error : err.detail});
         }
     },
     logout_post: (req, res) => {
