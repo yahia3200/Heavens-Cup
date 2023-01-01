@@ -123,6 +123,7 @@ const SignIN: React.FunctionComponent<SignINProps> = () => {
                 birthDate: birthDate,
                 nationality: nationality,
                 gender: gender as ('male' | 'female'),
+                approved: data.user.approved
             }
 
             setUser(user)
@@ -140,55 +141,64 @@ const SignIN: React.FunctionComponent<SignINProps> = () => {
     const checkLogin = () => {
         if (loginUsername === '') {
             setLoginError('Username cannot be empty');
+            return false;
         } else if (password === '') {
             setLoginError('Password cannot be empty');
+            return false;
         } else {
             setLoginError('');
         }
+        return true;
     }
 
     const signIn = async () => {
 
-        checkLogin();
-        if (loginError !== '') return;
-        const response = await fetch(`${apiBaseUrl}/login`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-            },
-            body: JSON.stringify({
-                username: loginUsername,
-                password: password
+        const success = checkLogin();
+        if (!success) return;
+        try {
+            const response = await fetch(`${apiBaseUrl}/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: loginUsername,
+                    password: password
+                })
             })
-        })
 
-        const data = await response.json();
-        if (response.status === 200) {
+            const data = await response.json();
+            if (response.status === 200) {
 
-            const userDob = new Date(data.user.birthdate);
-            // calculate user age
-            const age = new Date().getFullYear() - parseInt(data.user.birthdate.split('T')[0].split('-')[0]);
-
-            const user = {
-                firstName: data.user.fname,
-                lastName: data.user.lname,
-                username: data.user.username,
-                email: data.user.email as Email,
-                type: data.user.userrole === 0 ? 'fan' : data.user.userrole === 1 ? 'manager' : 'admin' as userType,
-                token: data.token,
-                age: age,
-                birthDate: userDob,
-                nationality: nationality,
-                gender: gender as ('male' | 'female'),
+                const userDob = new Date(data.user.birthdate);
+                // calculate user age
+                const age = new Date().getFullYear() - parseInt(data.user.birthdate.split('T')[0].split('-')[0]);
+                const user = {
+                    firstName: data.user.fname,
+                    lastName: data.user.lname,
+                    username: data.user.username,
+                    email: data.user.email as Email,
+                    type: data.user.userrole === 0 ? 'fan' : data.user.userrole === 1 ? 'manager' : 'admin' as userType,
+                    token: data.token,
+                    age: age,
+                    birthDate: userDob,
+                    nationality: nationality,
+                    gender: gender as ('male' | 'female'),
+                    approved: data.user.approved
+                }
+                setUser(user)
+                localStorage.setItem('user', JSON.stringify(user));
+                navigate('/');
             }
-            setUser(user)
-            localStorage.setItem('user', JSON.stringify(user));
-            navigate('/');
+            else {
+                setLoginError(data?.error ? data.error : 'An error occurred');
+            }
         }
-        else {
-            setLoginError(data.error);
+        catch (e) {
+            setLoginError('An error occurred');
         }
+
     }
 
 
