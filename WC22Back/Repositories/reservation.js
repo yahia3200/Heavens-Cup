@@ -43,7 +43,7 @@ module.exports = {
                 FROM reservations
                 INNER JOIN matches ON reservations.match_id = matches.id
                 INNER JOIN stadiums ON matches.stad_id = stadiums.id
-                WHERE match_id = $1;`,
+                WHERE reservations.match_id = $1;`,
                 [
                     match_id
                 ]);
