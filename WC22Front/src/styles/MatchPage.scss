@@ -351,9 +351,14 @@ $tertiary-color: #963cff;
                     }
 
                     &--reserved {
-                        cursor: not-allowed;
+                        cursor: not-allowed !important;
                         background-color: #999;
                         border-color: #999;
+
+                        &:hover {
+                            background-color: #999!important;
+                            border-color: #999!important;
+                        }
                     }
 
                     &--selected {

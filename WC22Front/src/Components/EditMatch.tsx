@@ -4,7 +4,7 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import { charsData } from '../Components/MatchPage/chars'
 import { apiBaseUrl } from '../config.json';
-import { Stadium, Referee, Character, Match, fromCustomDateToISO } from '../Types';
+import { StadiumType, Referee, Character, Match, fromCustomDateToISO } from '../Types';
 
 interface EditMatchProps {
     match: Match;
@@ -33,7 +33,7 @@ const EditMatch: React.FunctionComponent<EditMatchProps> = ({ match, open, setOp
     const { user } = useContext(UserContext);
     const token = user?.token
 
-    const [availableStadiums, setAvailableStadiums] = useState<Stadium[]>([]);
+    const [availableStadiums, setAvailableStadiums] = useState<StadiumType[]>([]);
     const [availableReferees, setAvailableReferees] = useState<Referee[]>([]);
     const [availableChars, setAvailableChars] = useState<Character[]>()
 

@@ -3,6 +3,8 @@ import { UserContext } from "../contexts/userContext";
 import "../styles/Home.scss";
 import PageHeader from "../Components/PageHeader";
 import { Link } from "react-router-dom";
+import Slide0 from "../assets/Chars/Slide0.png";
+import Slide1 from "../assets/Chars/Slide1.png";
 
 interface HomeProps { }
 
@@ -26,12 +28,12 @@ const Home: React.FunctionComponent<HomeProps> = () => {
               </p>
             </div>
             <div className="home__slide__image">
-              <img src="/src/assets/Chars/Slide0.png" alt="slide 1" />
+              <img src={Slide0} alt="slide 1" />
             </div>
           </div>
           <div className="home__slide slide-2">
             <div className="home__slide__image">
-              <img src="/src/assets/Chars/Slide1.png" alt="slide 2" />
+              <img src={Slide1} alt="slide 2" />
             </div>
             <div className="home__slide__content">
               <h1>Fans' League</h1>

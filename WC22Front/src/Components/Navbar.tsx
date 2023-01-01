@@ -5,7 +5,7 @@ import { UserContext } from '../contexts/userContext'
 import { useNavigate } from 'react-router-dom'
 import { apiBaseUrl } from '../config.json'
 import { charsData } from '../Components/MatchPage/chars'
-
+import logo2 from '../assets/logo2.png'
 
 interface NavbarProps {
 
@@ -41,7 +41,7 @@ const Navbar: React.FunctionComponent<NavbarProps> = () => {
     return (
         <div className="navbar">
             <Link className="navbar__logo" to='/'>
-                <img src="/src/assets/logo2.png" alt="" />
+                <img src={logo2} alt="" />
             </Link>
 
             <div className="navbar__rapper">
