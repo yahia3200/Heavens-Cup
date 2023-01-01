@@ -63,7 +63,8 @@ const Navbar: React.FunctionComponent<NavbarProps> = () => {
             <div className="navbar__main">
                 <div className="navbar__main__links">
                     <Link to="/">Home</Link>
-                    {user && <Link to="/profile">Profile</Link>}
+                    {(user && user.type !== "admin") && <Link to="/profile">Profile</Link>}
+                    {(user && user.type === "admin") && <Link to="/admin">Dashboard</Link>}
                     <Link to="/fixtures">Fixtures</Link>
                     {!user && <Link to="/signin">Sign in</Link>}
                     {user && <button onClick={
