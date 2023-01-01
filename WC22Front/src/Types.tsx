@@ -22,7 +22,7 @@ export type Match = {
 };
 
 // stadium type
-export type Stadium = {
+export type StadiumType = {
     name: string;
     width: number;
     height: number;
@@ -59,6 +59,16 @@ export type Character = {
     nen: string;
     hunterpedia: string | null;
     hueRotate: string;
+}
+
+
+export const toCustomDate = (date: Date): CustomDate => {
+    const day = date.toLocaleString('en-us', { weekday: 'long' });
+    const month = date.toLocaleString('en-us', { month: 'long' });
+    const year = date.getFullYear();
+    const dayNum = date.getDate();
+    return `${day} ${dayNum} ${month} ${year}` as CustomDate;
+
 }
 
 export const fromCustomDateToISO = (date: CustomDate): string => {
@@ -100,4 +110,10 @@ export const formatDate = (date: Date | undefined): string => {
     formattedDate += '-';
     formattedDate += date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
     return formattedDate;
+}
+
+export const getTime = (date: Date): Time => {
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    return `${hours}:${minutes}` as Time;
 }

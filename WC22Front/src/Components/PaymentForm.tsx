@@ -3,7 +3,7 @@ import { UserContext } from '../contexts/userContext';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import { apiBaseUrl } from '../config.json';
-import { Stadium, Referee, Character, Match } from '../Types';
+import { Referee, Character, Match } from '../Types';
 
 interface PaymentFormProps {
     match: Match;
@@ -66,11 +66,11 @@ const PaymentForm: React.FunctionComponent<PaymentFormProps> = ({ match, open, s
                     </div>
                     <div className='SignIn__form__button'>
                         <button className='match-page__match__stadium__button-container__button'
-                         type='submit' onClick={
-                            e => {
-                                e.preventDefault();
-                            }
-                        }>Checkout</button>
+                            type='submit' onClick={
+                                e => {
+                                    e.preventDefault();
+                                }
+                            }>Checkout</button>
                     </div>
                 </Box>
 
