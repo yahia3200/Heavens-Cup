@@ -30,7 +30,13 @@ module.exports = {
                         for(const my_result in result) {
                             matchconnection.getMatch(my_result.match_id).then((match) => {
                                 // check if date is within 2 hours of match
-                                if(reqMatch.start_time >= match.start_time && reqMatch.start_time <= match.start_time + 72000000) {
+
+                                const date1 = new Date(reqMatch.start_time);
+                                const date2 = new Date(match.start_time);
+                                const diffTime = Math.abs(date2 - date1);
+
+                                // check if diff is less than 2 hours
+                                if(diffTime < 7200000) {
                                     res.status(400).json({ error: 'You already have a reservation within 2 hours of this match'});
                                     return;
                                 }
