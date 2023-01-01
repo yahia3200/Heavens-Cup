@@ -114,7 +114,7 @@ export const charsData = new Map<string, CharData>([
         nen: "Specialist",
         hunterpedia: "https://hunterxhunter.fandom.com/wiki/Chrollo_Lucilfer",
     }],
-    ["Feitan", {
+    ["Fetian", {
         name: "Fetian Portor",
         image: feitanImage,
         "hue-rotate": "340deg",
