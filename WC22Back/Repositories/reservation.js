@@ -39,7 +39,11 @@ module.exports = {
     getMatchReservations : async function (match_id) {
         try {
             const reservations = await pool.query(
-                "SELECT * FROM reservations WHERE match_id = $1;",
+                `SELECT reservations.* , matches.* , stadiums.*
+                FROM reservations
+                INNER JOIN matches ON reservations.match_id = matches.id
+                INNER JOIN stadiums ON matches.stad_id = stadiums.id
+                WHERE match_id = $1;`,
                 [
                     match_id
                 ]);

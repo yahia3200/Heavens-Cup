@@ -8,7 +8,7 @@ module.exports = {
         }
         catch (err) {
             console.log(err);
-            res.status(400).json({ "error": err.detail });
+            res.status(400).json({ error : err.detail });
         }
     },
     deleteUser: async (req, res) => {
@@ -18,7 +18,7 @@ module.exports = {
         }
         catch (err) {
             console.log(err);
-            res.status(400).json({ "error": err.detail });
+            res.status(400).json({ error : err.detail });
         }
     },
     getAllUsers: async (req, res) => {
@@ -28,7 +28,7 @@ module.exports = {
         }
         catch (err) {
             console.log(err);
-            res.status(400).json({ "error": err.detail });
+            res.status(400).json({ error: err.detail });
         }
     }
 }
