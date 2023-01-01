@@ -15,32 +15,6 @@ import PaymentForm from "../Components/PaymentForm";
 import { useParams } from 'react-router-dom'
 import { apiBaseUrl } from '../config.json'
 
-const match: Match = {
-  // add date based on type format of dateType
-  date: "Monday 1 January 2021",
-  time: "16:30",
-  team1: "Gon",
-  team2: "Killua",
-  referees: ["Keenan Crane", "Naruto", "Sasuke"],
-  stadium: "Marineford",
-  id: "1",
-};
-const stadium = {
-  name: "Heaven's Arena",
-  image: "",
-  width: 60,
-  height: 10,
-  reservedSeats: [
-    { x: 1, y: 1 },
-    { x: 1, y: 2 },
-    { x: 3, y: 4 },
-    { x: 4, y: 5 },
-    { x: 15, y: 6 },
-    { x: 0, y: 7 },
-    { x: 1, y: 8 },
-  ],
-};
-
 export default function MatchPage() {
   const { id } = useParams<{ id: string }>();
   const [matchDetails, setMatchDetails] = useState<Match | null>(null);
@@ -102,6 +76,7 @@ export default function MatchPage() {
         });
 
         console.log(data);
+
       })
       .catch((err) => {
         console.log(err);
@@ -230,7 +205,7 @@ export default function MatchPage() {
             <div className="match-page__match__stadium">
               <div className="match-page__match__stadium__header"> Stadium </div>
               <div className="match-page__match__stadium__name">
-                {stadium.name}
+                {stadiumDetails.name}
               </div>
               <Stadium
                 stadium={stadiumDetails}
@@ -280,7 +255,7 @@ export default function MatchPage() {
         {
         /* Edit Match Modal */ editMatchModalOpen && (
             <EditMatch
-              match={match}
+              match={matchDetails}
               setOpen={setEditMatchModalOpen}
               open={editMatchModalOpen}
             />
@@ -291,8 +266,9 @@ export default function MatchPage() {
             <PaymentForm
               setOpen={setPaymentModalOpen}
               open={paymentModalOpen}
-              match={match}
+              stadium={stadiumDetails}
               seat={selectedSeat!}
+              match={matchDetails}
             />
           )
         }
