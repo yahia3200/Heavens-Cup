@@ -267,22 +267,28 @@ export default function MatchPage() {
                     Edit Match
                   </button>
                 ) : (
+                   reservedSeat ? (
                   <button
+                    className={`match-page__match__stadium__button-container__button`}
+                    onClick={() => {
+                        cancelReservation(match.id!, selectedSeat!);
+                    }}
+                  >
+                    Cancel Reservation
+                  </button> ) : (
+                    <button
                     className={`match-page__match__stadium__button-container__button${!selectedSeat ? "--disabled" : ""
                       }`}
                     disabled={!selectedSeat}
                     onClick={() => {
-                      if (reservedSeat) {
-                        // if seat is reserved, cancel reservation
-                        cancelReservation(match.id, selectedSeat!);
-                      }
-                      else if (selectedSeat) {
+                      if (selectedSeat) {
                         setPaymentModalOpen(true);
                       }
                     }}
                   >
-                    {reservedSeat? "Cancel Reservation" : "Reserve Seat"}
+                    Reserve Seat
                   </button>
+                  )
                 )}
               </div>
             </div>
