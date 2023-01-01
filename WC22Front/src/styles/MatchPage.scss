@@ -262,10 +262,10 @@ $tertiary-color: #963cff;
                     background-color: $tertiary-color;
                 }
                 &--disabled {
-                    background-color: #999;
-                    cursor: not-allowed;
+                    background-color: #999 !important;
+                    cursor: not-allowed !important;
                     &:hover {
-                        background-color: #999;
+                        background-color: #999 !important;
                     }
                 }
             }

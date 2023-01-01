@@ -154,7 +154,7 @@ const AddStadium: React.FunctionComponent<AddStadiumProps> = ({ open, setOpen })
                             </div>
                         </div>
                         <div className='SignIn__form__button'>
-                            <button className='match-page__match__stadium__button-container__button'
+                            <button className={`match-page__match__stadium__button-container__button${error ? '--disabled' : ''}`}
                                 disabled={error ? true : false} type='submit' onClick={
                                     (e) => {
                                         e.preventDefault();
