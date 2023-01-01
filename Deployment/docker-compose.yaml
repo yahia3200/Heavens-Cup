@@ -1,22 +1,5 @@
 version: "3.1"
 services:
-  web_server:
-    image: nginx
-    container_name: web_server
-    ports:
-      - 80:80
-      - 443:443
-    networks:
-      - wc22
-    restart: on-failure
-    depends_on:
-      - frontend
-      - backend
-    volumes:
-      - ~/wc22/nginx.conf:/etc/nginx/conf.d/default.conf
-      - ~/wc22/private.key:/etc/nginx/certs/nginx.key
-      - ~/wc22/certificate.crt:/etc/nginx/certs/nginx-certificate.crt
-
 
   frontend:
     image: osamamagdy/wc22_frontend:latest
@@ -24,8 +7,13 @@ services:
     networks:
       - wc22
     restart: on-failure
+    ports:
+      - 8080:80
     depends_on:
       - backend
+    volumes:
+      - ./private.key:/etc/nginx/certs/nginx.key
+      - ./certificate.crt:/etc/nginx/certs/nginx-certificate.crt
 
 
   backend:
@@ -40,7 +28,7 @@ services:
       JWT_SECRET: ${JWT_SECRET}
       PORT: ${PORT}
     ports:
-      - 80:3000
+      - 3000:3000
     networks:
       - wc22
     depends_on:

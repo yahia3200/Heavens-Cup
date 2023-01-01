@@ -60,7 +60,6 @@ export default function MatchPage() {
     x: number;
     y: number;
   } | null) {
-    console.log(matchId, seatId);
     if (!seatId) {
       return;
     }
@@ -77,7 +76,6 @@ export default function MatchPage() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setUpdateTrigger(!updateTrigger);
       })
       .catch((err) => {
@@ -107,16 +105,14 @@ export default function MatchPage() {
           id: data.match.id,
         });
 
-        console.log(data);
-        console.log(user?.id);
         const reservedSeats = data.reservations
-        .filter((seat : any) => seat.user_id !== user?.id)
-        .map((seat: any) => {
-          return {
-            y: Math.floor(seat.chair_id / data.match.seats_per_row),
-            x: seat.chair_id % data.match.seats_per_row,
-          };
-        });
+          .filter((seat: any) => seat.user_id !== user?.id)
+          .map((seat: any) => {
+            return {
+              y: Math.floor(seat.chair_id / data.match.seats_per_row),
+              x: seat.chair_id % data.match.seats_per_row,
+            };
+          });
 
         const seat = data.reservations.find((seat: any) => seat.user_id === user?.id);
         if (seat) {
@@ -136,8 +132,6 @@ export default function MatchPage() {
           reservedSeats: reservedSeats,
           id: "",
         });
-
-        console.log(data);
 
       })
       .catch((err) => {
@@ -269,9 +263,9 @@ export default function MatchPage() {
               </div>
               <Stadium
                 stadium={stadiumDetails}
-                selectedSeat={reservedSeat? reservedSeat : selectedSeat}
+                selectedSeat={reservedSeat ? reservedSeat : selectedSeat}
                 setSelectedSeat={setSelectedSeat}
-                userType={reservedSeat? "manager" : user?.type}
+                userType={reservedSeat ? "manager" : user?.type}
                 disabled={false}
               />
               <div className="match-page__match__stadium__button-container">
@@ -295,27 +289,27 @@ export default function MatchPage() {
                     Edit Match
                   </button>
                 ) : (
-                   reservedSeat ? (
-                  <button
-                    className={`match-page__match__stadium__button-container__button`}
-                    onClick={() => {
-                        cancelReservation(matchDetails.id!, reservedSeat!);
-                    }}
-                  >
-                    Cancel Reservation
-                  </button> ) : (
+                  reservedSeat ? (
                     <button
-                    className={`match-page__match__stadium__button-container__button${!selectedSeat ? "--disabled" : ""
-                      }`}
-                    disabled={!selectedSeat}
-                    onClick={() => {
-                      if (selectedSeat) {
-                        setPaymentModalOpen(true);
-                      }
-                    }}
-                  >
-                    Reserve Seat
-                  </button>
+                      className={`match-page__match__stadium__button-container__button`}
+                      onClick={() => {
+                        cancelReservation(matchDetails.id!, reservedSeat!);
+                      }}
+                    >
+                      Cancel Reservation
+                    </button>) : (
+                    <button
+                      className={`match-page__match__stadium__button-container__button${!selectedSeat ? "--disabled" : ""
+                        }`}
+                      disabled={!selectedSeat}
+                      onClick={() => {
+                        if (selectedSeat) {
+                          setPaymentModalOpen(true);
+                        }
+                      }}
+                    >
+                      Reserve Seat
+                    </button>
                   )
                 )}
               </div>

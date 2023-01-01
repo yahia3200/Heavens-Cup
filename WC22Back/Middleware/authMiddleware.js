@@ -4,7 +4,12 @@ const poolconnection = require('../Repositories/user');
 
 //This function is called when you need to confirm that the user is authenticated
 const authVerifier = (req, res, next) => {
-    const token = req.headers.authorization.split(' ')[1];
+    try {
+        const token = req.headers.authorization.split(' ')[1];
+    } catch (error) {
+        return res.status(400).json({ error: "Mising authorization in header" });
+    }
+    
     // check json web token exists & is verified
     if (!token) {
         return res.status(401).json({ message: "Missing token" });
