@@ -127,15 +127,20 @@ const EditMatch: React.FunctionComponent<EditMatchProps> = ({ match, open, setOp
     }, [open])
 
     const handleSubmit = () => {
-        const firstTeamId = availableChars?.find(char => char.name === firstTeam)?.id;
-        const secondTeamId = availableChars?.find(char => char.name === secondTeam)?.id;
         const arenaId = availableStadiums.find(stadium => stadium.name === arena)?.id;
         const refereeId = availableReferees.find(av_referee => av_referee.name === referee)?.id;
         const firstLinesmenId = availableReferees.find(referee => referee.name === firstLinesmen)?.id;
         const secondLinesmenId = availableReferees.find(referee => referee.name === secondLinesmen)?.id;
         const matchDate = new Date(`${date}T${matchTime}`).toISOString();
 
-        fetch(`${apiBaseUrl}/create_match`, {
+        console.log({stad_id: arenaId,
+            main_ref: refereeId,
+            line_man_1: firstLinesmenId,
+            line_man_2: secondLinesmenId,
+            start_time: matchDate,
+            id: match.id});
+
+        fetch(`${apiBaseUrl}/edit_match`, {
             method: 'POST',
             mode: 'cors',
             headers: {
@@ -144,22 +149,20 @@ const EditMatch: React.FunctionComponent<EditMatchProps> = ({ match, open, setOp
                 'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({
-                team1: firstTeamId,
-                team2: secondTeamId,
                 stad_id: arenaId,
                 main_ref: refereeId,
                 line_man_1: firstLinesmenId,
                 line_man_2: secondLinesmenId,
-                start_time: matchDate
+                start_time: matchDate,
+                id: match.id
             })
         })
             .then(res => res.json())
             .then(data => {
-                if (data.message === 'Match created successfully') {
-                    setOpen(false);
-                }
+                console.log(data);
+                setOpen(false);
             }
-            )
+            ).catch(err => console.log(err));
     }
 
 
@@ -180,7 +183,7 @@ const EditMatch: React.FunctionComponent<EditMatchProps> = ({ match, open, setOp
                             <label htmlFor='second-linesmen'>Second Linesmen: </label>
                         </div>
                         <div className="modal-col">
-                            <select name="team1" id="team1" value={firstTeam} onChange={
+                            <select name="team1" id="team1" disabled={true} value={firstTeam} onChange={
                                 (e) => {
                                     setFirstTeam(e.target.value)
                                 }
@@ -242,7 +245,7 @@ const EditMatch: React.FunctionComponent<EditMatchProps> = ({ match, open, setOp
                             <label htmlFor='first-linesmen'>First Linesmen: </label>
                         </div>
                         <div className="modal-col">
-                            <select name="team2" id="team2" value={secondTeam} onChange={
+                            <select name="team2" id="team2" disabled={true} value={secondTeam} onChange={
                                 (e) => {
                                     setSecondTeam(e.target.value)
                                 }
