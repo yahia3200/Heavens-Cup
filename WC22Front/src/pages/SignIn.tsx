@@ -134,7 +134,7 @@ const SignIN: React.FunctionComponent<SignINProps> = () => {
             navigate('/');
         }
         else {
-            setRegisterError(data.error);
+            setRegisterError(data.errors.msg);
         }
 
     }
