@@ -46,6 +46,8 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
     const [date, setDate] = useState('');
     const [matchTime, setMatchTime] = useState('');
 
+    const [error, setError] = useState('');
+
     useEffect(() => {
         fetch(`${apiBaseUrl}/get_all_stadiums`, {
             method: 'GET',
@@ -125,6 +127,29 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
     }, [open])
 
     const handleSubmit = () => {
+
+        if (!firstTeam || !secondTeam || !arena || !referee || !firstLinesmen || !secondLinesmen || !date || !matchTime) {
+            setError('All fields are required');
+            return;
+        }
+
+        if (firstTeam === secondTeam) {
+            setError('Teams must be different');
+            return;
+        }
+
+        if (referee === firstLinesmen || referee === secondLinesmen || firstLinesmen === secondLinesmen) {
+            setError('Referees must be different');
+            return;
+        }
+
+        if (new Date(`${date}T${matchTime}`).getTime() < new Date().getTime()) {
+            setError('Match date must be in the future');
+            return;
+        }
+
+        setError('');
+
         const firstTeamId = availableChars?.find(char => char.name === firstTeam)?.id;
         const secondTeamId = availableChars?.find(char => char.name === secondTeam)?.id;
         const arenaId = availableStadiums.find(stadium => stadium.name === arena)?.id;
@@ -157,6 +182,9 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
                 if (data.message === 'Match created successfully') {
                     setOpen(false);
                 }
+                else {
+                    setError(data.error);
+                }
             }
             )
     }
@@ -177,6 +205,19 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
                             <label htmlFor='arena'>Arena: </label>
                             <label htmlFor='main-ref'>Main Referee: </label>
                             <label htmlFor='second-linesmen'>Second Linesmen: </label>
+                            <div className='SignIn__form__button'>
+                                <button className='match-page__match__stadium__button-container__button'
+                                    type='submit' onClick={
+                                        e => {
+                                            e.preventDefault();
+                                            handleSubmit();
+                                        }
+                                    }>Create Match</button>
+
+                            </div>
+                            <div className='SignIn__form__error payment-error'>
+                                {error}
+                            </div>
                         </div>
                         <div className="modal-col">
                             <select name="team1" id="team1" value={firstTeam} onChange={
@@ -281,15 +322,7 @@ const CreateMatch: React.FunctionComponent<CreateMatchProps> = ({ open, setOpen 
 
                         </div>
                     </div>
-                    <div className='SignIn__form__button'>
-                        <button className='match-page__match__stadium__button-container__button'
-                            type='submit' onClick={
-                                e => {
-                                    e.preventDefault();
-                                    handleSubmit();
-                                }
-                            }>Create Match</button>
-                    </div>
+
                 </Box>
 
             </Modal>
