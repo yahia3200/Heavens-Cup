@@ -6,18 +6,6 @@ const resconnection = require('../Repositories/reservation');
 const team = require('../Repositories/team');
 
 module.exports = {
-    view_match_details: async (req, res) => {
-        try {
-            const match = await matchconnection.getMatch(req.body.id);
-            if(match) {                
-                res.status(200).json({result: result_details});
-            } else {
-                res.status(400).json('Match not found');
-            }
-        } catch (err) {
-            res.status(400).json(err);
-        }
-    },
     create_match: async (req, res) => {
         try {
             // Check if the teams are not present in a match on the same day or refrees are not present in a match on the same day or stadium is not reserved on the same day
@@ -49,7 +37,7 @@ module.exports = {
             const match = await matchconnection.insertMatch(req.body);
             res.status(200).json({ id: match.id, message: 'Match created successfully' });
         } catch (err) {
-            res.status(400).json(err);
+            res.status(400).json({error: err.detail});
         }
     },
     create_stadium: async (req, res) => {
@@ -65,51 +53,6 @@ module.exports = {
         try {
             const match = await matchconnection.updateMatch(req.body.match);
             res.status(200).json({id: match.id});
-        } catch (err) {
-            res.status(400).json({error: err.detail});
-        }
-    },
-    get_all_matches: async (req, res) => {
-        try {
-            const matches = await matchconnection.getMatches();
-            res.status(200).json({matches: matches});
-        } catch (err) {
-            res.status(400).json({error: err.detail});
-        }
-    },
-    get_all_stadiums: async (req, res) => {
-        try {
-            const stads = await stadiumconnection.getStads();
-            res.status(200).json({stads: stads});
-        } catch (err) {
-            res.status(400).json({error: err.detail});
-        }
-    },
-    get_all_refrees: async (req, res) => {
-        try {
-            const referees = await refereeconnection.getReferees();
-            res.status(200).json({referees: referees});
-        } catch (err) {
-            res.status(400).json({error: err.detail});
-        }
-    },
-    get_all_teams: async (req, res) => {
-        try {
-            const teams = await teamconnection.getTeams();
-            res.status(200).json({teams: teams});
-        } catch (err) {
-            res.status(400).json({error: err.detail});
-        }
-    },
-    get_match_reservations: async (req, res) => {
-        try {
-            const reservations = await resconnection.getMatchReservations(req.body.id);
-            if(reservations) {
-                res.status(200).json({reservations: reservations});
-            }
-            else {
-                res.status(400).json({error: 'No reservations found'});
-            }
         } catch (err) {
             res.status(400).json({error: err.detail});
         }
