@@ -41,11 +41,11 @@ module.exports = {
                     }
                     // Check if seat is available
                     
-                    const result2 = await resconnection.getMatchReservations(req.body.match_id);
-                        if(req.body.chair_id in result2) {
-                            res.status(400).json({ error: 'Seat is already reserved'});
-                            return;
-                        }
+                    // const result2 = await resconnection.getMatchReservations(req.body.match_id);
+                    //     if(req.body.chair_id in result2) {
+                    //         res.status(400).json({ error: 'Seat is already reserved'});
+                    //         return;
+                    //     }
                     // Reserve seat
                     const result3 = resconnection.insertReservation(req.body);
                     res.status(200).json({result: result3});

@@ -6,19 +6,15 @@ const poolconnection = require('../Repositories/user');
 const authVerifier = (req, res, next) => {
     try {
         const token = req.headers.authorization.split(' ')[1];
-    } catch (error) {
-        return res.status(400).json({ error: "Mising authorization in header" });
-    }
-    
-    // check json web token exists & is verified
-    if (!token) {
-        return res.status(401).json({ message: "Missing token" });
-    }
-    try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET)
-        req.user = decoded;
-        //next() will make you apple to porceed with the function called this Auth confirmation
-        next();
+        
+        // check json web token exists & is verified
+        if (!token) {
+            return res.status(401).json({ message: "Missing token" });
+            }
+            const decoded = jwt.verify(token, process.env.JWT_SECRET)
+            req.user = decoded;
+            //next() will make you apple to porceed with the function called this Auth confirmation
+            next();
     } catch (err) {
         console.log(err);
         return res.status(401).json({ message: "Invalid token" });
