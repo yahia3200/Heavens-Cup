@@ -99,16 +99,17 @@ const SignIN: React.FunctionComponent<SignINProps> = () => {
                 email: registerEmail,
                 userrole: userType === 'fan' ? 0 : 1,
                 gender: gender === 'male' ? 0 : 1,
-                birthdate: dobString,
+                birthdate: dobString.split('T')[0],
                 nationality: nationality,
                 password: registerPassword,
 
             })
         })
 
+        console.log(response);
         const data = await response.json();
         if (response.status === 200) {
-
+            console.log(data);
             // calculate user age
             const age = new Date().getFullYear() - parseInt(dob.split('T')[0].split('-')[0]);
 
@@ -134,7 +135,8 @@ const SignIN: React.FunctionComponent<SignINProps> = () => {
             navigate('/');
         }
         else {
-            setRegisterError(data.errors.msg);
+            console.log(data);
+            setRegisterError(data.errors[0].msg);
         }
 
     }
