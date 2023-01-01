@@ -11,6 +11,7 @@ const pool = new Pool({
 module.exports = {
     insertReservation : async function (body) {
         try {
+            console.log(body);
             const reservations = await pool.query(
                 "INSERT INTO reservations (chair_id, match_id, user_id) VALUES ($1,$2,$3);",
                 [

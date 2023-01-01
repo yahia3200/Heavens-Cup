@@ -51,8 +51,13 @@ export default function MatchPage() {
     y: number;
   } | null>(null);
 
-  function setSelectedSeatCallback(x: number, y: number) {
-    setSelectedSeat({ x, y });
+  const [reservedSeat, setReservedSeat] = useState<{ x: number; y: number } | null>(null);
+
+  function cancelReservation(matchId: string, seatId: {
+    x: number;
+    y: number;
+  } | null) {
+
   }
 
   useEffect(() => {
@@ -77,12 +82,24 @@ export default function MatchPage() {
           id: data.match.id,
         });
 
-        const reservedSeats = data.reservations.map((seat: any) => {
+        console.log(data);
+        console.log(user?.id);
+        const reservedSeats = data.reservations
+        .filter((seat : any) => seat.user_id !== user?.id)
+        .map((seat: any) => {
           return {
             y: Math.floor(seat.chair_id / data.match.seats_per_row),
             x: seat.chair_id % data.match.seats_per_row,
           };
         });
+
+        const seat = data.reservations.find((seat: any) => seat.user_id === user?.id);
+        if (seat) {
+          setReservedSeat({
+            y: Math.floor(seat.chair_id / data.match.seats_per_row),
+            x: seat.chair_id % data.match.seats_per_row,
+          });
+        }
 
         setStadiumDetails({
           name: data.match.stad_name,
@@ -224,9 +241,9 @@ export default function MatchPage() {
               </div>
               <Stadium
                 stadium={stadiumDetails}
-                selectedSeat={selectedSeat}
+                selectedSeat={reservedSeat? reservedSeat : selectedSeat}
                 setSelectedSeat={setSelectedSeat}
-                userType={user?.type}
+                userType={reservedSeat? "manager" : user?.type}
                 disabled={false}
               />
               <div className="match-page__match__stadium__button-container">
@@ -250,7 +267,16 @@ export default function MatchPage() {
                     Edit Match
                   </button>
                 ) : (
+                   reservedSeat ? (
                   <button
+                    className={`match-page__match__stadium__button-container__button`}
+                    onClick={() => {
+                        cancelReservation(matchDetails.id!, selectedSeat!);
+                    }}
+                  >
+                    Cancel Reservation
+                  </button> ) : (
+                    <button
                     className={`match-page__match__stadium__button-container__button${!selectedSeat ? "--disabled" : ""
                       }`}
                     disabled={!selectedSeat}
@@ -262,6 +288,7 @@ export default function MatchPage() {
                   >
                     Reserve Seat
                   </button>
+                  )
                 )}
               </div>
             </div>
