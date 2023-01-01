@@ -22,15 +22,15 @@ module.exports = {
 
     reserve_ticket : async function (req, res) {
         try {
-            const {id} = req.body.user_id;
-            const {reqMatch} = matchconnection.getMatch(req.body.match_id);
+            const id = req.body.user_id;
+            const reqMatch = matchconnection.getMatch(req.body.match_id);
             if(reqMatch) {
                 resconnection.getCustomerReservations(id).then((result) => {
                     if (result.length > 0) {
                         for(const my_result in result) {
                             matchconnection.getMatch(my_result.match_id).then((match) => {
                                 // check if date is within 2 hours of match
-                                if(reqMatch.date >= match.date && reqMatch.date <= match.date + 72000000) {
+                                if(reqMatch.start_time >= match.start_time && reqMatch.start_time <= match.start_time + 72000000) {
                                     res.status(400).json({ error: 'You already have a reservation within 2 hours of this match'});
                                     return;
                                 }
@@ -66,7 +66,7 @@ module.exports = {
             }
         }
         catch (err) {
-            console.log(err);
+            res.status(400).json({error: err.detail});
         }
     },
     cancel_reservation : async function (req, res) {
