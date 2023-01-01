@@ -51,7 +51,7 @@ module.exports = {
     deleteReservation : async function ( chair_id, match_id) {
         try {
             const reservations = await pool.query("DELETE FROM reservations WHERE chair_id = $1 AND match_id = $2;", [chair_id, match_id]);
-            return reservations.rows[0];
+            return true;
         } catch (error) {
             throw error;
         }
