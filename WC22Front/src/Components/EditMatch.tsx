@@ -52,6 +52,7 @@ const EditMatch: React.FunctionComponent<EditMatchProps> = ({ match, open, setOp
     const [date, setDate] = useState(formattedDate);
     const [matchTime, setMatchTime] = useState(match.time as string);
 
+    const [error, setError] = useState('');
     useEffect(() => {
         fetch(`${apiBaseUrl}/get_all_stadiums`, {
             method: 'GET',
@@ -158,6 +159,11 @@ const EditMatch: React.FunctionComponent<EditMatchProps> = ({ match, open, setOp
                 return res.json()
             })
             .then(data => {
+                if (data?.error) {
+                    setError(data.error);
+                    return
+                }
+
                 setUpdateTrigger(!updateTrigger);
                 setOpen(false);
             }
@@ -180,6 +186,18 @@ const EditMatch: React.FunctionComponent<EditMatchProps> = ({ match, open, setOp
                             <label htmlFor='arena'>Arena: </label>
                             <label htmlFor='main-ref'>Main Referee: </label>
                             <label htmlFor='second-linesmen'>Second Linesmen: </label>
+                            <div className='SignIn__form__button'>
+                                <button disabled={!user?.approved} className={`match-page__match__stadium__button-container__button${!user?.approved ? '--disabled' : ''}`}
+                                    type='submit' onClick={
+                                        e => {
+                                            e.preventDefault();
+                                            handleSubmit();
+                                        }
+                                    }>Edit Match</button>
+                            </div>
+                            <div className='SignIn__form__error payment-error'>
+                                {error}
+                            </div>
                         </div>
                         <div className="modal-col">
                             <select name="team1" id="team1" disabled={true} value={firstTeam} onChange={
@@ -284,15 +302,7 @@ const EditMatch: React.FunctionComponent<EditMatchProps> = ({ match, open, setOp
 
                         </div>
                     </div>
-                    <div className='SignIn__form__button'>
-                        <button disabled={!user?.approved} className={`match-page__match__stadium__button-container__button${!user?.approved ? '--disabled' : ''}`}
-                            type='submit' onClick={
-                                e => {
-                                    e.preventDefault();
-                                    handleSubmit();
-                                }
-                            }>Edit Match</button>
-                    </div>
+
                 </Box>
 
             </Modal>

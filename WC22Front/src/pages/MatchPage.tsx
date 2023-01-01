@@ -124,7 +124,6 @@ export default function MatchPage() {
           setReservedSeat(null);
           setSelectedSeat(null);
         }
-
         setStadiumDetails({
           name: data.match.stad_name,
           width: data.match.seats_per_row,
