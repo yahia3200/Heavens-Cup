@@ -1,9 +1,9 @@
-import { useState, useContext, useRef } from 'react'
+import { useState, useContext, useRef, useEffect } from 'react'
 import { UserContext } from '../contexts/userContext'
 import PageHeader from '../Components/PageHeader'
 import FixturesTable from '../Components/Fixtures/FixturesTable'
 import '../styles/Profile.scss'
-import { User, Gender, formatDate } from '../Types'
+import { User, Gender, formatDate, Match } from '../Types'
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import CreateMatch from '../Components/CreateMatch'
@@ -38,6 +38,7 @@ const Profile: React.FunctionComponent<ProfileProps> = () => {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
+    const [myMatches, setMyMatches] = useState<Match[]>([]);
     const [createMatchOpen, setCreateMatchOpen] = useState(false);
     const [addStadiumOpen, setAddStadiumOpen] = useState(false);
 
@@ -51,6 +52,31 @@ const Profile: React.FunctionComponent<ProfileProps> = () => {
     const charsNames = Array.from(charsData.keys());
     const randomChar = charsData.get(charsNames[Math.floor(Math.random() * charsNames.length)]);
     const randomCharRef = useRef(randomChar);
+
+    useEffect(() => {
+        if (user?.type !== 'fan') return;
+
+        fetch(`${apiBaseUrl}/get_all_matches`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user?.token}`
+            }
+        }).then(res => {
+            if (res.status === 200) {
+                res.json().then(data => {
+                    console.log(data)
+                    setMyMatches(data.matches)
+                })
+            }
+            else {
+                alert('Something went wrong')
+            }
+        }
+        )
+
+
+    }, [user])
 
     const handleEdit = () => {
         const dob = new Date(birthDate);
