@@ -271,7 +271,7 @@ export default function MatchPage() {
                   <button
                     className={`match-page__match__stadium__button-container__button`}
                     onClick={() => {
-                        cancelReservation(match.id!, selectedSeat!);
+                        cancelReservation(matchDetails.id!, selectedSeat!);
                     }}
                   >
                     Cancel Reservation
