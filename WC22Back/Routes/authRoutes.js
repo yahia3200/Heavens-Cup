@@ -69,9 +69,6 @@ body("password")
 body("userrole")
 .notEmpty()
 .withMessage("User role is required"),
-
-
-
  authController.signup_post);
 
 router.post('/login', authController.login_post);
