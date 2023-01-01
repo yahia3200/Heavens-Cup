@@ -12,4 +12,6 @@ router.put('/edit_data', authVerifier, customerController.edit_data);
 
 router.delete('/cancel_reservation', authVerifier, isClient, customerController.cancel_reservation);
 
+router.get('/get_all_reservations', authVerifier, isClient, customerController.get_all_reservations);
+
 module.exports = router;

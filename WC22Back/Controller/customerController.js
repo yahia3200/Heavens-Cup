@@ -11,7 +11,7 @@ module.exports = {
                 if(result) {
                     res.status(200).json({message: 'Data updated successfully'});
                 } else {
-                    res.status(400).json({message: 'Data not updated'});
+                    res.status(400).json({error: 'Data not updated'});
                 }
             });
         } catch (err) {
@@ -22,16 +22,16 @@ module.exports = {
 
     reserve_ticket : async function (req, res) {
         try {
-            const {id} = req.user.id;
+            const {id} = req.body.user_id;
             const {reqMatch} = matchconnection.getMatch(req.body.match_id);
             if(reqMatch) {
                 resconnection.getCustomerReservations(id).then((result) => {
                     if (result.length > 0) {
-                        for(const res in result) {
-                            matchconnection.getMatch(res.match_id).then((match) => {
+                        for(const my_result in result) {
+                            matchconnection.getMatch(my_result.match_id).then((match) => {
                                 // check if date is within 2 hours of match
                                 if(reqMatch.date >= match.date && reqMatch.date <= match.date + 72000000) {
-                                    res.status(400).json('You already have a reservation within 2 hours of this match');
+                                    res.status(400).json({ error: 'You already have a reservation within 2 hours of this match'});
                                     return;
                                 }
                             });
@@ -39,13 +39,13 @@ module.exports = {
                         // Check if seat is available
                         resconnection.getMatchReservations(req.body.match_id).then((result) => {
                             if(req.body.chair_id in result) {
-                                res.status(400).json('Seat is already reserved');
+                                res.status(400).json({ error: 'Seat is already reserved'});
                                 return;
                             }
                         });
                         // Reserve seat
                         resconnection.insertReservation(req.body).then((result) => {
-                            res.status(200).json(result);
+                            res.status(200).json({result: result});
                         });
 
                     }
@@ -53,13 +53,13 @@ module.exports = {
                         // Check if seat is available
                         resconnection.getMatchReservations(req.body.match_id).then((result) => {
                             if(req.body.chair_id in result) {
-                                res.status(400).json('Seat is already reserved');
+                                res.status(400).json({error: 'Seat is already reserved'});
                                 return;
                             }
                         });
                         // Reserve seat
                         resconnection.insertReservation(req.body).then((result) => {
-                            res.status(200).json(result);
+                            res.status(200).json({result: result});
                         });
                     }
                 });
@@ -82,10 +82,10 @@ module.exports = {
                     try{
                         resconnection.deleteReservation(chair_id, match_id).then((result) => {
                             if(result) {
-                                res.status(200).json('Reservation cancelled');
+                                res.status(200).json({message: 'Reservation cancelled'});
                             }
                             else {
-                                res.status(400).json('Reservation not cancelled');
+                                res.status(400).json({error: 'Reservation not cancelled'});
                             }
                         });
                     }
@@ -94,12 +94,23 @@ module.exports = {
                     }
                 }
                 else {
-                    res.status(400).json('You can only cancel a reservation 3 days before the match');
+                    res.status(400).json({error: 'You can only cancel a reservation 3 days before the match'});
                 }
             }
             else {
-                res.status(400).json('No match found');
+                res.status(400).json({error: 'No match found'});
             }
+        }
+        catch (err) {
+            res.status(400).json({error: err.detail});
+        }
+    },
+    get_all_reservations : async function (req, res) {
+        try {
+            const user_id = req.user.id;
+            resconnection.getCustomerReservations(user_id).then((result) => {
+                res.status(200).json({result: result});
+            });
         }
         catch (err) {
             res.status(400).json({error: err.detail});
