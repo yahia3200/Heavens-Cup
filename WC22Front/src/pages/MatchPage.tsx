@@ -274,7 +274,7 @@ export default function MatchPage() {
                     onClick={() => {
                       if (reservedSeat) {
                         // if seat is reserved, cancel reservation
-                        cancelReservation(match.id, selectedSeat!);
+                        cancelReservation(matchDetails.id, selectedSeat!);
                       }
                       else if (selectedSeat) {
                         setPaymentModalOpen(true);
