@@ -94,9 +94,6 @@ const EditMatch: React.FunctionComponent<EditMatchProps> = ({ match, open, setOp
                     }
                 });
                 setAvailableReferees(referees);
-                //setReferee(referees[0]?.name);
-                //setFirstLinesmen(referees[0]?.name);
-                //setSecondLinesmen(referees[0]?.name);
             })
     }, [open])
 
@@ -133,12 +130,18 @@ const EditMatch: React.FunctionComponent<EditMatchProps> = ({ match, open, setOp
         const secondLinesmenId = availableReferees.find(referee => referee.name === secondLinesmen)?.id;
         const matchDate = new Date(`${date}T${matchTime}`).toISOString();
 
-        console.log({stad_id: arenaId,
+        console.log({
+            stad_id: arenaId,
             main_ref: refereeId,
             line_man_1: firstLinesmenId,
             line_man_2: secondLinesmenId,
             start_time: matchDate,
-            id: match.id});
+            id: match.id
+        });
+
+        if (!user?.approved) {
+            return
+        }
 
         fetch(`${apiBaseUrl}/edit_match`, {
             method: 'POST',
@@ -286,7 +289,7 @@ const EditMatch: React.FunctionComponent<EditMatchProps> = ({ match, open, setOp
                         </div>
                     </div>
                     <div className='SignIn__form__button'>
-                        <button className='match-page__match__stadium__button-container__button'
+                        <button disabled={!user?.approved} className={`match-page__match__stadium__button-container__button${!user?.approved ? '--disabled' : ''}`}
                             type='submit' onClick={
                                 e => {
                                     e.preventDefault();
