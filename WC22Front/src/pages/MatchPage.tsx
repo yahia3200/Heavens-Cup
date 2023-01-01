@@ -11,7 +11,7 @@ import { UserContext } from "../contexts/userContext";
 import EditMatch from "../Components/EditMatch";
 import { Match, StadiumType, toCustomDate, getTime } from "../Types";
 import PaymentForm from "../Components/PaymentForm";
-import Vs from "../assets/vs.png";
+import Vs from "../assets/Vs.png";
 import transmuter from "../assets/Transmuter.webp";
 import conjurer from "../assets/Conjurer.webp";
 import enhancer from "../assets/Enhancer.webp";
@@ -22,32 +22,6 @@ import specialist from "../assets/Specialist.webp";
 import { useParams } from 'react-router-dom'
 import { apiBaseUrl } from '../config.json'
 
-const match: Match = {
-  // add date based on type format of dateType
-  date: "Monday 1 January 2021",
-  time: "16:30",
-  team1: "Gon",
-  team2: "Killua",
-  referees: ["Keenan Crane", "Naruto", "Sasuke"],
-  stadium: "Marineford",
-  id: "1",
-};
-const stadium = {
-  name: "Heaven's Arena",
-  image: "",
-  width: 60,
-  height: 10,
-  reservedSeats: [
-    { x: 1, y: 1 },
-    { x: 1, y: 2 },
-    { x: 3, y: 4 },
-    { x: 4, y: 5 },
-    { x: 15, y: 6 },
-    { x: 0, y: 7 },
-    { x: 1, y: 8 },
-  ],
-};
-
 // map of nen types to images
 const nenImages = new Map<'Enhancer' | 'Transmuter' | 'Conjurer' | 'Specialist' | 'Emitter' | 'Manipulator', string>([
   ['Enhancer', enhancer],
@@ -56,7 +30,7 @@ const nenImages = new Map<'Enhancer' | 'Transmuter' | 'Conjurer' | 'Specialist' 
   ['Specialist', specialist],
   ['Emitter', emitter],
   ['Manipulator', manipulator
-]]);
+  ]]);
 
 export default function MatchPage() {
   const { id } = useParams<{ id: string }>();
@@ -136,6 +110,7 @@ export default function MatchPage() {
         });
 
         console.log(data);
+
       })
       .catch((err) => {
         console.log(err);
@@ -262,7 +237,7 @@ export default function MatchPage() {
             <div className="match-page__match__stadium">
               <div className="match-page__match__stadium__header"> Stadium </div>
               <div className="match-page__match__stadium__name">
-                {stadium.name}
+                {stadiumDetails.name}
               </div>
               <Stadium
                 stadium={stadiumDetails}
@@ -316,7 +291,7 @@ export default function MatchPage() {
         {
         /* Edit Match Modal */ editMatchModalOpen && (
             <EditMatch
-              match={match}
+              match={matchDetails}
               setOpen={setEditMatchModalOpen}
               open={editMatchModalOpen}
             />
@@ -327,8 +302,9 @@ export default function MatchPage() {
             <PaymentForm
               setOpen={setPaymentModalOpen}
               open={paymentModalOpen}
-              match={match}
+              stadium={stadiumDetails}
               seat={selectedSeat!}
+              match={matchDetails}
             />
           )
         }

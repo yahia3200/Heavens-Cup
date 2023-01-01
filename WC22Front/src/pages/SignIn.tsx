@@ -101,7 +101,7 @@ const SignIN: React.FunctionComponent<SignINProps> = () => {
                 gender: gender === 'male' ? 0 : 1,
                 birthdate: dobString,
                 nationality: nationality,
-                password: registerPassword
+                password: registerPassword,
 
             })
         })
@@ -123,7 +123,8 @@ const SignIN: React.FunctionComponent<SignINProps> = () => {
                 birthDate: birthDate,
                 nationality: nationality,
                 gender: gender as ('male' | 'female'),
-                approved: data.user.approved
+                approved: data.user.approved,
+                id: data.user.id
             }
 
             setUser(user)
@@ -185,7 +186,8 @@ const SignIN: React.FunctionComponent<SignINProps> = () => {
                     birthDate: userDob,
                     nationality: nationality,
                     gender: gender as ('male' | 'female'),
-                    approved: data.user.approved
+                    approved: data.user.approved,
+                    id: data.user.id
                 }
                 setUser(user)
                 localStorage.setItem('user', JSON.stringify(user));

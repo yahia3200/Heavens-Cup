@@ -43,7 +43,7 @@ export type User = {
     age: number;
     token: string;
     approved: boolean;
-    id?: string;
+    id: string;
 }
 
 // refre type
