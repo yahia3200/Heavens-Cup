@@ -106,10 +106,8 @@ const SignIN: React.FunctionComponent<SignINProps> = () => {
             })
         })
 
-        console.log(response);
         const data = await response.json();
         if (response.status === 200) {
-            console.log(data);
             // calculate user age
             const age = new Date().getFullYear() - parseInt(dob.split('T')[0].split('-')[0]);
 
