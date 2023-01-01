@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import "../styles/MatchPage.scss";
 import {
-  chars,
   charsData,
   nenColors,
   NenTypes,
@@ -12,8 +11,26 @@ import { UserContext } from "../contexts/userContext";
 import EditMatch from "../Components/EditMatch";
 import { Match, StadiumType, toCustomDate, getTime } from "../Types";
 import PaymentForm from "../Components/PaymentForm";
+import Vs from "../assets/Vs.png";
+import transmuter from "../assets/Transmuter.webp";
+import conjurer from "../assets/Conjurer.webp";
+import enhancer from "../assets/Enhancer.webp";
+import emitter from "../assets/Emitter.webp";
+import manipulator from "../assets/Manipulator.webp";
+import specialist from "../assets/Specialist.webp";
+
 import { useParams } from 'react-router-dom'
 import { apiBaseUrl } from '../config.json'
+
+// map of nen types to images
+const nenImages = new Map<'Enhancer' | 'Transmuter' | 'Conjurer' | 'Specialist' | 'Emitter' | 'Manipulator', string>([
+  ['Enhancer', enhancer],
+  ['Transmuter', transmuter],
+  ['Conjurer', conjurer],
+  ['Specialist', specialist],
+  ['Emitter', emitter],
+  ['Manipulator', manipulator
+  ]]);
 
 export default function MatchPage() {
   const { id } = useParams<{ id: string }>();
@@ -117,7 +134,7 @@ export default function MatchPage() {
                       />
                     </div>
                     <div className="match-page__match__info__inner__teams__image-container__vs">
-                      <img src="/src/assets/Vs.png" alt="" />
+                      <img src={Vs} alt="" />
                     </div>
                     <div
                       className="match-page__match__info__inner__teams__image-container__image-2"
@@ -139,8 +156,7 @@ export default function MatchPage() {
                   <div className="match-page__match__info__inner__teams__team-name">
                     <div className="match-page__match__info__inner__teams__team-name-1">
                       <img
-                        src={`/src/assets/${charsData.get(matchDetails.team1.split(' ')[0])!.nen
-                          }.webp`}
+                        src={nenImages.get(charsData.get(matchDetails.team1.split(' ')[0])!.nen!)!}
                         alt=""
                       />
                       <div className="match-page__match__info__inner__teams__team-name-1__name">
@@ -178,8 +194,7 @@ export default function MatchPage() {
                         </div>
                       </div>
                       <img
-                        src={`/src/assets/${charsData.get(matchDetails.team2.split(' ')[0])!.nen
-                          }.webp`}
+                        src={nenImages.get(charsData.get(matchDetails.team2.split(' ')[0])!.nen!)!}
                         alt=""
                       />
                     </div>

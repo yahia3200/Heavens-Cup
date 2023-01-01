@@ -1,14 +1,18 @@
-# A Docker file for the front end of the WC22 project
-FROM node:16.18.0-alpine
+FROM node:14.17.3 as build
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
-COPY package*.json ./
+COPY ./package.json /app/package.json
+COPY ./package-lock.json /app/package-lock.json
 
 RUN npm install
 
 COPY . .
 
-EXPOSE 5173
+RUN npm run build
 
-CMD [ "npm", "run", "dev" ]
+FROM nginx
+
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+
+COPY --from=build /app/dist /usr/share/nginx/html
