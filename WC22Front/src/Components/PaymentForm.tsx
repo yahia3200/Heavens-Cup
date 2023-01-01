@@ -11,6 +11,7 @@ interface PaymentFormProps {
     open: boolean;
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
     seat: { x: number, y: number };
+    setUpdateTrigger: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const style = {
@@ -30,7 +31,7 @@ const style = {
     p: 4,
 };
 
-const PaymentForm: React.FunctionComponent<PaymentFormProps> = ({ match, stadium, open, setOpen, seat }) => {
+const PaymentForm: React.FunctionComponent<PaymentFormProps> = ({ match, stadium, open, setOpen, seat, setUpdateTrigger }) => {
     const { user } = useContext(UserContext);
     const [cardNumber, setCardNumber] = useState<string>('');
     const [cardExpiry, setCardExpiry] = useState<string>('');
@@ -78,6 +79,7 @@ const PaymentForm: React.FunctionComponent<PaymentFormProps> = ({ match, stadium
         });
 
         if (response.ok) {
+            setUpdateTrigger((prev: boolean) => !prev);
             handleClose();
         }
         else {

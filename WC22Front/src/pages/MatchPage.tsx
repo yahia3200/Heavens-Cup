@@ -53,11 +53,36 @@ export default function MatchPage() {
 
   const [reservedSeat, setReservedSeat] = useState<{ x: number; y: number } | null>(null);
 
+  // state for triggering match details update
+  const [updateTrigger, setUpdateTrigger] = useState(false);
+
   function cancelReservation(matchId: string, seatId: {
     x: number;
     y: number;
   } | null) {
-
+    console.log(matchId, seatId);
+    if (!seatId) {
+      return;
+    }
+    fetch(`${apiBaseUrl}/cancel_reservation`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${user?.token}`,
+      },
+      body: JSON.stringify({
+        match_id: matchId,
+        chair_id: seatId.y * stadiumDetails!.width + seatId.x,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setUpdateTrigger(!updateTrigger);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   useEffect(() => {
@@ -99,6 +124,9 @@ export default function MatchPage() {
             y: Math.floor(seat.chair_id / data.match.seats_per_row),
             x: seat.chair_id % data.match.seats_per_row,
           });
+        } else {
+          setReservedSeat(null);
+          setSelectedSeat(null);
         }
 
         setStadiumDetails({
@@ -115,7 +143,7 @@ export default function MatchPage() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [updateTrigger]);
   return (
     <>
       <PageHeader headerText="Match Page" />
@@ -271,7 +299,7 @@ export default function MatchPage() {
                   <button
                     className={`match-page__match__stadium__button-container__button`}
                     onClick={() => {
-                        cancelReservation(matchDetails.id!, selectedSeat!);
+                        cancelReservation(matchDetails.id!, reservedSeat!);
                     }}
                   >
                     Cancel Reservation
@@ -311,6 +339,7 @@ export default function MatchPage() {
               stadium={stadiumDetails}
               seat={selectedSeat!}
               match={matchDetails}
+              setUpdateTrigger={setUpdateTrigger}
             />
           )
         }
