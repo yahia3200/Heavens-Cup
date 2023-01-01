@@ -10,6 +10,8 @@ interface EditMatchProps {
     match: Match;
     open: boolean;
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    setUpdateTrigger: React.Dispatch<React.SetStateAction<boolean>>;
+    updateTrigger: boolean;
 }
 
 const style = {
@@ -29,7 +31,7 @@ const style = {
     p: 4,
 };
 
-const EditMatch: React.FunctionComponent<EditMatchProps> = ({ match, open, setOpen }) => {
+const EditMatch: React.FunctionComponent<EditMatchProps> = ({ match, open, setOpen, setUpdateTrigger, updateTrigger }) => {
     const { user } = useContext(UserContext);
     const token = user?.token
 
@@ -39,8 +41,8 @@ const EditMatch: React.FunctionComponent<EditMatchProps> = ({ match, open, setOp
 
     const handleClose = () => setOpen(false);
 
-    const [firstTeam, setFirstTeam] = useState(charsData.get(match.team1)!.name);
-    const [secondTeam, setSecondTeam] = useState(charsData.get(match.team2)!.name);
+    const [firstTeam, setFirstTeam] = useState(charsData.get(match.team1.split(' ')[0])!.name);
+    const [secondTeam, setSecondTeam] = useState(charsData.get(match.team2.split(' ')[0])!.name);
     const [arena, setArena] = useState(match.stadium);
     const [referee, setReferee] = useState(match.referees[0]);
     const [firstLinesmen, setFirstLinesmen] = useState(match.referees[1]);
@@ -130,15 +132,6 @@ const EditMatch: React.FunctionComponent<EditMatchProps> = ({ match, open, setOp
         const secondLinesmenId = availableReferees.find(referee => referee.name === secondLinesmen)?.id;
         const matchDate = new Date(`${date}T${matchTime}`).toISOString();
 
-        console.log({
-            stad_id: arenaId,
-            main_ref: refereeId,
-            line_man_1: firstLinesmenId,
-            line_man_2: secondLinesmenId,
-            start_time: matchDate,
-            id: match.id
-        });
-
         if (!user?.approved) {
             return
         }
@@ -152,6 +145,7 @@ const EditMatch: React.FunctionComponent<EditMatchProps> = ({ match, open, setOp
                 'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({
+
                 stad_id: arenaId,
                 main_ref: refereeId,
                 line_man_1: firstLinesmenId,
@@ -160,9 +154,11 @@ const EditMatch: React.FunctionComponent<EditMatchProps> = ({ match, open, setOp
                 id: match.id
             })
         })
-            .then(res => res.json())
+            .then(res => {
+                return res.json()
+            })
             .then(data => {
-                console.log(data);
+                setUpdateTrigger(!updateTrigger);
                 setOpen(false);
             }
             ).catch(err => console.log(err));

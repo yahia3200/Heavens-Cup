@@ -1,6 +1,7 @@
 .fixtures__table {
     width: 100%;
     margin-bottom: 6rem;
+
     &__header {
 
         display: flex;
@@ -63,6 +64,7 @@
             time {
                 border: 1px solid #ccc;
                 padding: 0.4rem 0.8rem;
+                min-width: 100px;
             }
 
             &__team-name {

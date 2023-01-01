@@ -322,6 +322,8 @@ export default function MatchPage() {
               match={matchDetails}
               setOpen={setEditMatchModalOpen}
               open={editMatchModalOpen}
+              setUpdateTrigger={setUpdateTrigger}
+              updateTrigger={updateTrigger}
             />
           )
         }
