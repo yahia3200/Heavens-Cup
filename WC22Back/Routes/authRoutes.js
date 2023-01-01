@@ -1,3 +1,4 @@
+const poolconnection = require('../Repositories/user');
 /*Require express module to use for a router*/
 const Router = require('express');
 // ...rest of the initial code omitted for simplicity.
@@ -69,9 +70,6 @@ body("password")
 body("userrole")
 .notEmpty()
 .withMessage("User role is required"),
-
-
-
  authController.signup_post);
 
 router.post('/login', authController.login_post);

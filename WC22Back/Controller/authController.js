@@ -1,6 +1,7 @@
 const poolconnection = require('../Repositories/user');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const { body, validationResult } = require('express-validator');
 
 const createToken = (id, userName, role, approved) => {
     const maxAge = 24 * 60 * 60; // 24 hours
