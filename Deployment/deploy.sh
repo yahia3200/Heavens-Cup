@@ -12,9 +12,9 @@ docker cp <containerId>:/dump.sql ~/web-project/WC22/psql/dump.sql
 # From host to container
 docker cp ~/web-project/WC22/psql/dump.sql <containerId>:/tmp/dump.sql
 
-scp -i ~/Desktop/server_key.pem dump.sql azureuser@20.67.103.184:~/wc22/psql/dump.sql
+scp -i ~/Desktop/server_key.pem dump.sql azureuser@20.107.29.44:~/wc22/psql/dump.sql
 
-ssh -i ~/Desktop/server_key.pem azureuser@20.67.103.184
+ssh -i ~/Desktop/server_key.pem azureuser@20.107.29.44
 
 pg_dump -v -U postgres --format=custom --exclude-table-data='pages' --file ./dump.sql wc22
 
