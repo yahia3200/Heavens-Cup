@@ -2,8 +2,12 @@
 
 <H1>Heavens-Cup</H>
 
+<div> 
 <img src="/images/3.png#gh-dark-mode-only" alt="logo" width="200" />
 <img src="/images/logo2.png#gh-light-mode-only" alt="logo" width="200" />
+</div>
+
+
 
 </div>
 
