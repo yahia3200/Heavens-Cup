@@ -32,17 +32,13 @@
   <img src="https://img.shields.io/github/languages/count/yahia3200/Heavens-Cup" />
 </p>
 
-## Introduction
-
-### Manage Matches!
+## Manage Matches!
 <div>
 
 
-<img align="right" src="/WC22Front/src/assets/Chars/Slide0.png" alt="HTML" style="width: 300px">
+<img align="right" src="/WC22Front/src/assets/Chars/Slide0.png" alt="HTML" style="width: 250px">
 
 <p>
-<br />
-<br />
 <br />
 <br />
 In Heaven's Cup, you can manage matches, stadiums, and more. Put Kakashi as a refree in the Marineford Stadium and see how Hisoka fights with Gonnnn! Create your own league and invite your fans to join!
@@ -51,12 +47,11 @@ In Heaven's Cup, you can manage matches, stadiums, and more. Put Kakashi as a re
 <br clear="right"/>
 </div>
 
-### Fans' League
+## Fans' League
 <div>
 
-<img align="right" src="/WC22Front/src/assets/Chars/Slide1.png" alt="HTML" style="width: 300px">
+<img align="right" src="/WC22Front/src/assets/Chars/Slide1.png" alt="HTML" style="width: 250px">
 <p>
-<br />
 <br />
 <br />
 View matches and stadiums from everywhere in this fantasy world! You can choose which match to watch and which stadium to visit! Reserve your seat for the next match and cheer for your favorite Character!
