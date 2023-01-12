@@ -37,8 +37,14 @@
 ### Manage Matches!
 <div>
 
+
 <img align="right" src="/WC22Front/src/assets/Chars/Slide0.png" alt="HTML" style="width: 300px">
+
 <p>
+<br />
+<br />
+<br />
+<br />
 In Heaven's Cup, you can manage matches, stadiums, and more. Put Kakashi as a refree in the Marineford Stadium and see how Hisoka fights with Gonnnn! Create your own league and invite your fans to join!
 </p>
 
@@ -50,6 +56,9 @@ In Heaven's Cup, you can manage matches, stadiums, and more. Put Kakashi as a re
 
 <img align="right" src="/WC22Front/src/assets/Chars/Slide1.png" alt="HTML" style="width: 300px">
 <p>
+<br />
+<br />
+<br />
 View matches and stadiums from everywhere in this fantasy world! You can choose which match to watch and which stadium to visit! Reserve your seat for the next match and cheer for your favorite Character!
 </p>
 
