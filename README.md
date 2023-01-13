@@ -52,9 +52,9 @@ You can also manage and create matches and battle arenas!
 
 <img src="https://vitejs.dev/logo-with-shadow.png" alt="vite" style="width: 50px">
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Docker_%28container_engine%29_logo.svg/1280px-Docker_%28container_engine%29_logo.svg.png" alt="docker" style="width: 100px;">
+<img src="https://logos-world.net/wp-content/uploads/2021/02/Docker-Symbol.png" alt="docker" style="width: 70px;">
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Npm-logo.svg/1280px-Npm-logo.svg.png" alt="npm" style="width: 50px;">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Npm-logo.svg/1280px-Npm-logo.svg.png" alt="npm" style="width: 70px;">
 
 
 <img src="https://seeklogo.com/images/N/nodejs-logo-FBE122E377-seeklogo.com.png" alt="node" style="width: 40px">
