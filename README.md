@@ -133,6 +133,17 @@ View matches and stadiums from everywhere in this fantasy world! You can choose 
 </div>
 
 ## Screenshots
+
+### Admin Panel
+![Admin Panel](/images/screenshots/A.JPG)
 ### Fixtures
-![Fixtures](/images/screenshots/matches.png)
+![Fixtures](/images/screenshots/F.JPG)
+
+### Match Details
+![Match Details](/images/screenshots/M2.JPG)
+
+### Account Details
+![Account Details](/images/screenshots/P.JPG)
+
+
 
