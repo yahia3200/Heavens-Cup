@@ -43,14 +43,14 @@ You can also manage and create matches and battle arenas!
 
 <img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/css/css.png" alt="CSS" style="width: 50px">
 
-<img src="https://cdn.worldvectorlogo.com/logos/typescript-2.svg" alt="typescript" style="width: 50px">
+<img src="https://cdn.worldvectorlogo.com/logos/typescript-2.svg" alt="typescript" style="width: 45px">
 
-
-<img src="https://vitejs.dev/logo-with-shadow.png" alt="vite" style="width: 50px">
 
 <img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/react/react.png" alt="react" style="width: 50px">
 
 <img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/sass/sass.png" alt="Sass" style="width: 50px">
+
+<img src="https://vitejs.dev/logo-with-shadow.png" alt="vite" style="width: 50px">
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Docker_%28container_engine%29_logo.svg/1280px-Docker_%28container_engine%29_logo.svg.png" alt="docker" style="width: 100px;">
 
