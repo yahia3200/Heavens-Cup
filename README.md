@@ -32,12 +32,19 @@
   <img src="https://img.shields.io/github/languages/count/yahia3200/Heavens-Cup" />
 </p>
 
+Join Heaven's Cup to watch your favorite characters fight in the best arenas!
+You can also manage and create matches and battle arenas! 
+
+
 ## Built With
 <div align="center">
 
 <img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/html/html.png" alt="HTML" style="width: 50px">
 
 <img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/css/css.png" alt="CSS" style="width: 50px">
+
+<img src="https://cdn.worldvectorlogo.com/logos/typescript-2.svg" alt="typescript" style="width: 50px">
+
 
 <img src="https://vitejs.dev/logo-with-shadow.png" alt="vite" style="width: 50px">
 
@@ -49,9 +56,11 @@
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Npm-logo.svg/1280px-Npm-logo.svg.png" alt="npm" style="width: 50px;">
 
+
 <img src="https://seeklogo.com/images/N/nodejs-logo-FBE122E377-seeklogo.com.png" alt="node" style="width: 40px">
 
 <img src="https://cdn.iconscout.com/icon/free/png-256/postgresql-11-1175122.png" alt="node" style="width: 50px">
+
 
 </div>
 
@@ -122,4 +131,8 @@ View matches and stadiums from everywhere in this fantasy world! You can choose 
 
 
 </div>
+
+## Screenshots
+### Fixtures
+![Fixtures](/images/screenshots/matches.png)
 
